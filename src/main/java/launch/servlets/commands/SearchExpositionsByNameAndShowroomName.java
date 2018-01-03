@@ -1,9 +1,9 @@
 package launch.servlets.commands;
 
+import launch.servlets.commands.generic.ForwardList;
+import launch.servlets.commands.generic.ForwardingCommand;
 import models.Exposition;
-import models.Showroom;
 import models.commands.FindExpositionsByNameAndShowroomName;
-import models.commands.FindShowroomsByNameAndCityName;
 import orm.ConnectionManager;
 import orm.repository.Repository;
 

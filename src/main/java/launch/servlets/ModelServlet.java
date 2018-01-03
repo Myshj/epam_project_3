@@ -1,9 +1,11 @@
 package launch.servlets;
 
-import launch.servlets.commands.*;
+import launch.servlets.commands.SearchByName;
+import launch.servlets.commands.generic.*;
 import orm.Model;
 import orm.RepositoryManager;
 import orm.repository.Repository;
+import utils.ResourceManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,11 +31,9 @@ public abstract class ModelServlet<T extends Model> extends HttpServlet {
 
     protected abstract String pluralName();
 
-    protected abstract String removedSuccessfullyMessage();
-
-    protected abstract String createdSuccessfullyMessage();
-
-    protected abstract String updatedSuccessfullyMessage();
+    private String getResource(String action) {
+        return ResourceManager.STRINGS.get(singularName() + action);
+    }
 
     @Override
     public void init() throws ServletException {
@@ -52,17 +52,18 @@ public abstract class ModelServlet<T extends Model> extends HttpServlet {
                 new NewEntity<>(this, repository, singularName())
         );//, this::onNewEntity);
 
+
         postActions.put(
                 "createNew",
-                new CreateCommand<>(clazz(), this, forwardList, createdSuccessfullyMessage())
+                new CreateCommand<>(clazz(), this, forwardList, getResource("CreatedSuccessfully"))
         );//, this::onCreateNew);
         postActions.put(
                 "edit",
-                new UpdateCommand<>(clazz(), this, forwardList, updatedSuccessfullyMessage())
+                new UpdateCommand<>(clazz(), this, forwardList, getResource("UpdatedSuccessfully"))
         );//, this::onEdit);
         postActions.put(
                 "remove",
-                new RemoveById<>(this, repository, forwardList, removedSuccessfullyMessage())
+                new RemoveById<>(this, repository, forwardList, getResource("RemovedSuccessfully"))
         );//, this::onRemove);
     }
 
@@ -94,10 +95,6 @@ public abstract class ModelServlet<T extends Model> extends HttpServlet {
             HttpServletResponse resp,
             List<T> list
     ) {
-        try {
-            forwardList.withList(list).execute(req, resp);
-        } catch (ServletException | IOException e) {
-            e.printStackTrace();
-        }
+        forwardList.withList(list).accept(req, resp);
     }
 }

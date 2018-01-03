@@ -1,7 +1,7 @@
 package launch.servlets;
 
 import launch.servlets.commands.SearchByNameAndStreetNameAndCityNameAndCountryName;
-import launch.servlets.commands.includers.IncludeAll;
+import launch.servlets.commands.generic.includers.IncludeAll;
 import models.Building;
 import models.Street;
 
@@ -31,37 +31,14 @@ public class BuildingServlet extends ModelServlet<Building> {
     }
 
     @Override
-    protected String createdSuccessfullyMessage() {
-        return "The building created successfully.";
-    }
-
-    @Override
-    protected String removedSuccessfullyMessage() {
-        return "The building removed successfully.";
-    }
-
-    @Override
-    protected String updatedSuccessfullyMessage() {
-        return "The building updated successfully.";
-    }
-
-    @Override
     public void init() throws ServletException {
         super.init();
         getActions.put(
                 "searchByNameAndStreetNameAndCityNameAndCountryName",
-                new SearchByNameAndStreetNameAndCityNameAndCountryName<>(
-                        clazz(),
-                        this,
-                        repository,
-                        forwardList
-                )
+                new SearchByNameAndStreetNameAndCityNameAndCountryName<>(clazz(), this, repository, forwardList)
         );
 
-        IncludeAll<Street> includeStreets = new IncludeAll<>(
-                Street.class,
-                this,
-                "streets"
+        IncludeAll<Street> includeStreets = new IncludeAll<>(Street.class, this, "streets"
         );
 
         getActions.put(

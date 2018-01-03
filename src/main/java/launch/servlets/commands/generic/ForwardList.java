@@ -1,6 +1,6 @@
-package launch.servlets.commands;
+package launch.servlets.commands.generic;
 
-import launch.servlets.commands.includers.IncludeListToRequest;
+import launch.servlets.commands.generic.includers.IncludeListToRequest;
 import orm.Model;
 import orm.repository.Repository;
 
@@ -35,7 +35,6 @@ public class ForwardList<T extends Model> extends ServletCommand<T> {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
-        response.setCharacterEncoding("UTF-8");
         includer.execute(request, response);
         dispatcher(
                 String.format(

@@ -1,4 +1,4 @@
-package launch.servlets.commands;
+package launch.servlets.commands.generic;
 
 import launch.servlets.managers.EntityFromRequestUpdaterManager;
 import orm.Model;

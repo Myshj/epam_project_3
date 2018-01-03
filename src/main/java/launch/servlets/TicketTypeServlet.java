@@ -23,19 +23,4 @@ public class TicketTypeServlet extends ModelServlet<TicketType> {
     protected String pluralName() {
         return "ticketTypes";
     }
-
-    @Override
-    protected String removedSuccessfullyMessage() {
-        return "The ticket type removed successfully.";
-    }
-
-    @Override
-    protected String createdSuccessfullyMessage() {
-        return "The ticket type created successfully.";
-    }
-
-    @Override
-    protected String updatedSuccessfullyMessage() {
-        return "The ticket type updated successfully.";
-    }
 }

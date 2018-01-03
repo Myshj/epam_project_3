@@ -1,6 +1,6 @@
 package launch.servlets;
 
-import launch.servlets.commands.includers.IncludeAll;
+import launch.servlets.commands.generic.includers.IncludeAll;
 import models.Exposition;
 import models.Ticket;
 import models.TicketType;
@@ -30,21 +30,6 @@ public class TicketServlet extends ModelServlet<Ticket> {
     @Override
     protected String pluralName() {
         return "tickets";
-    }
-
-    @Override
-    protected String removedSuccessfullyMessage() {
-        return "The ticket removed successfully.";
-    }
-
-    @Override
-    protected String createdSuccessfullyMessage() {
-        return "The ticket created successfully.";
-    }
-
-    @Override
-    protected String updatedSuccessfullyMessage() {
-        return "The ticket updated successfully.";
     }
 
     @Override

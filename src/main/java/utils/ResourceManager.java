@@ -4,7 +4,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public enum ResourceManager {
-    APPLICATION("application");
+    APPLICATION("application"),
+    STRINGS("strings");
 
     private String resourceName;
     private ResourceBundle rb;

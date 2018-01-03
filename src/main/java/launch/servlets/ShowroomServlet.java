@@ -1,7 +1,7 @@
 package launch.servlets;
 
 import launch.servlets.commands.SearchShowroomsByNameAndCityName;
-import launch.servlets.commands.includers.IncludeAll;
+import launch.servlets.commands.generic.includers.IncludeAll;
 import models.Building;
 import models.Showroom;
 
@@ -27,21 +27,6 @@ public class ShowroomServlet extends ModelServlet<Showroom> {
     @Override
     protected String pluralName() {
         return "showrooms";
-    }
-
-    @Override
-    protected String createdSuccessfullyMessage() {
-        return "The showroom created successfully.";
-    }
-
-    @Override
-    protected String removedSuccessfullyMessage() {
-        return "The showroom removed successfully.";
-    }
-
-    @Override
-    protected String updatedSuccessfullyMessage() {
-        return "The showroom updated successfully.";
     }
 
     @Override

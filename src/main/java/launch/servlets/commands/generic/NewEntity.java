@@ -1,4 +1,4 @@
-package launch.servlets.commands;
+package launch.servlets.commands.generic;
 
 import orm.Model;
 import orm.repository.Repository;
@@ -11,10 +11,10 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SearchById<T extends Model> extends ServletCommand<T> {
+public class NewEntity<T extends Model> extends ServletCommand<T> {
     private String name;
 
-    public SearchById(
+    public NewEntity(
             HttpServlet servlet,
             Repository<T> repository,
             String name
@@ -29,13 +29,6 @@ public class SearchById<T extends Model> extends ServletCommand<T> {
             HttpServletResponse response
     ) throws ServletException, IOException {
         try {
-            request.setAttribute(
-                    name,
-                    repository.getById(
-                            Integer.valueOf(request.getParameter("id"))
-                    ).orElse(null)
-            );
-            request.setAttribute("action", "edit");
             dispatcher(
                     String.format(
                             "/jsp/new-%s.jsp",

@@ -1,7 +1,7 @@
 package launch.servlets;
 
 import launch.servlets.commands.SearchExpositionsByNameAndShowroomName;
-import launch.servlets.commands.includers.IncludeAll;
+import launch.servlets.commands.generic.includers.IncludeAll;
 import models.Exposition;
 import models.Showroom;
 
@@ -27,21 +27,6 @@ public class ExpositionServlet extends ModelServlet<Exposition> {
     @Override
     protected String pluralName() {
         return "expositions";
-    }
-
-    @Override
-    protected String removedSuccessfullyMessage() {
-        return "The exposition removed successfully.";
-    }
-
-    @Override
-    protected String createdSuccessfullyMessage() {
-        return "The exposition created successfully.";
-    }
-
-    @Override
-    protected String updatedSuccessfullyMessage() {
-        return "The exposition updated successfully.";
     }
 
     @Override

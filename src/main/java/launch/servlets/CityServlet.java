@@ -1,7 +1,7 @@
 package launch.servlets;
 
 import launch.servlets.commands.SearchByNameAndCountryName;
-import launch.servlets.commands.includers.IncludeAll;
+import launch.servlets.commands.generic.includers.IncludeAll;
 import models.City;
 import models.Country;
 
@@ -19,12 +19,7 @@ public class CityServlet extends ModelServlet<City> {
         super.init();
         getActions.put(
                 "searchByNameAndCountryName",
-                new SearchByNameAndCountryName<>(
-                        clazz(),
-                        this,
-                        repository,
-                        forwardList
-                )
+                new SearchByNameAndCountryName<>(clazz(), this, repository, forwardList)
         );
 
         IncludeAll<Country> includeCountries = new IncludeAll<>(
@@ -56,20 +51,5 @@ public class CityServlet extends ModelServlet<City> {
     @Override
     protected String pluralName() {
         return "cities";
-    }
-
-    @Override
-    protected String createdSuccessfullyMessage() {
-        return "The city created successfully.";
-    }
-
-    @Override
-    protected String removedSuccessfullyMessage() {
-        return "The city removed successfully.";
-    }
-
-    @Override
-    protected String updatedSuccessfullyMessage() {
-        return "The city updated successfully.";
     }
 }

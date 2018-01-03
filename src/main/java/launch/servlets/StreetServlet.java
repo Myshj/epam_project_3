@@ -1,7 +1,7 @@
 package launch.servlets;
 
 import launch.servlets.commands.SearchByNameAndCityNameAndCountryName;
-import launch.servlets.commands.includers.IncludeAll;
+import launch.servlets.commands.generic.includers.IncludeAll;
 import models.City;
 import models.Street;
 
@@ -13,21 +13,6 @@ import javax.servlet.annotation.WebServlet;
         urlPatterns = {"/street"}
 )
 public class StreetServlet extends ModelServlet<Street> {
-
-    @Override
-    protected String removedSuccessfullyMessage() {
-        return "The street removed successfully.";
-    }
-
-    @Override
-    protected String createdSuccessfullyMessage() {
-        return "The street created successfully.";
-    }
-
-    @Override
-    protected String updatedSuccessfullyMessage() {
-        return "The street removed successfully.";
-    }
 
     @Override
     public void init() throws ServletException {
