@@ -23,6 +23,7 @@ public enum EntityFromRequestUpdaterManager {
         converters.put(Exposition.class, new ExpositionUpdater());
         converters.put(TicketType.class, new TicketTypeUpdater());
         converters.put(Ticket.class, new TicketUpdater());
+        converters.put(UserRole.class, new UserRoleUpdater());
     }
 
     public <T extends Model> BiConsumer<T, HttpServletRequest> get(Class<T> clazz) {

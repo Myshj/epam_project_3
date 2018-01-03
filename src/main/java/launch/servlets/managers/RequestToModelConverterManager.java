@@ -23,6 +23,7 @@ public enum RequestToModelConverterManager {
         converters.put(Exposition.class, new ExpositionConverter());
         converters.put(TicketType.class, new TicketTypeConverter());
         converters.put(Ticket.class, new TicketConverter());
+        converters.put(UserRole.class, new UserRoleConverter());
     }
 
     public <T extends Model> Function<HttpServletRequest, T> get(Class<T> clazz) {
