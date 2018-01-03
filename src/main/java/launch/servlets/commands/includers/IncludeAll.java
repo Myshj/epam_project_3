@@ -1,36 +1,32 @@
-package launch.servlets.commands;
+package launch.servlets.commands.includers;
 
+import launch.servlets.commands.ServletCommand;
 import orm.Model;
+import orm.RepositoryManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-public class IncludeListToRequest<T extends Model> extends ServletCommand<T> {
+public class IncludeAll<T extends Model> extends ServletCommand<T> {
     private String name;
-    private List<T> list;
 
-    public IncludeListToRequest(
+    public IncludeAll(
+            Class<T> clazz,
             HttpServlet servlet,
             String name
     ) {
-        super(servlet, null);
+        super(servlet, RepositoryManager.INSTANCE.get(clazz));
         this.name = name;
-    }
-
-    public IncludeListToRequest<T> withList(List<T> list) {
-        this.list = list;
-        return this;
     }
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute(
                 name,
-                list
+                repository.getAll()
         );
     }
 }

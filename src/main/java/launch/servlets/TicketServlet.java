@@ -1,32 +1,21 @@
 package launch.servlets;
 
-import launch.servlets.commands.IncludeListToRequest;
+import launch.servlets.commands.includers.IncludeAll;
 import models.Exposition;
 import models.Ticket;
 import models.TicketType;
-import orm.RepositoryManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.util.function.BiConsumer;
 
 @WebServlet(
         name = "TicketServlet",
         urlPatterns = {"/ticket"}
 )
 public class TicketServlet extends ModelServlet<Ticket> {
-
-    private final IncludeListToRequest<Exposition> includeExpositions = new IncludeListToRequest<>(
-            this,
-            "expositions"
-    );
-
-    private final IncludeListToRequest<TicketType> includeTicketTypes = new IncludeListToRequest<>(
-            this,
-            "types"
-    );
 
     @Override
     protected Class<Ticket> clazz() {
@@ -59,25 +48,23 @@ public class TicketServlet extends ModelServlet<Ticket> {
     }
 
     @Override
-    protected void onNewEntity(HttpServletRequest req, HttpServletResponse resp) {
+    public void init() throws ServletException {
+        super.init();
 
-        try {
-            includeExpositions.withList(RepositoryManager.INSTANCE.get(Exposition.class).getAll()).execute(req, resp);
-            includeTicketTypes.withList(RepositoryManager.INSTANCE.get(TicketType.class).getAll()).execute(req, resp);
-        } catch (ServletException | IOException e) {
-            e.printStackTrace();
-        }
-        super.onNewEntity(req, resp);
-    }
+        IncludeAll<Exposition> includeExpositions = new IncludeAll<>(Exposition.class, this, "expositions");
+        IncludeAll<TicketType> includeTicketTypes = new IncludeAll<>(TicketType.class, this, "types");
+        BiConsumer<HttpServletRequest, HttpServletResponse> withExpositionsAndTypes = includeExpositions.andThen(
+                includeTicketTypes
+        );
 
-    @Override
-    protected void onSearchById(HttpServletRequest req, HttpServletResponse resp) {
-        try {
-            includeExpositions.withList(RepositoryManager.INSTANCE.get(Exposition.class).getAll()).execute(req, resp);
-            includeTicketTypes.withList(RepositoryManager.INSTANCE.get(TicketType.class).getAll()).execute(req, resp);
-        } catch (ServletException | IOException e) {
-            e.printStackTrace();
-        }
-        super.onSearchById(req, resp);
+        getActions.put(
+                "new",
+                withExpositionsAndTypes.andThen(getActions.get("new"))
+        );
+
+        getActions.put(
+                "searchById",
+                withExpositionsAndTypes.andThen(getActions.get("searchById"))
+        );
     }
 }

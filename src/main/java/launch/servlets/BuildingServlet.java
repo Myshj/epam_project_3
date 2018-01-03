@@ -1,17 +1,12 @@
 package launch.servlets;
 
-import launch.servlets.commands.IncludeListToRequest;
 import launch.servlets.commands.SearchByNameAndStreetNameAndCityNameAndCountryName;
+import launch.servlets.commands.includers.IncludeAll;
 import models.Building;
 import models.Street;
-import orm.RepositoryManager;
-import orm.repository.Repository;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @WebServlet(
         name = "BuildingServlet",
@@ -19,20 +14,6 @@ import java.io.IOException;
 )
 public class BuildingServlet extends ModelServlet<Building> {
 
-    private final Repository<Street> streetRepository = RepositoryManager.INSTANCE.get(Street.class);
-
-    private final IncludeListToRequest<Street> includeStreets = new IncludeListToRequest<>(
-            this,
-            "streets"
-    );
-
-    private final SearchByNameAndStreetNameAndCityNameAndCountryName<Building> searchByNameAndStreetNameAndCityNameAndCountryName =
-            new SearchByNameAndStreetNameAndCityNameAndCountryName<>(
-                    clazz(),
-                    this,
-                    repository,
-                    forwardList
-            );
 
     @Override
     protected Class<Building> clazz() {
@@ -69,37 +50,28 @@ public class BuildingServlet extends ModelServlet<Building> {
         super.init();
         getActions.put(
                 "searchByNameAndStreetNameAndCityNameAndCountryName",
-                this::onSearchByNameAndStreetNameAndCityNameAndCountryName
+                new SearchByNameAndStreetNameAndCityNameAndCountryName<>(
+                        clazz(),
+                        this,
+                        repository,
+                        forwardList
+                )
         );
-    }
 
-    @Override
-    protected void onSearchById(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            includeStreets.withList(streetRepository.getAll()).execute(request, response);
-            super.onSearchById(request, response);
-        } catch (ServletException | IOException e) {
-            e.printStackTrace();
-        }
+        IncludeAll<Street> includeStreets = new IncludeAll<>(
+                Street.class,
+                this,
+                "streets"
+        );
 
-    }
+        getActions.put(
+                "searchById",
+                includeStreets.andThen(getActions.get("searchById"))
+        );
 
-    private void onSearchByNameAndStreetNameAndCityNameAndCountryName(HttpServletRequest req, HttpServletResponse resp) {
-        try {
-            searchByNameAndStreetNameAndCityNameAndCountryName.execute(req, resp);
-        } catch (ServletException | IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    protected void onNewEntity(HttpServletRequest req, HttpServletResponse resp) {
-        try {
-            includeStreets.withList(streetRepository.getAll()).execute(req, resp);
-            super.onNewEntity(req, resp);
-        } catch (ServletException | IOException e) {
-            e.printStackTrace();
-        }
-
+        getActions.put(
+                "new",
+                includeStreets.andThen(getActions.get("new"))
+        );
     }
 }
