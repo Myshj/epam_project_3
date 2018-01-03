@@ -7,9 +7,8 @@ import orm.RepositoryManager;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.util.function.BiConsumer;
 
-public class TicketUpdater implements BiConsumer<Ticket, HttpServletRequest> {
+public class TicketUpdater extends EntityFromRequestUpdater<Ticket> {
     @Override
     public void accept(Ticket ticket, HttpServletRequest request) {
         ticket.getExposition().setValue(

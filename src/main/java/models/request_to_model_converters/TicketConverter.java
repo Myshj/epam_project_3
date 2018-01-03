@@ -7,9 +7,8 @@ import orm.RepositoryManager;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.util.function.Function;
 
-public class TicketConverter implements Function<HttpServletRequest, Ticket> {
+public class TicketConverter extends RequestToModelConverter<Ticket> {
     @Override
     public Ticket apply(HttpServletRequest request) {
         return new Ticket(

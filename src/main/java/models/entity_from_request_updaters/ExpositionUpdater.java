@@ -6,9 +6,8 @@ import orm.RepositoryManager;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
-import java.util.function.BiConsumer;
 
-public class ExpositionUpdater implements BiConsumer<Exposition, HttpServletRequest> {
+public class ExpositionUpdater extends EntityFromRequestUpdater<Exposition> {
     @Override
     public void accept(Exposition exposition, HttpServletRequest request) {
         exposition.getName().setValue(request.getParameter("name"));

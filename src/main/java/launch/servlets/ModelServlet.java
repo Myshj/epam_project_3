@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
@@ -78,7 +77,7 @@ public abstract class ModelServlet<T extends Model> extends HttpServlet {
         callActionOrListAll(postActions, req.getParameter("postAction"), req, resp);
     }
 
-    protected void callActionOrListAll(
+    private void callActionOrListAll(
             Map<String, BiConsumer<HttpServletRequest, HttpServletResponse>> actions,
             String action,
             HttpServletRequest request,
@@ -86,15 +85,7 @@ public abstract class ModelServlet<T extends Model> extends HttpServlet {
     ) {
         actions.getOrDefault(
                 action,
-                (a, b) -> onForwardList(request, response, repository.getAll())
+                (a, b) -> forwardList.withList(repository.getAll()).accept(request, response)
         ).accept(request, response);
-    }
-
-    protected void onForwardList(
-            HttpServletRequest req,
-            HttpServletResponse resp,
-            List<T> list
-    ) {
-        forwardList.withList(list).accept(req, resp);
     }
 }

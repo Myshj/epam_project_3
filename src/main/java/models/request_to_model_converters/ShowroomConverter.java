@@ -5,9 +5,8 @@ import models.Showroom;
 import orm.RepositoryManager;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.function.Function;
 
-public class ShowroomConverter implements Function<HttpServletRequest, Showroom> {
+public class ShowroomConverter extends RequestToModelConverter<Showroom> {
     @Override
     public Showroom apply(HttpServletRequest request) {
         return new Showroom(

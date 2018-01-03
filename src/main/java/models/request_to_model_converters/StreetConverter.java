@@ -5,9 +5,8 @@ import models.Street;
 import orm.RepositoryManager;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.function.Function;
 
-public class StreetConverter implements Function<HttpServletRequest, Street> {
+public class StreetConverter extends RequestToModelConverter<Street> {
     @Override
     public Street apply(HttpServletRequest request) {
         return new Street(

@@ -5,9 +5,8 @@ import models.Country;
 import orm.RepositoryManager;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.function.Function;
 
-public class CityConverter implements Function<HttpServletRequest, City> {
+public class CityConverter extends RequestToModelConverter<City> {
     @Override
     public City apply(HttpServletRequest request) {
         return new City(

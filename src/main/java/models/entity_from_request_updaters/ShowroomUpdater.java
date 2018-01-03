@@ -5,9 +5,8 @@ import models.Showroom;
 import orm.RepositoryManager;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.function.BiConsumer;
 
-public class ShowroomUpdater implements BiConsumer<Showroom, HttpServletRequest> {
+public class ShowroomUpdater extends EntityFromRequestUpdater<Showroom> {
     @Override
     public void accept(Showroom showroom, HttpServletRequest request) {
         showroom.getName().setValue(request.getParameter("name"));

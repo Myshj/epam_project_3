@@ -5,9 +5,8 @@ import models.Country;
 import orm.RepositoryManager;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.function.BiConsumer;
 
-public class CityUpdater implements BiConsumer<City, HttpServletRequest> {
+public class CityUpdater extends EntityFromRequestUpdater<City> {
     @Override
     public void accept(City city, HttpServletRequest request) {
         city.getName().setValue(

@@ -5,9 +5,8 @@ import models.Street;
 import orm.RepositoryManager;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.function.BiConsumer;
 
-public class StreetUpdater implements BiConsumer<Street, HttpServletRequest> {
+public class StreetUpdater extends EntityFromRequestUpdater<Street> {
     @Override
     public void accept(Street street, HttpServletRequest request) {
         street.getName().setValue(

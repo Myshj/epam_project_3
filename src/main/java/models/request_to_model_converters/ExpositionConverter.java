@@ -6,10 +6,8 @@ import orm.RepositoryManager;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.function.Function;
 
-public class ExpositionConverter implements Function<HttpServletRequest, Exposition> {
+public class ExpositionConverter extends RequestToModelConverter<Exposition> {
     @Override
     public Exposition apply(HttpServletRequest request) {
         return new Exposition(
