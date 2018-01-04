@@ -8,7 +8,7 @@ import orm.fields.TimeStampField;
 
 import java.time.LocalDateTime;
 
-@Entity(table = "ordera")
+@Entity(table = "orders")
 public class Order extends Model {
     private TimeStampField made = new TimeStampField(false);
 
