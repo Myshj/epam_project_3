@@ -36,7 +36,7 @@
                    class="control-label col-xs-4"
             >Showroom:</label>
             <select id="showroom"
-                    name="showroom"
+                    name="showroom_id"
                     class="form-control"
             >
                 <c:forEach var="showroom" items="${showrooms}">

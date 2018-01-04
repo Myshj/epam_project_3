@@ -36,7 +36,7 @@
                    class="control-label col-xs-4"
             >Street:</label>
             <select id="street"
-                    name="street"
+                    name="street_id"
                     class="form-control"
             >
                 <c:forEach var="street" items="${streets}">

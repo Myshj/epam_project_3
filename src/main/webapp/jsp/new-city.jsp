@@ -36,7 +36,7 @@
                    class="control-label col-xs-4"
             >Country:</label>
             <select id="country"
-                    name="country"
+                    name="country_id"
                     class="form-control"
             >
                 <c:forEach var="country" items="${countries}">

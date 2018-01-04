@@ -25,11 +25,11 @@
             <label for="exposition"
                    class="control-label col-xs-4"
             >Exposition:</label>
-            <select name="exposition"
-                   id="exposition"
-                   class="form-control"
-                   value="${exposition.name}"
-                   required="true"
+            <select name="exposition_id"
+                    id="exposition"
+                    class="form-control"
+                    value="${exposition.name}"
+                    required="true"
             >
                 <c:forEach var="exposition" items="${expositions}">
                     <option value="${exposition.id}"
@@ -41,7 +41,7 @@
                    class="control-label col-xs-4"
             >Type:</label>
             <select id="type"
-                    name="type"
+                    name="type_id"
                     class="form-control"
             >
                 <c:forEach var="type" items="${types}">

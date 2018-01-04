@@ -36,7 +36,7 @@
                    class="control-label col-xs-4"
             >Role:</label>
             <select id="role"
-                    name="role"
+                    name="role_id"
                     class="form-control"
             >
                 <c:forEach var="role" items="${userRoles}">
