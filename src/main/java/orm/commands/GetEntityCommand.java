@@ -18,7 +18,7 @@ public abstract class GetEntityCommand<T extends Model> extends QueryCommand<T> 
 
     public final Optional<T> execute() throws SQLException {
         try (ResultSet rs = statement.executeQuery()) {
-            return rs.first() ? converter.apply(rs) : Optional.empty();
+            return rs.first() ? Optional.ofNullable(converter.apply(rs)) : Optional.empty();
         }
     }
 }
