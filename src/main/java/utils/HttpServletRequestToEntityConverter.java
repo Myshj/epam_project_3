@@ -10,7 +10,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -71,7 +71,7 @@ public class HttpServletRequestToEntityConverter<T extends Model> implements Fun
                             )
                     );
                 } else if (type == TimeStampField.class) {
-                    ((TimeStampField) realField).setValue(Timestamp.valueOf(value));
+                    ((TimeStampField) realField).setValue(LocalDate.parse(value).atStartOfDay());
                 } else if (type == DecimalField.class) {
                     ((DecimalField) realField).setValue(BigDecimal.valueOf(Double.valueOf(value)));
                 }
