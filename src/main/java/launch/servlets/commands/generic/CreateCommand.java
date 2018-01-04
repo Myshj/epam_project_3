@@ -1,8 +1,8 @@
 package launch.servlets.commands.generic;
 
-import launch.servlets.managers.RequestToModelConverterManager;
 import orm.Model;
 import orm.RepositoryManager;
+import utils.HttpServletRequestToEntityConverter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +28,7 @@ public class CreateCommand<T extends Model> extends ForwardingCommand<T> {
                 forwardList
         );
         this.createdSuccessfullyMessage = createdSuccessfullyMessage;
-        this.converter = RequestToModelConverterManager.INSTANCE.get(clazz);
+        this.converter = new HttpServletRequestToEntityConverter<>(clazz);//RequestToModelConverterManager.INSTANCE.get(clazz);
     }
 
     @Override

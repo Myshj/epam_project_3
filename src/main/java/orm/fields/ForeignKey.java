@@ -53,9 +53,7 @@ public final class ForeignKey<T extends Model> extends SimpleOrmField<T> {
 
     @Override
     public String toString() {
-        return "" + (
-                value == null ? null : value.getId().get().orElse(null)
-        );
+        return "" + id;
     }
 
     private void updateValue() {
