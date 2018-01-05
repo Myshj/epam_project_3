@@ -2,7 +2,7 @@ package launch.servlets.commands;
 
 import launch.servlets.commands.generic.ForwardList;
 import launch.servlets.commands.generic.ForwardingCommand;
-import models.commands.FindEntitiesByNameAndCityNameAndCountryName;
+import models.commands.FindEntitiesByNameAndStreetNameAndCityNameAndCountryName;
 import orm.ConnectionManager;
 import orm.Model;
 import orm.repository.Repository;
@@ -15,10 +15,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class SearchByNameAndCityNameAndCountryName<T extends Model> extends ForwardingCommand<T> {
-    private FindEntitiesByNameAndCityNameAndCountryName<T> finder;
+public class SearchBuildingsByNameAndStreetNameAndCityNameAndCountryName<T extends Model> extends ForwardingCommand<T> {
+    private FindEntitiesByNameAndStreetNameAndCityNameAndCountryName<T> finder;
 
-    public SearchByNameAndCityNameAndCountryName(
+    public SearchBuildingsByNameAndStreetNameAndCityNameAndCountryName(
             Class<T> clazz,
             HttpServlet servlet,
             Repository<T> repository,
@@ -26,7 +26,7 @@ public class SearchByNameAndCityNameAndCountryName<T extends Model> extends Forw
     ) {
         super(servlet, repository, forwardList);
         try {
-            finder = new FindEntitiesByNameAndCityNameAndCountryName<>(
+            finder = new FindEntitiesByNameAndStreetNameAndCityNameAndCountryName<>(
                     clazz,
                     ConnectionManager.INSTANCE.get()
             );
@@ -49,6 +49,8 @@ public class SearchByNameAndCityNameAndCountryName<T extends Model> extends Forw
                             request.getParameter("countryName")
                     ).withCityName(
                             request.getParameter("cityName")
+                    ).withStreetName(
+                            request.getParameter("streetName")
                     )
             );
         } catch (Exception e) {

@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 
 @WebServlet(
         name = "TicketTypeServlet",
-        urlPatterns = {"/ticket-type"}
+        urlPatterns = {"/admin/ticket-type"}
 )
 public class TicketTypeServlet extends ModelServlet<TicketType> {
     @Override

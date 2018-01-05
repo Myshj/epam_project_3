@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 
 @WebServlet(
         name = "CountryServlet",
-        urlPatterns = {"/country"}
+        urlPatterns = {"/admin/country"}
 )
 public class CountryServlet extends ModelServlet<Country> {
 

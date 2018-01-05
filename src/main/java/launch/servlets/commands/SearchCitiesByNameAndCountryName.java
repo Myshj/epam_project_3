@@ -15,10 +15,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class SearchByNameAndCountryName<T extends Model> extends ForwardingCommand<T> {
+public class SearchCitiesByNameAndCountryName<T extends Model> extends ForwardingCommand<T> {
     private FindEntitiesByNameAndCountryName<T> finder;
 
-    public SearchByNameAndCountryName(
+    public SearchCitiesByNameAndCountryName(
             Class<T> clazz,
             HttpServlet servlet,
             Repository<T> repository,

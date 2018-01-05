@@ -15,7 +15,7 @@ import java.util.function.BiConsumer;
 
 @WebServlet(
         name = "OrderServlet",
-        urlPatterns = {"/order"}
+        urlPatterns = {"/admin/order"}
 )
 public class OrderServlet extends ModelServlet<Order> {
     @Override

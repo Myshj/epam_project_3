@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 
 @WebServlet(
         name = "UserRoleServlet",
-        urlPatterns = {"/user-role"}
+        urlPatterns = {"/admin/user-role"}
 )
 public class UserRoleServlet extends ModelServlet<UserRole> {
     @Override

@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 @WebServlet(
         name = "ExpositionServlet",
-        urlPatterns = {"/exposition"}
+        urlPatterns = {"/admin/exposition"}
 )
 public class ExpositionServlet extends ModelServlet<Exposition> {
     private static String SEARCH_BY_NAME_AND_SHOWROOM_NAME = action("searchByNameAndShowroomName");

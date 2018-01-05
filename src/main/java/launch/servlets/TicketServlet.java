@@ -14,7 +14,7 @@ import java.util.function.BiConsumer;
 
 @WebServlet(
         name = "TicketServlet",
-        urlPatterns = {"/ticket"}
+        urlPatterns = {"/admin/ticket"}
 )
 public class TicketServlet extends ModelServlet<Ticket> {
 

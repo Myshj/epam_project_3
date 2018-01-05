@@ -1,6 +1,6 @@
 package launch.servlets;
 
-import launch.servlets.commands.SearchByNameAndCountryName;
+import launch.servlets.commands.SearchCitiesByNameAndCountryName;
 import launch.servlets.commands.generic.includers.IncludeAll;
 import models.City;
 import models.Country;
@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 @WebServlet(
         name = "CityServlet",
-        urlPatterns = {"/city"}
+        urlPatterns = {"/admin/city"}
 )
 public class CityServlet extends ModelServlet<City> {
     private static String SEARCH_BY_NAME_AND_COUNTRY_NAME = action("searchByNameAndCountryName");
@@ -21,7 +21,7 @@ public class CityServlet extends ModelServlet<City> {
         super.init();
         getActions.put(
                 SEARCH_BY_NAME_AND_COUNTRY_NAME,
-                new SearchByNameAndCountryName<>(clazz(), this, repository, forwardList)
+                new SearchCitiesByNameAndCountryName<>(clazz(), this, repository, forwardList)
         );
 
         IncludeAll<Country> includeCountries = new IncludeAll<>(

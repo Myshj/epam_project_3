@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 @WebServlet(
         name = "UserServlet",
-        urlPatterns = {"/user"}
+        urlPatterns = {"/admin/user"}
 )
 public class UserServlet extends ModelServlet<User> {
 

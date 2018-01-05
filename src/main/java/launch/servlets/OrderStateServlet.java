@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 
 @WebServlet(
         name = "OrderStateServlet",
-        urlPatterns = {"/order-state"}
+        urlPatterns = {"/admin/order-state"}
 )
 public class OrderStateServlet extends ModelServlet<OrderState> {
     @Override
