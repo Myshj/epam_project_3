@@ -6,6 +6,10 @@ import orm.fields.StringField;
 
 @Entity(table = "countries")
 public class Country extends Model {
+    static {
+        registerNames(Country.class, "country", "countries");
+    }
+
     private StringField name = new StringField(false);
 
     public Country(String name) {

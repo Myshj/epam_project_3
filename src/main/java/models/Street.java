@@ -8,6 +8,9 @@ import orm.fields.StringField;
 
 @Entity(table = "streets")
 public class Street extends Model {
+    static {
+        registerNames(Street.class, "street", "streets");
+    }
     private StringField name = new StringField(false);
 
     @Column(name = "city_id")

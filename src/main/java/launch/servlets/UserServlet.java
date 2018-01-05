@@ -3,6 +3,7 @@ package launch.servlets;
 import launch.servlets.commands.generic.includers.IncludeAll;
 import models.User;
 import models.UserRole;
+import orm.Model;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +21,7 @@ public class UserServlet extends ModelServlet<User> {
         IncludeAll<UserRole> includeRoles = new IncludeAll<>(
                 UserRole.class,
                 this,
-                "userRoles"
+                Model.pluralName(UserRole.class)
         );
         addCommandBefore(getActions, Arrays.asList(SEARCH_BY_ID, NEW), includeRoles);
     }
@@ -28,15 +29,5 @@ public class UserServlet extends ModelServlet<User> {
     @Override
     protected Class<User> clazz() {
         return User.class;
-    }
-
-    @Override
-    protected String singularName() {
-        return "user";
-    }
-
-    @Override
-    protected String pluralName() {
-        return "users";
     }
 }

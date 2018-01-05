@@ -14,14 +14,4 @@ public class CountryServlet extends ModelServlet<Country> {
     protected Class<Country> clazz() {
         return Country.class;
     }
-
-    @Override
-    protected String singularName() {
-        return "country";
-    }
-
-    @Override
-    protected String pluralName() {
-        return "countries";
-    }
 }

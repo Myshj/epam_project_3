@@ -13,14 +13,4 @@ public class UserRoleServlet extends ModelServlet<UserRole> {
     protected Class<UserRole> clazz() {
         return UserRole.class;
     }
-
-    @Override
-    protected String singularName() {
-        return "userRole";
-    }
-
-    @Override
-    protected String pluralName() {
-        return "userRoles";
-    }
 }

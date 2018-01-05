@@ -44,7 +44,7 @@
                     name="type_id"
                     class="form-control"
             >
-                <c:forEach var="type" items="${types}">
+                <c:forEach var="type" items="${ticketTypes}">
                     <option value="${type.id}"
                             <c:if test="${type.id.value == ticket.type.value.id.value}">selected</c:if>
                     >${type.name}</option>

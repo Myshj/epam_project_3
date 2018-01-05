@@ -13,14 +13,4 @@ public class OrderStateServlet extends ModelServlet<OrderState> {
     protected Class<OrderState> clazz() {
         return OrderState.class;
     }
-
-    @Override
-    protected String singularName() {
-        return "orderState";
-    }
-
-    @Override
-    protected String pluralName() {
-        return "orderStates";
-    }
 }

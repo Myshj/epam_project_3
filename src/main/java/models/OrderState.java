@@ -6,6 +6,9 @@ import orm.fields.StringField;
 
 @Entity(table = "order_states")
 public class OrderState extends Model {
+    static {
+        registerNames(OrderState.class, "orderState", "orderStates");
+    }
     private StringField name = new StringField(false);
 
     public OrderState(

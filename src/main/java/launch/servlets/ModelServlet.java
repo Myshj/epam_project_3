@@ -34,9 +34,13 @@ public abstract class ModelServlet<T extends Model> extends HttpServlet {
 
     protected abstract Class<T> clazz();
 
-    protected abstract String singularName();
+    private String singularName() {
+        return Model.singularName(clazz());
+    }
 
-    protected abstract String pluralName();
+    private String pluralName() {
+        return Model.pluralName(clazz());
+    }
 
     String message(String action) {
         return ResourceManager.MESSAGES.get(singularName() + action);

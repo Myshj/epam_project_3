@@ -10,6 +10,9 @@ import java.time.LocalDateTime;
 
 @Entity(table = "orders")
 public class Order extends Model {
+    static {
+        registerNames(Order.class, "order", "orders");
+    }
     private TimeStampField made = new TimeStampField(false);
 
     @Column(name = "ticket_id")

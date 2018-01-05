@@ -13,14 +13,4 @@ public class TicketTypeServlet extends ModelServlet<TicketType> {
     protected Class<TicketType> clazz() {
         return TicketType.class;
     }
-
-    @Override
-    protected String singularName() {
-        return "ticketType";
-    }
-
-    @Override
-    protected String pluralName() {
-        return "ticketTypes";
-    }
 }

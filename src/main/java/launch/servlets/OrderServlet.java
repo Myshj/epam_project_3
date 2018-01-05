@@ -5,6 +5,7 @@ import models.Order;
 import models.OrderState;
 import models.Ticket;
 import models.User;
+import orm.Model;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,21 +25,13 @@ public class OrderServlet extends ModelServlet<Order> {
     }
 
     @Override
-    protected String singularName() {
-        return "order";
-    }
-
-    @Override
-    protected String pluralName() {
-        return "orders";
-    }
-
-    @Override
     public void init() throws ServletException {
         super.init();
-        IncludeAll<Ticket> includeTickets = new IncludeAll<>(Ticket.class, this, "tickets");
-        IncludeAll<User> includeUsers = new IncludeAll<>(User.class, this, "users");
-        IncludeAll<OrderState> includeStates = new IncludeAll<>(OrderState.class, this, "orderStates");
+        IncludeAll<Ticket> includeTickets = new IncludeAll<>(Ticket.class, this, Model.pluralName(Ticket.class));
+        IncludeAll<User> includeUsers = new IncludeAll<>(User.class, this, Model.pluralName(User.class));
+        IncludeAll<OrderState> includeStates = new IncludeAll<>(OrderState.class, this,
+                Model.pluralName(OrderState.class)
+        );
         BiConsumer<HttpServletRequest, HttpServletResponse> includeRelatives = includeTickets.andThen(
                 includeStates
         ).andThen(

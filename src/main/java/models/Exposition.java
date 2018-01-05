@@ -11,6 +11,10 @@ import java.time.LocalDateTime;
 
 @Entity(table = "expositions")
 public class Exposition extends Model {
+    static {
+        registerNames(Exposition.class, "exposition", "expositions");
+    }
+
     private StringField name = new StringField(false);
 
     @Column(name = "showroom_id")

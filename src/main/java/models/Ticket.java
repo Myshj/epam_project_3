@@ -10,6 +10,9 @@ import java.math.BigDecimal;
 
 @Entity(table = "tickets")
 public class Ticket extends Model {
+    static {
+        registerNames(Ticket.class, "ticket", "tickets");
+    }
     @Column(name = "exposition_id")
     private ForeignKey<Exposition> exposition = new ForeignKey<>(Exposition.class, false);
 

@@ -4,6 +4,7 @@ import launch.servlets.commands.generic.includers.IncludeAll;
 import models.Exposition;
 import models.Ticket;
 import models.TicketType;
+import orm.Model;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,21 +25,11 @@ public class TicketServlet extends ModelServlet<Ticket> {
     }
 
     @Override
-    protected String singularName() {
-        return "ticket";
-    }
-
-    @Override
-    protected String pluralName() {
-        return "tickets";
-    }
-
-    @Override
     public void init() throws ServletException {
         super.init();
 
-        IncludeAll<Exposition> includeExpositions = new IncludeAll<>(Exposition.class, this, "expositions");
-        IncludeAll<TicketType> includeTicketTypes = new IncludeAll<>(TicketType.class, this, "types");
+        IncludeAll<Exposition> includeExpositions = new IncludeAll<>(Exposition.class, this, Model.pluralName(Exposition.class));
+        IncludeAll<TicketType> includeTicketTypes = new IncludeAll<>(TicketType.class, this, Model.pluralName(TicketType.class));
         BiConsumer<HttpServletRequest, HttpServletResponse> withExpositionsAndTypes = includeExpositions.andThen(
                 includeTicketTypes
         );

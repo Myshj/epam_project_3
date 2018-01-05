@@ -8,6 +8,9 @@ import orm.fields.StringField;
 
 @Entity(table = "users")
 public class User extends Model {
+    static {
+        registerNames(User.class, "user", "users");
+    }
     private StringField email = new StringField(false);
     private StringField password = new StringField(false);
 

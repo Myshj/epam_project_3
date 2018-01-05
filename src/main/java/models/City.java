@@ -8,6 +8,10 @@ import orm.fields.StringField;
 
 @Entity(table = "cities")
 public class City extends Model {
+    static {
+        registerNames(City.class, "city", "cities");
+    }
+
     private StringField name = new StringField(false);
     @Column(name = "country_id")
     private ForeignKey<Country> country = new ForeignKey<>(Country.class, true);

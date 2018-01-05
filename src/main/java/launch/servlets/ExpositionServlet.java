@@ -4,6 +4,7 @@ import launch.servlets.commands.SearchExpositionsByNameAndShowroomName;
 import launch.servlets.commands.generic.includers.IncludeAll;
 import models.Exposition;
 import models.Showroom;
+import orm.Model;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,16 +23,6 @@ public class ExpositionServlet extends ModelServlet<Exposition> {
     }
 
     @Override
-    protected String singularName() {
-        return "exposition";
-    }
-
-    @Override
-    protected String pluralName() {
-        return "expositions";
-    }
-
-    @Override
     public void init() throws ServletException {
         super.init();
         getActions.put(
@@ -39,7 +30,9 @@ public class ExpositionServlet extends ModelServlet<Exposition> {
                 new SearchExpositionsByNameAndShowroomName(clazz(), this, repository, forwardList)
         );
 
-        IncludeAll<Showroom> includeShowrooms = new IncludeAll<>(Showroom.class, this, "showrooms");
+        IncludeAll<Showroom> includeShowrooms = new IncludeAll<>(Showroom.class, this,
+                Model.pluralName(Showroom.class)
+        );
         addCommandBefore(getActions, Arrays.asList(SEARCH_BY_ID, NEW), includeShowrooms);
     }
 }
