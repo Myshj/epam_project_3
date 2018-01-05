@@ -17,7 +17,7 @@
 <div class="container">
     <h2>Expositions</h2>
     <!--Search Form -->
-    <form action="/exposition" method="get" id="searchExpositionForm" role="form">
+    <form action="/admin/exposition" method="get" id="searchExpositionForm" role="form">
         <input type="hidden" id="getAction" name="getAction" value="searchByNameAndShowroomName">
         <div class="form-group col-xs-5">
             <input type="text"
@@ -47,7 +47,7 @@
                 ${message}
         </div>
     </c:if>
-    <form action="/exposition" method="post" id="expositionForm" role="form">
+    <form action="/admin/exposition" method="post" id="expositionForm" role="form">
         <input type="hidden" id="idExposition" name="id">
         <input type="hidden" id="postAction" name="postAction">
         <c:choose>
@@ -73,11 +73,11 @@
                         </c:choose>
                         <tr class="${classSuccess}">
                             <td>
-                                <a href="/exposition?id=${exposition.id}&getAction=searchById">${exposition.id}</a>
+                                <a href="/admin/exposition?id=${exposition.id}&getAction=searchById">${exposition.id}</a>
                             </td>
                             <td>${exposition.name}</td>
                             <td>
-                                <a href="/showroom?id=${exposition.place.value.id}&getAction=searchById"
+                                <a href="/admin/showroom?id=${exposition.place.value.id}&getAction=searchById"
                                 >${exposition.place.value.name}</a>
                             </td>
 
@@ -105,7 +105,7 @@
             </c:otherwise>
         </c:choose>
     </form>
-    <form action="/exposition">
+    <form action="/admin/exposition">
         <input type="hidden" name="getAction" value="new">
         <br>
         <button type="submit" class="btn btn-primary  btn-md">New exposition</button>

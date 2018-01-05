@@ -15,9 +15,9 @@
 
 <body>
 <div class="container">
-    <h2>buildings</h2>
+    <h2>Buildings</h2>
     <!--Search Form -->
-    <form action="/building" method="get" id="searchBuildingForm" role="form">
+    <form action="/admin/building" method="get" id="searchBuildingForm" role="form">
         <input type="hidden" id="getAction" name="getAction" value="searchByNameAndStreetNameAndCityNameAndCountryName">
         <div class="form-group col-xs-5">
             <input type="text"
@@ -59,7 +59,7 @@
                 ${message}
         </div>
     </c:if>
-    <form action="/building" method="post" id="buildingForm" role="form">
+    <form action="/admin/building" method="post" id="buildingForm" role="form">
         <input type="hidden" id="idBuilding" name="id">
         <input type="hidden" id="postAction" name="postAction">
         <c:choose>
@@ -87,19 +87,19 @@
                         </c:choose>
                         <tr class="${classSuccess}">
                             <td>
-                                <a href="/building?id=${building.id}&getAction=searchById">${building.id}</a>
+                                <a href="/admin/building?id=${building.id}&getAction=searchById">${building.id}</a>
                             </td>
                             <td>${building.name}</td>
                             <td>
-                                <a href="/street?id=${building.street.value.id}&getAction=searchById"
+                                <a href="/admin/street?id=${building.street.value.id}&getAction=searchById"
                                 >${building.street.value.name}</a>
                             </td>
                             <td>
-                                <a href="/city?id=${building.street.value.city.value.id}&getAction=searchById"
+                                <a href="/admin/city?id=${building.street.value.city.value.id}&getAction=searchById"
                                 >${building.street.value.city.value.name}</a>
                             </td>
                             <td>
-                                <a href="/country?id=${building.street.value.city.value.country.value.id}&getAction=searchById"
+                                <a href="/admin/country?id=${building.street.value.city.value.country.value.id}&getAction=searchById"
                                 >${building.street.value.city.value.country.value.name}</a>
                             </td>
                             <td><a href="#" id="remove"
@@ -126,7 +126,7 @@
             </c:otherwise>
         </c:choose>
     </form>
-    <form action="/building">
+    <form action="/admin/building">
         <input type="hidden" name="getAction" value="new">
         <br>
         <button type="submit" class="btn btn-primary  btn-md">New building</button>

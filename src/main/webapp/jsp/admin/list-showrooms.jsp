@@ -17,7 +17,7 @@
 <div class="container">
     <h2>Showrooms</h2>
     <!--Search Form -->
-    <form action="/showroom" method="get" id="searchShowroomForm" role="form">
+    <form action="/admin/showroom" method="get" id="searchShowroomForm" role="form">
         <input type="hidden" id="getAction" name="getAction" value="searchByNameAndCityName">
         <div class="form-group col-xs-5">
             <input type="text"
@@ -47,7 +47,7 @@
                 ${message}
         </div>
     </c:if>
-    <form action="/showroom" method="post" id="showroomForm" role="form">
+    <form action="/admin/showroom" method="post" id="showroomForm" role="form">
         <input type="hidden" id="idShowroom" name="id">
         <input type="hidden" id="postAction" name="postAction">
         <c:choose>
@@ -76,23 +76,23 @@
                         </c:choose>
                         <tr class="${classSuccess}">
                             <td>
-                                <a href="/showroom?id=${showroom.id}&getAction=searchById">${showroom.id}</a>
+                                <a href="/admin/showroom?id=${showroom.id}&getAction=searchById">${showroom.id}</a>
                             </td>
                             <td>${showroom.name}</td>
                             <td>
-                                <a href="/building?id=${showroom.building.value.id}&getAction=searchById"
+                                <a href="/admin/building?id=${showroom.building.value.id}&getAction=searchById"
                                 >${showroom.building.value.name}</a>
                             </td>
                             <td>
-                                <a href="/street?id=${showroom.building.value.street.value.id}&getAction=searchById"
+                                <a href="/admin/street?id=${showroom.building.value.street.value.id}&getAction=searchById"
                                 >${showroom.building.value.street.value.name}</a>
                             </td>
                             <td>
-                                <a href="/city?id=${showroom.building.value.street.value.city.value.id}&getAction=searchById"
+                                <a href="/admin/city?id=${showroom.building.value.street.value.city.value.id}&getAction=searchById"
                                 >${showroom.building.value.street.value.city.value.name}</a>
                             </td>
                             <td>
-                                <a href="/country?id=${showroom.building.value.street.value.city.value.country.value.id}&getAction=searchById"
+                                <a href="/admin/country?id=${showroom.building.value.street.value.city.value.country.value.id}&getAction=searchById"
                                 >${showroom.building.value.street.value.city.value.country.value.name}</a>
                             </td>
                             <td><a href="#" id="remove"
@@ -119,7 +119,7 @@
             </c:otherwise>
         </c:choose>
     </form>
-    <form action="/showroom">
+    <form action="/admin/showroom">
         <input type="hidden" name="getAction" value="new">
         <br>
         <button type="submit" class="btn btn-primary  btn-md">New showroom</button>

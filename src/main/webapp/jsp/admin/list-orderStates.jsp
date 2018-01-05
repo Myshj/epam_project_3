@@ -17,7 +17,7 @@
 <div class="container">
     <h2>Order states</h2>
     <!--Search Form -->
-    <form action="/order-state" method="get" id="searchOrderStateForm" role="form">
+    <form action="/admin/order-state" method="get" id="searchOrderStateForm" role="form">
         <input type="hidden" id="getAction" name="getAction" value="searchByName">
         <div class="form-group col-xs-5">
             <input type="text"
@@ -40,7 +40,7 @@
                 ${message}
         </div>
     </c:if>
-    <form action="/order-state" method="post" id="orderStateForm" role="form">
+    <form action="/admin/order-state" method="post" id="orderStateForm" role="form">
         <input type="hidden" id="idOrderState" name="id">
         <input type="hidden" id="postAction" name="postAction">
         <c:choose>
@@ -65,7 +65,7 @@
                         </c:choose>
                         <tr class="${classSuccess}">
                             <td>
-                                <a href="/order-state?id=${orderState.id}&getAction=searchById">${orderState.id}</a>
+                                <a href="/admin/order-state?id=${orderState.id}&getAction=searchById">${orderState.id}</a>
                             </td>
                             <td>${orderState.name}</td>
                             <td><a href="#" id="remove"
@@ -92,7 +92,7 @@
             </c:otherwise>
         </c:choose>
     </form>
-    <form action="/order-state">
+    <form action="/admin/order-state">
         <input type="hidden" name="getAction" value="new"/>
         <button type="submit" class="btn btn-primary  btn-md">New order state</button>
     </form>

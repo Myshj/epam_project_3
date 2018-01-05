@@ -41,7 +41,7 @@
                 ${message}
         </div>
     </c:if>
-    <form action="/order" method="post" id="orderForm" role="form">
+    <form action="/admin/order" method="post" id="orderForm" role="form">
         <input type="hidden" id="idOrder" name="id">
         <input type="hidden" id="postAction" name="postAction">
         <c:choose>
@@ -68,15 +68,15 @@
                         </c:choose>
                         <tr class="${classSuccess}">
                             <td>
-                                <a href="/order?id=${order.id}&getAction=searchById">${order.id}</a>
+                                <a href="/admin/order?id=${order.id}&getAction=searchById">${order.id}</a>
                             </td>
                             <td>${order.made}</td>
                             <td>
-                                <a href="/user?id=${order.user.value.id}&getAction=searchById"
+                                <a href="/admin/user?id=${order.user.value.id}&getAction=searchById"
                                 >${order.user.value.email}</a>
                             </td>
                             <td>
-                                <a href="/order-state?id=${order.state.value.id}&getAction=searchById"
+                                <a href="/admin/order-state?id=${order.state.value.id}&getAction=searchById"
                                 >${order.state.value.name}</a>
                             </td>
 
@@ -105,7 +105,7 @@
             </c:otherwise>
         </c:choose>
     </form>
-    <form action="/order">
+    <form action="/admin/order">
         <input type="hidden" name="getAction" value="new">
         <br>
         <button type="submit" class="btn btn-primary  btn-md">New order</button>

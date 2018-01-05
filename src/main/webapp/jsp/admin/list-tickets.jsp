@@ -17,7 +17,7 @@
 <div class="container">
     <h2>Tickets</h2>
     <!--Search Form -->
-    <form action="/ticket" method="get" id="searchTicketForm" role="form">
+    <form action="/admin/ticket" method="get" id="searchTicketForm" role="form">
         <input type="hidden" id="getAction" name="getAction" value="searchByExpositionName">
         <div class="form-group col-xs-5">
             <input type="text"
@@ -41,7 +41,7 @@
                 ${message}
         </div>
     </c:if>
-    <form action="/ticket" method="post" id="ticketForm" role="form">
+    <form action="/admin/ticket" method="post" id="ticketForm" role="form">
         <input type="hidden" id="idTicket" name="id">
         <input type="hidden" id="postAction" name="postAction">
         <c:choose>
@@ -68,14 +68,14 @@
                         </c:choose>
                         <tr class="${classSuccess}">
                             <td>
-                                <a href="/ticket?id=${ticket.id}&getAction=searchById">${ticket.id}</a>
+                                <a href="/admin/ticket?id=${ticket.id}&getAction=searchById">${ticket.id}</a>
                             </td>
                             <td>
-                                <a href="/exposition?id=${ticket.exposition.value.id}&getAction=searchById"
+                                <a href="/admin/exposition?id=${ticket.exposition.value.id}&getAction=searchById"
                                 >${ticket.exposition.value.name}</a>
                             </td>
                             <td>
-                                <a href="/ticket-type?id=${ticket.type.value.id}&getAction=searchById"
+                                <a href="/admin/ticket-type?id=${ticket.type.value.id}&getAction=searchById"
                                    >${ticket.type.value.name}</a>
                             </td>
                             <td>${ticket.price}</td>
@@ -104,7 +104,7 @@
             </c:otherwise>
         </c:choose>
     </form>
-    <form action="/ticket">
+    <form action="/admin/ticket">
         <input type="hidden" name="getAction" value="new">
         <br>
         <button type="submit" class="btn btn-primary  btn-md">New ticket</button>

@@ -17,7 +17,7 @@
 <div class="container">
     <h2>Ticket types</h2>
     <!--Search Form -->
-    <form action="/ticket-type" method="get" id="searchTicketTypeForm" role="form">
+    <form action="/admin/ticket-type" method="get" id="searchTicketTypeForm" role="form">
         <input type="hidden" id="getAction" name="getAction" value="searchByName">
         <div class="form-group col-xs-5">
             <input type="text"
@@ -40,7 +40,7 @@
                 ${message}
         </div>
     </c:if>
-    <form action="/ticket-type" method="post" id="ticketTypeForm" role="form" >
+    <form action="/admin/ticket-type" method="post" id="ticketTypeForm" role="form">
         <input type="hidden" id="idTicketType" name="id">
         <input type="hidden" id="postAction" name="postAction">
         <c:choose>
@@ -65,7 +65,7 @@
                         </c:choose>
                         <tr class="${classSuccess}">
                             <td>
-                                <a href="/ticket-type?id=${ticketType.id}&getAction=searchById">${ticketType.id}</a>
+                                <a href="/admin/ticket-type?id=${ticketType.id}&getAction=searchById">${ticketType.id}</a>
                             </td>
                             <td>${ticketType.name}</td>
                             <td><a href="#" id="remove"
@@ -92,7 +92,7 @@
             </c:otherwise>
         </c:choose>
     </form>
-    <form action ="/ticket-type">
+    <form action="/admin/ticket-type">
         <input type="hidden" name="getAction" value="new"/>
         <button type="submit" class="btn btn-primary  btn-md">New ticket type</button>
     </form>

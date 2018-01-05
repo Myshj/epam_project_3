@@ -17,7 +17,7 @@
 <div class="container">
     <h2>User roles</h2>
     <!--Search Form -->
-    <form action="/user-role" method="get" id="searchUserRoleForm" role="form">
+    <form action="/admin/user-role" method="get" id="searchUserRoleForm" role="form">
         <input type="hidden" id="getAction" name="getAction" value="searchByName">
         <div class="form-group col-xs-5">
             <input type="text"
@@ -40,7 +40,7 @@
                 ${message}
         </div>
     </c:if>
-    <form action="/user-role" method="post" id="userRoleForm" role="form">
+    <form action="/admin/user-role" method="post" id="userRoleForm" role="form">
         <input type="hidden" id="idUserRole" name="id">
         <input type="hidden" id="postAction" name="postAction">
         <c:choose>
@@ -65,7 +65,7 @@
                         </c:choose>
                         <tr class="${classSuccess}">
                             <td>
-                                <a href="/user-role?id=${userRole.id}&getAction=searchById">${userRole.id}</a>
+                                <a href="/admin/user-role?id=${userRole.id}&getAction=searchById">${userRole.id}</a>
                             </td>
                             <td>${userRole.name}</td>
                             <td><a href="#" id="remove"
@@ -92,7 +92,7 @@
             </c:otherwise>
         </c:choose>
     </form>
-    <form action="/user-role">
+    <form action="/admin/user-role">
         <input type="hidden" name="getAction" value="new"/>
         <button type="submit" class="btn btn-primary  btn-md">New user role</button>
     </form>

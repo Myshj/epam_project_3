@@ -17,7 +17,7 @@
 <div class="container">
     <h2>Streets</h2>
     <!--Search Form -->
-    <form action="/street" method="get" id="searchStreetForm" role="form">
+    <form action="/admin/street" method="get" id="searchStreetForm" role="form">
         <input type="hidden" id="getAction" name="getAction" value="searchStreetsByNameAndCityNameAndCountryName">
         <div class="form-group col-xs-5">
             <input type="text"
@@ -53,7 +53,7 @@
                 ${message}
         </div>
     </c:if>
-    <form action="/street" method="post" id="streetForm" role="form">
+    <form action="/admin/street" method="post" id="streetForm" role="form">
         <input type="hidden" id="idStreet" name="id">
         <input type="hidden" id="postAction" name="postAction">
         <c:choose>
@@ -80,15 +80,15 @@
                         </c:choose>
                         <tr class="${classSuccess}">
                             <td>
-                                <a href="/street?id=${street.id}&getAction=searchById">${street.id}</a>
+                                <a href="/admin/street?id=${street.id}&getAction=searchById">${street.id}</a>
                             </td>
                             <td>${street.name}</td>
                             <td>
-                                <a href="/city?id=${street.city.value.id}&getAction=searchById"
+                                <a href="/admin/city?id=${street.city.value.id}&getAction=searchById"
                                 >${street.city.value.name}</a>
                             </td>
                             <td>
-                                <a href="/country?id=${street.city.value.country.value.id}&getAction=searchById"
+                                <a href="/admin/country?id=${street.city.value.country.value.id}&getAction=searchById"
                                 >${street.city.value.country.value.name}</a>
                             </td>
                             <td><a href="#" id="remove"
@@ -115,7 +115,7 @@
             </c:otherwise>
         </c:choose>
     </form>
-    <form action="/street">
+    <form action="/admin/street">
         <input type="hidden" name="getAction" value="new">
         <br>
         <button type="submit" class="btn btn-primary  btn-md">New street</button>

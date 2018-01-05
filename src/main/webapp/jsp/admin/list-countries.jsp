@@ -17,7 +17,7 @@
 <div class="container">
     <h2>Countries</h2>
     <!--Search Form -->
-    <form action="/country" method="get" id="searchCountryForm" role="form">
+    <form action="/admin/country" method="get" id="searchCountryForm" role="form">
         <input type="hidden" id="getAction" name="getAction" value="searchByName">
         <div class="form-group col-xs-5">
             <input type="text"
@@ -40,7 +40,7 @@
                 ${message}
         </div>
     </c:if>
-    <form action="/country" method="post" id="countryForm" role="form" >
+    <form action="/admin/country" method="post" id="countryForm" role="form">
         <input type="hidden" id="idCountry" name="id">
         <input type="hidden" id="postAction" name="postAction">
         <c:choose>
@@ -65,7 +65,7 @@
                         </c:choose>
                         <tr class="${classSuccess}">
                             <td>
-                                <a href="/country?id=${country.id}&getAction=searchById">${country.id}</a>
+                                <a href="/admin/country?id=${country.id}&getAction=searchById">${country.id}</a>
                             </td>
                             <td>${country.name}</td>
                             <td><a href="#" id="remove"
@@ -92,7 +92,7 @@
             </c:otherwise>
         </c:choose>
     </form>
-    <form action ="/country">
+    <form action="/admin/country">
         <input type="hidden" name="getAction" value="new"/>
         <button type="submit" class="btn btn-primary  btn-md">New country</button>
     </form>

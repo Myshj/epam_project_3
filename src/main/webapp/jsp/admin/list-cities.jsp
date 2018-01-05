@@ -17,7 +17,7 @@
 <div class="container">
     <h2>Cities</h2>
     <!--Search Form -->
-    <form action="/city" method="get" id="searchCityForm" role="form">
+    <form action="/admin/city" method="get" id="searchCityForm" role="form">
         <input type="hidden" id="getAction" name="getAction" value="searchByNameAndCountryName">
         <div class="form-group col-xs-5">
             <input type="text"
@@ -47,7 +47,7 @@
                 ${message}
         </div>
     </c:if>
-    <form action="/city" method="post" id="cityForm" role="form">
+    <form action="/admin/city" method="post" id="cityForm" role="form">
         <input type="hidden" id="idCity" name="id">
         <input type="hidden" id="postAction" name="postAction">
         <c:choose>
@@ -73,11 +73,11 @@
                         </c:choose>
                         <tr class="${classSuccess}">
                             <td>
-                                <a href="/city?id=${city.id}&getAction=searchById">${city.id}</a>
+                                <a href="/admin/city?id=${city.id}&getAction=searchById">${city.id}</a>
                             </td>
                             <td>${city.name}</td>
                             <td>
-                                <a href="/country?id=${city.country.value.id}&getAction=searchById"
+                                <a href="/admin/country?id=${city.country.value.id}&getAction=searchById"
                                 >${city.country.value.name}</a>
                             </td>
                             <td><a href="#" id="remove"
@@ -104,7 +104,7 @@
             </c:otherwise>
         </c:choose>
     </form>
-    <form action="/city">
+    <form action="/admin/city">
         <input type="hidden" name="getAction" value="new">
         <br>
         <button type="submit" class="btn btn-primary  btn-md">New city</button>

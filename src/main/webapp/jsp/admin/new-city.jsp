@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="container">
-    <form action="/city" method="post" role="form" data-toggle="validator">
+    <form action="/admin/city" method="post" role="form" data-toggle="validator">
         <c:if test="${empty action}">
             <c:set var="action" value="createNew"/>
         </c:if>

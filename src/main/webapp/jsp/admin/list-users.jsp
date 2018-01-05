@@ -17,7 +17,7 @@
 <div class="container">
     <h2>Users</h2>
     <!--Search Form -->
-    <%--<form action="/user" method="get" id="searchUserForm" role="form">--%>
+    <%--<form action="/admin/user" method="get" id="searchUserForm" role="form">--%>
     <%--<input type="hidden" id="getAction" name="getAction" value="searchByExpositionName">--%>
     <%--<div class="form-group col-xs-5">--%>
     <%--<input type="text"--%>
@@ -41,7 +41,7 @@
                 ${message}
         </div>
     </c:if>
-    <form action="/user" method="post" id="userForm" role="form">
+    <form action="/admin/user" method="post" id="userForm" role="form">
         <input type="hidden" id="idUser" name="id">
         <input type="hidden" id="postAction" name="postAction">
         <c:choose>
@@ -67,11 +67,11 @@
                         </c:choose>
                         <tr class="${classSuccess}">
                             <td>
-                                <a href="/user?id=${user.id}&getAction=searchById">${user.id}</a>
+                                <a href="/admin/user?id=${user.id}&getAction=searchById">${user.id}</a>
                             </td>
                             <td>${user.email}</td>
                             <td>
-                                <a href="/user-role?id=${user.role.value.id}&getAction=searchById"
+                                <a href="/admin/user-role?id=${user.role.value.id}&getAction=searchById"
                                 >${user.role.value.name}</a>
                             </td>
 
@@ -99,7 +99,7 @@
             </c:otherwise>
         </c:choose>
     </form>
-    <form action="/user">
+    <form action="/admin/user">
         <input type="hidden" name="getAction" value="new">
         <br>
         <button type="submit" class="btn btn-primary  btn-md">New user</button>
