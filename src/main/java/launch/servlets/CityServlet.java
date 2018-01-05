@@ -14,12 +14,13 @@ import java.util.Arrays;
         urlPatterns = {"/city"}
 )
 public class CityServlet extends ModelServlet<City> {
+    private static String SEARCH_BY_NAME_AND_COUNTRY_NAME = action("searchByNameAndCountryName");
 
     @Override
     public void init() throws ServletException {
         super.init();
         getActions.put(
-                "searchByNameAndCountryName",
+                SEARCH_BY_NAME_AND_COUNTRY_NAME,
                 new SearchByNameAndCountryName<>(clazz(), this, repository, forwardList)
         );
 

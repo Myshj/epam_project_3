@@ -14,6 +14,7 @@ import java.util.Arrays;
         urlPatterns = {"/showroom"}
 )
 public class ShowroomServlet extends ModelServlet<Showroom> {
+    private static String SEARCH_SHOWROOMS_BY_NAME_AND_CITY_NAME = action("searchShowroomsByNameAndCityName");
 
     @Override
     protected Class<Showroom> clazz() {
@@ -34,7 +35,7 @@ public class ShowroomServlet extends ModelServlet<Showroom> {
     public void init() throws ServletException {
         super.init();
         getActions.put(
-                "searchShowroomsByNameAndCityName",
+                SEARCH_SHOWROOMS_BY_NAME_AND_CITY_NAME,
                 new SearchShowroomsByNameAndCityName(clazz(), this, repository, forwardList)
         );
 

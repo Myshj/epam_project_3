@@ -18,7 +18,7 @@
     <h2>Streets</h2>
     <!--Search Form -->
     <form action="/street" method="get" id="searchStreetForm" role="form">
-        <input type="hidden" id="getAction" name="getAction" value="searchByNameAndCityNameAndCountryName">
+        <input type="hidden" id="getAction" name="getAction" value="searchStreetsByNameAndCityNameAndCountryName">
         <div class="form-group col-xs-5">
             <input type="text"
                    name="name"

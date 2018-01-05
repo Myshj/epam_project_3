@@ -5,7 +5,8 @@ import java.util.ResourceBundle;
 
 public enum ResourceManager {
     APPLICATION("application"),
-    STRINGS("strings");
+    ACTIONS("actions"),
+    MESSAGES("messages");
 
     private String resourceName;
     private ResourceBundle rb;

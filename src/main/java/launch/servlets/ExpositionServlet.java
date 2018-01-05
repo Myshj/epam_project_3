@@ -14,6 +14,7 @@ import java.util.Arrays;
         urlPatterns = {"/exposition"}
 )
 public class ExpositionServlet extends ModelServlet<Exposition> {
+    private static String SEARCH_BY_NAME_AND_SHOWROOM_NAME = action("searchByNameAndShowroomName");
 
     @Override
     protected Class<Exposition> clazz() {
@@ -34,7 +35,7 @@ public class ExpositionServlet extends ModelServlet<Exposition> {
     public void init() throws ServletException {
         super.init();
         getActions.put(
-                "searchByNameAndShowroomName",
+                SEARCH_BY_NAME_AND_SHOWROOM_NAME,
                 new SearchExpositionsByNameAndShowroomName(clazz(), this, repository, forwardList)
         );
 
