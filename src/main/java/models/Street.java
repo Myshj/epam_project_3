@@ -1,16 +1,13 @@
 package models;
 
-import orm.Model;
 import orm.annotations.Column;
 import orm.annotations.Entity;
 import orm.fields.ForeignKey;
 import orm.fields.StringField;
 
 @Entity(table = "streets")
-public class Street extends Model {
-    static {
-        registerNames(Street.class, "street", "streets");
-    }
+public class Street extends WebModel {
+
     private StringField name = new StringField(false);
 
     @Column(name = "city_id")

@@ -1,14 +1,10 @@
 package models;
 
-import orm.Model;
 import orm.annotations.Entity;
 import orm.fields.StringField;
 
 @Entity(table = "ticket_types")
-public class TicketType extends Model {
-    static {
-        registerNames(TicketType.class, "ticketType", "ticketTypes");
-    }
+public class TicketType extends WebModel {
     private StringField name = new StringField(false);
 
     public TicketType(

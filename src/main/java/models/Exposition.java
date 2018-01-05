@@ -1,6 +1,5 @@
 package models;
 
-import orm.Model;
 import orm.annotations.Column;
 import orm.annotations.Entity;
 import orm.fields.ForeignKey;
@@ -10,10 +9,7 @@ import orm.fields.TimeStampField;
 import java.time.LocalDateTime;
 
 @Entity(table = "expositions")
-public class Exposition extends Model {
-    static {
-        registerNames(Exposition.class, "exposition", "expositions");
-    }
+public class Exposition extends WebModel {
 
     private StringField name = new StringField(false);
 

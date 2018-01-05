@@ -2,7 +2,10 @@ package launch.servlets;
 
 import launch.servlets.commands.SearchByName;
 import launch.servlets.commands.generic.*;
-import orm.Model;
+import launch.servlets.commands.generic.includers.IncludeAll;
+import models.ModelNameManager;
+import models.RelationsManager;
+import models.WebModel;
 import orm.RepositoryManager;
 import orm.repository.Repository;
 import utils.ResourceManager;
@@ -12,12 +15,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-public abstract class ModelServlet<T extends Model> extends HttpServlet {
+public abstract class ModelServlet<T extends WebModel> extends HttpServlet {
     static final String SEARCH_BY_NAME = action("searchByName");
     static final String SEARCH_BY_ID = action("searchById");
     static final String NEW = action("new");
@@ -35,11 +39,11 @@ public abstract class ModelServlet<T extends Model> extends HttpServlet {
     protected abstract Class<T> clazz();
 
     private String singularName() {
-        return Model.singularName(clazz());
+        return ModelNameManager.INSTANCE.singularName(clazz());
     }
 
     private String pluralName() {
-        return Model.pluralName(clazz());
+        return ModelNameManager.INSTANCE.pluralName(clazz());
     }
 
     String message(String action) {
@@ -80,6 +84,18 @@ public abstract class ModelServlet<T extends Model> extends HttpServlet {
                 REMOVE,
                 new RemoveById<>(this, repository, forwardList, message("RemovedSuccessfully"))
         );//, this::onRemove);
+
+        rememberRelatives();
+    }
+
+    private void rememberRelatives() {
+        RelationsManager.INSTANCE.get(clazz()).forEach(
+                (k, v) -> addCommandBefore(
+                        getActions,
+                        Arrays.asList(SEARCH_BY_ID, NEW),
+                        new IncludeAll<>(v, this, k)
+                )
+        );
     }
 
     void addCommandBefore(

@@ -1,16 +1,12 @@
 package models;
 
-import orm.Model;
 import orm.annotations.Column;
 import orm.annotations.Entity;
 import orm.fields.ForeignKey;
 import orm.fields.StringField;
 
 @Entity(table = "users")
-public class User extends Model {
-    static {
-        registerNames(User.class, "user", "users");
-    }
+public class User extends WebModel {
     private StringField email = new StringField(false);
     private StringField password = new StringField(false);
 

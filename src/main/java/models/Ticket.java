@@ -1,6 +1,5 @@
 package models;
 
-import orm.Model;
 import orm.annotations.Column;
 import orm.annotations.Entity;
 import orm.fields.DecimalField;
@@ -9,10 +8,8 @@ import orm.fields.ForeignKey;
 import java.math.BigDecimal;
 
 @Entity(table = "tickets")
-public class Ticket extends Model {
-    static {
-        registerNames(Ticket.class, "ticket", "tickets");
-    }
+public class Ticket extends WebModel {
+
     @Column(name = "exposition_id")
     private ForeignKey<Exposition> exposition = new ForeignKey<>(Exposition.class, false);
 

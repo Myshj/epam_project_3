@@ -1,14 +1,10 @@
 package launch.servlets;
 
 import launch.servlets.commands.SearchShowroomsByNameAndCityName;
-import launch.servlets.commands.generic.includers.IncludeAll;
-import models.Building;
 import models.Showroom;
-import orm.Model;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import java.util.Arrays;
 
 @WebServlet(
         name = "ShowroomServlet",
@@ -30,10 +26,10 @@ public class ShowroomServlet extends ModelServlet<Showroom> {
                 new SearchShowroomsByNameAndCityName(clazz(), this, repository, forwardList)
         );
 
-        IncludeAll<Building> includeBuildings = new IncludeAll<>(Building.class, this,
-                Model.pluralName(Building.class)
-        );
-
-        addCommandBefore(getActions, Arrays.asList(SEARCH_BY_ID, NEW), includeBuildings);
+//        IncludeAll<Building> includeBuildings = new IncludeAll<>(Building.class, this,
+//                Model.pluralName(Building.class)
+//        );
+//
+//        addCommandBefore(getActions, Arrays.asList(SEARCH_BY_ID, NEW), includeBuildings);
     }
 }

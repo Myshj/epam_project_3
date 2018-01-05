@@ -1,6 +1,5 @@
 package models;
 
-import orm.Model;
 import orm.annotations.Column;
 import orm.annotations.Entity;
 import orm.fields.ForeignKey;
@@ -9,10 +8,7 @@ import orm.fields.TimeStampField;
 import java.time.LocalDateTime;
 
 @Entity(table = "orders")
-public class Order extends Model {
-    static {
-        registerNames(Order.class, "order", "orders");
-    }
+public class Order extends WebModel {
     private TimeStampField made = new TimeStampField(false);
 
     @Column(name = "ticket_id")

@@ -1,18 +1,9 @@
 package launch.servlets;
 
-import launch.servlets.commands.generic.includers.IncludeAll;
 import models.Order;
-import models.OrderState;
-import models.Ticket;
-import models.User;
-import orm.Model;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.function.BiConsumer;
 
 @WebServlet(
         name = "OrderServlet",
@@ -27,16 +18,16 @@ public class OrderServlet extends ModelServlet<Order> {
     @Override
     public void init() throws ServletException {
         super.init();
-        IncludeAll<Ticket> includeTickets = new IncludeAll<>(Ticket.class, this, Model.pluralName(Ticket.class));
-        IncludeAll<User> includeUsers = new IncludeAll<>(User.class, this, Model.pluralName(User.class));
-        IncludeAll<OrderState> includeStates = new IncludeAll<>(OrderState.class, this,
-                Model.pluralName(OrderState.class)
-        );
-        BiConsumer<HttpServletRequest, HttpServletResponse> includeRelatives = includeTickets.andThen(
-                includeStates
-        ).andThen(
-                includeUsers
-        );
-        addCommandBefore(getActions, Arrays.asList(SEARCH_BY_ID, NEW), includeRelatives);
+//        IncludeAll<Ticket> includeTickets = new IncludeAll<>(Ticket.class, this, Model.pluralName(Ticket.class));
+//        IncludeAll<User> includeUsers = new IncludeAll<>(User.class, this, Model.pluralName(User.class));
+//        IncludeAll<OrderState> includeStates = new IncludeAll<>(OrderState.class, this,
+//                Model.pluralName(OrderState.class)
+//        );
+//        BiConsumer<HttpServletRequest, HttpServletResponse> includeRelatives = includeTickets.andThen(
+//                includeStates
+//        ).andThen(
+//                includeUsers
+//        );
+//        addCommandBefore(getActions, Arrays.asList(SEARCH_BY_ID, NEW), includeRelatives);
     }
 }

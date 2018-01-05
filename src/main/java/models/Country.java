@@ -1,14 +1,10 @@
 package models;
 
-import orm.Model;
 import orm.annotations.Entity;
 import orm.fields.StringField;
 
 @Entity(table = "countries")
-public class Country extends Model {
-    static {
-        registerNames(Country.class, "country", "countries");
-    }
+public class Country extends WebModel {
 
     private StringField name = new StringField(false);
 

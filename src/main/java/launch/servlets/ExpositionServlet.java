@@ -1,14 +1,10 @@
 package launch.servlets;
 
 import launch.servlets.commands.SearchExpositionsByNameAndShowroomName;
-import launch.servlets.commands.generic.includers.IncludeAll;
 import models.Exposition;
-import models.Showroom;
-import orm.Model;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import java.util.Arrays;
 
 @WebServlet(
         name = "ExpositionServlet",
@@ -30,9 +26,9 @@ public class ExpositionServlet extends ModelServlet<Exposition> {
                 new SearchExpositionsByNameAndShowroomName(clazz(), this, repository, forwardList)
         );
 
-        IncludeAll<Showroom> includeShowrooms = new IncludeAll<>(Showroom.class, this,
-                Model.pluralName(Showroom.class)
-        );
-        addCommandBefore(getActions, Arrays.asList(SEARCH_BY_ID, NEW), includeShowrooms);
+//        IncludeAll<Showroom> includeShowrooms = new IncludeAll<>(Showroom.class, this,
+//                Model.pluralName(Showroom.class)
+//        );
+//        addCommandBefore(getActions, Arrays.asList(SEARCH_BY_ID, NEW), includeShowrooms);
     }
 }

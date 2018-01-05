@@ -1,14 +1,10 @@
 package launch.servlets;
 
 import launch.servlets.commands.SearchStreetsByNameAndCityNameAndCountryName;
-import launch.servlets.commands.generic.includers.IncludeAll;
-import models.City;
 import models.Street;
-import orm.Model;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import java.util.Arrays;
 
 @WebServlet(
         name = "StreetServlet",
@@ -26,9 +22,9 @@ public class StreetServlet extends ModelServlet<Street> {
                 new SearchStreetsByNameAndCityNameAndCountryName<>(clazz(), this, repository, forwardList)
         );
 
-        IncludeAll<City> includeCities = new IncludeAll<>(City.class, this, Model.pluralName(City.class));
-
-        addCommandBefore(getActions, Arrays.asList(SEARCH_BY_ID, NEW), includeCities);
+//        IncludeAll<City> includeCities = new IncludeAll<>(City.class, this, Model.pluralName(City.class));
+//
+//        addCommandBefore(getActions, Arrays.asList(SEARCH_BY_ID, NEW), includeCities);
     }
 
     @Override
