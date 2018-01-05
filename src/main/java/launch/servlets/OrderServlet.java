@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.function.BiConsumer;
 
 @WebServlet(
@@ -43,15 +44,6 @@ public class OrderServlet extends ModelServlet<Order> {
         ).andThen(
                 includeUsers
         );
-
-        getActions.put(
-                "new",
-                includeRelatives.andThen(getActions.get("new"))
-        );
-
-        getActions.put(
-                "searchById",
-                includeRelatives.andThen(getActions.get("searchById"))
-        );
+        addCommandBefore(getActions, Arrays.asList(SEARCH_BY_ID, NEW), includeRelatives);
     }
 }

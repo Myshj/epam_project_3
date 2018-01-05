@@ -7,6 +7,7 @@ import models.Showroom;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import java.util.Arrays;
 
 @WebServlet(
         name = "ExpositionServlet",
@@ -38,15 +39,6 @@ public class ExpositionServlet extends ModelServlet<Exposition> {
         );
 
         IncludeAll<Showroom> includeShowrooms = new IncludeAll<>(Showroom.class, this, "showrooms");
-
-        getActions.put(
-                "searchById",
-                includeShowrooms.andThen(getActions.get("searchById"))
-        );
-
-        getActions.put(
-                "new",
-                includeShowrooms.andThen(getActions.get("new"))
-        );
+        addCommandBefore(getActions, Arrays.asList(SEARCH_BY_ID, NEW), includeShowrooms);
     }
 }

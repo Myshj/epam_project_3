@@ -7,6 +7,7 @@ import models.Street;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import java.util.Arrays;
 
 @WebServlet(
         name = "StreetServlet",
@@ -24,9 +25,7 @@ public class StreetServlet extends ModelServlet<Street> {
 
         IncludeAll<City> includeCities = new IncludeAll<>(City.class, this, "cities");
 
-        getActions.put("searchById", includeCities.andThen(getActions.get("searchById")));
-
-        getActions.put("new", includeCities.andThen(getActions.get("new")));
+        addCommandBefore(getActions, Arrays.asList(SEARCH_BY_ID, NEW), includeCities);
     }
 
     @Override

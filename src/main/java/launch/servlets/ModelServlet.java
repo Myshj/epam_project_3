@@ -13,10 +13,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
 public abstract class ModelServlet<T extends Model> extends HttpServlet {
+    static final String SEARCH_BY_NAME = "searchByName";
+    static final String SEARCH_BY_ID = "searchById";
+    static final String NEW = "new";
+    static final String CREATE_NEW = "createNew";
+    static final String EDIT = "edit";
+    static final String REMOVE = "remove";
+
     protected final Repository<T> repository = RepositoryManager.INSTANCE.get(clazz());
     final Map<String, BiConsumer<HttpServletRequest, HttpServletResponse>> getActions = new HashMap<>();
     final Map<String, BiConsumer<HttpServletRequest, HttpServletResponse>> postActions = new HashMap<>();
@@ -39,31 +47,50 @@ public abstract class ModelServlet<T extends Model> extends HttpServlet {
         super.init();
 
         getActions.put(
-                "searchByName",
+                SEARCH_BY_NAME,
                 new SearchByName<>(clazz(), this, repository, forwardList)
         );//, this::onSearchByName);
         getActions.put(
-                "searchById",
+                SEARCH_BY_ID,
                 new SearchById<>(this, repository, singularName())
         );//, this::onSearchById);
         getActions.put(
-                "new",
+                NEW,
                 new NewEntity<>(this, repository, singularName())
         );//, this::onNewEntity);
 
 
         postActions.put(
-                "createNew",
+                CREATE_NEW,
                 new CreateCommand<>(clazz(), this, forwardList, getResource("CreatedSuccessfully"))
         );//, this::onCreateNew);
         postActions.put(
-                "edit",
+                EDIT,
                 new UpdateCommand<>(clazz(), this, forwardList, getResource("UpdatedSuccessfully"))
         );//, this::onEdit);
         postActions.put(
-                "remove",
+                REMOVE,
                 new RemoveById<>(this, repository, forwardList, getResource("RemovedSuccessfully"))
         );//, this::onRemove);
+    }
+
+    void addCommandBefore(
+            Map<String, BiConsumer<HttpServletRequest, HttpServletResponse>> actions,
+            String action,
+            BiConsumer<HttpServletRequest, HttpServletResponse> command
+    ) {
+        if (!actions.containsKey(action)) {
+            return;
+        }
+        actions.put(action, command.andThen(actions.get(action)));
+    }
+
+    void addCommandBefore(
+            Map<String, BiConsumer<HttpServletRequest, HttpServletResponse>> actions,
+            List<String> action,
+            BiConsumer<HttpServletRequest, HttpServletResponse> command
+    ) {
+        action.forEach(a -> addCommandBefore(actions, a, command));
     }
 
     @Override

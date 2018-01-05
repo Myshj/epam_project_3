@@ -6,6 +6,7 @@ import models.UserRole;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import java.util.Arrays;
 
 @WebServlet(
         name = "UserServlet",
@@ -21,14 +22,7 @@ public class UserServlet extends ModelServlet<User> {
                 this,
                 "userRoles"
         );
-        getActions.put(
-                "searchById",
-                includeRoles.andThen(getActions.get("searchById"))
-        );
-        getActions.put(
-                "new",
-                includeRoles.andThen(getActions.get("new"))
-        );
+        addCommandBefore(getActions, Arrays.asList(SEARCH_BY_ID, NEW), includeRoles);
     }
 
     @Override

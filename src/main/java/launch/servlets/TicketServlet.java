@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.function.BiConsumer;
 
 @WebServlet(
@@ -42,14 +43,6 @@ public class TicketServlet extends ModelServlet<Ticket> {
                 includeTicketTypes
         );
 
-        getActions.put(
-                "new",
-                withExpositionsAndTypes.andThen(getActions.get("new"))
-        );
-
-        getActions.put(
-                "searchById",
-                withExpositionsAndTypes.andThen(getActions.get("searchById"))
-        );
+        addCommandBefore(getActions, Arrays.asList(SEARCH_BY_ID, NEW), withExpositionsAndTypes);
     }
 }

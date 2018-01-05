@@ -7,6 +7,7 @@ import models.Country;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import java.util.Arrays;
 
 @WebServlet(
         name = "CityServlet",
@@ -27,15 +28,7 @@ public class CityServlet extends ModelServlet<City> {
                 this,
                 "countries"
         );
-
-        getActions.put(
-                "searchById",
-                includeCountries.andThen(getActions.get("searchById"))
-        );
-        getActions.put(
-                "new",
-                includeCountries.andThen(getActions.get("new"))
-        );
+        addCommandBefore(getActions, Arrays.asList(SEARCH_BY_ID, NEW), includeCountries);
     }
 
     @Override

@@ -7,6 +7,7 @@ import models.Street;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import java.util.Arrays;
 
 @WebServlet(
         name = "BuildingServlet",
@@ -38,17 +39,7 @@ public class BuildingServlet extends ModelServlet<Building> {
                 new SearchByNameAndStreetNameAndCityNameAndCountryName<>(clazz(), this, repository, forwardList)
         );
 
-        IncludeAll<Street> includeStreets = new IncludeAll<>(Street.class, this, "streets"
-        );
-
-        getActions.put(
-                "searchById",
-                includeStreets.andThen(getActions.get("searchById"))
-        );
-
-        getActions.put(
-                "new",
-                includeStreets.andThen(getActions.get("new"))
-        );
+        IncludeAll<Street> includeStreets = new IncludeAll<>(Street.class, this, "streets");
+        addCommandBefore(getActions, Arrays.asList(SEARCH_BY_ID, NEW), includeStreets);
     }
 }
