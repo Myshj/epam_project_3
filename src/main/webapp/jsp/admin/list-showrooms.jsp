@@ -9,40 +9,28 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <script src="../../js/bootstrap.min.js"></script>
 </head>
 
 <body>
 <div class="container">
-    <h2>buildings</h2>
+    <h2>Showrooms</h2>
     <!--Search Form -->
-    <form action="/building" method="get" id="searchBuildingForm" role="form">
-        <input type="hidden" id="getAction" name="getAction" value="searchByNameAndStreetNameAndCityNameAndCountryName">
+    <form action="/showroom" method="get" id="searchShowroomForm" role="form">
+        <input type="hidden" id="getAction" name="getAction" value="searchByNameAndCityName">
         <div class="form-group col-xs-5">
             <input type="text"
                    name="name"
-                   id="buildingName"
+                   id="showroomName"
                    class="form-control"
-                   placeholder="Type the Name of the building"
-            />
-            <input type="text"
-                   name="streetName"
-                   id="streetName"
-                   class="form-control"
-                   placeholder="Type the Name of the street"
+                   placeholder="Type the Name of the showroom"
             />
             <input type="text"
                    name="cityName"
                    id="cityName"
                    class="form-control"
                    placeholder="Type the Name of the city"
-            />
-            <input type="text"
-                   name="countryName"
-                   id="countryName"
-                   class="form-control"
-                   placeholder="Type the Name of the country"
             />
         </div>
 
@@ -59,26 +47,27 @@
                 ${message}
         </div>
     </c:if>
-    <form action="/building" method="post" id="buildingForm" role="form">
-        <input type="hidden" id="idBuilding" name="id">
+    <form action="/showroom" method="post" id="showroomForm" role="form">
+        <input type="hidden" id="idShowroom" name="id">
         <input type="hidden" id="postAction" name="postAction">
         <c:choose>
-            <c:when test="${not empty buildings}">
+            <c:when test="${not empty showrooms}">
                 <table class="table table-striped">
                     <thead>
                     <tr>
                         <th>#</th>
                         <th>Name</th>
+                        <th>Building</th>
                         <th>Street</th>
                         <th>City</th>
                         <th>Country</th>
                         <td></td>
                     </tr>
                     </thead>
-                    <c:forEach var="building" items="${buildings}">
+                    <c:forEach var="showroom" items="${showrooms}">
                         <c:set var="classSucess" value=""/>
                         <c:choose>
-                            <c:when test="${id == building.id.value}">
+                            <c:when test="${id == showroom.id.value}">
                                 <c:set var="classSuccess" value="info"/>
                             </c:when>
                             <c:otherwise>
@@ -87,27 +76,31 @@
                         </c:choose>
                         <tr class="${classSuccess}">
                             <td>
-                                <a href="/building?id=${building.id}&getAction=searchById">${building.id}</a>
+                                <a href="/showroom?id=${showroom.id}&getAction=searchById">${showroom.id}</a>
                             </td>
-                            <td>${building.name}</td>
+                            <td>${showroom.name}</td>
                             <td>
-                                <a href="/street?id=${building.street.value.id}&getAction=searchById"
-                                >${building.street.value.name}</a>
-                            </td>
-                            <td>
-                                <a href="/city?id=${building.street.value.city.value.id}&getAction=searchById"
-                                >${building.street.value.city.value.name}</a>
+                                <a href="/building?id=${showroom.building.value.id}&getAction=searchById"
+                                >${showroom.building.value.name}</a>
                             </td>
                             <td>
-                                <a href="/country?id=${building.street.value.city.value.country.value.id}&getAction=searchById"
-                                >${building.street.value.city.value.country.value.name}</a>
+                                <a href="/street?id=${showroom.building.value.street.value.id}&getAction=searchById"
+                                >${showroom.building.value.street.value.name}</a>
+                            </td>
+                            <td>
+                                <a href="/city?id=${showroom.building.value.street.value.city.value.id}&getAction=searchById"
+                                >${showroom.building.value.street.value.city.value.name}</a>
+                            </td>
+                            <td>
+                                <a href="/country?id=${showroom.building.value.street.value.city.value.country.value.id}&getAction=searchById"
+                                >${showroom.building.value.street.value.city.value.country.value.name}</a>
                             </td>
                             <td><a href="#" id="remove"
                                    onclick="
                                            document.getElementById('postAction').value = 'remove';
-                                           document.getElementById('idBuilding').value = '${building.id}';
+                                           document.getElementById('idShowroom').value = '${showroom.id}';
 
-                                           document.getElementById('buildingForm').submit();
+                                           document.getElementById('showroomForm').submit();
                                            "
                             >
                                 <span class="glyphicon glyphicon-trash"></span>
@@ -121,15 +114,15 @@
             <c:otherwise>
                 <br>
                 <div class="alert alert-info">
-                    No buildings found matching your search criteria
+                    No showrooms found matching your search criteria
                 </div>
             </c:otherwise>
         </c:choose>
     </form>
-    <form action="/building">
+    <form action="/showroom">
         <input type="hidden" name="getAction" value="new">
         <br>
-        <button type="submit" class="btn btn-primary  btn-md">New building</button>
+        <button type="submit" class="btn btn-primary  btn-md">New showroom</button>
     </form>
 </div>
 </body>

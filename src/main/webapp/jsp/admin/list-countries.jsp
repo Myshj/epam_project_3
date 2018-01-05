@@ -9,31 +9,24 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <script src="../../js/bootstrap.min.js"></script>
 </head>
 
 <body>
 <div class="container">
-    <h2>Expositions</h2>
+    <h2>Countries</h2>
     <!--Search Form -->
-    <form action="/exposition" method="get" id="searchExpositionForm" role="form">
-        <input type="hidden" id="getAction" name="getAction" value="searchByNameAndShowroomName">
+    <form action="/country" method="get" id="searchCountryForm" role="form">
+        <input type="hidden" id="getAction" name="getAction" value="searchByName">
         <div class="form-group col-xs-5">
             <input type="text"
                    name="name"
-                   id="expositionName"
+                   id="countryName"
                    class="form-control"
-                   placeholder="Type the Name of the exposition"
-            />
-            <input type="text"
-                   name="showroomName"
-                   id="showroomName"
-                   class="form-control"
-                   placeholder="Type the Name of the showroom"
+                   placeholder="Type the Name of the country"
             />
         </div>
-
         <button type="submit" class="btn btn-info">
             <span class="glyphicon glyphicon-search"></span> Search
         </button>
@@ -41,30 +34,29 @@
         <br>
     </form>
 
-    <!--Cities List-->
+    <!--Countries List-->
     <c:if test="${not empty message}">
         <div class="alert alert-success">
                 ${message}
         </div>
     </c:if>
-    <form action="/exposition" method="post" id="expositionForm" role="form">
-        <input type="hidden" id="idExposition" name="id">
+    <form action="/country" method="post" id="countryForm" role="form" >
+        <input type="hidden" id="idCountry" name="id">
         <input type="hidden" id="postAction" name="postAction">
         <c:choose>
-            <c:when test="${not empty expositions}">
-                <table class="table table-striped">
+            <c:when test="${not empty countries}">
+                <table  class="table table-striped">
                     <thead>
                     <tr>
                         <th>#</th>
                         <th>Name</th>
-                        <th>Place</th>
                         <td></td>
                     </tr>
                     </thead>
-                    <c:forEach var="exposition" items="${expositions}">
+                    <c:forEach var="country" items="${countries}">
                         <c:set var="classSucess" value=""/>
                         <c:choose>
-                            <c:when test="${id == exposition.id.value}">
+                            <c:when test="${id == country.id.value}">
                                 <c:set var="classSuccess" value="info"/>
                             </c:when>
                             <c:otherwise>
@@ -73,20 +65,15 @@
                         </c:choose>
                         <tr class="${classSuccess}">
                             <td>
-                                <a href="/exposition?id=${exposition.id}&getAction=searchById">${exposition.id}</a>
+                                <a href="/country?id=${country.id}&getAction=searchById">${country.id}</a>
                             </td>
-                            <td>${exposition.name}</td>
-                            <td>
-                                <a href="/showroom?id=${exposition.place.value.id}&getAction=searchById"
-                                >${exposition.place.value.name}</a>
-                            </td>
-
+                            <td>${country.name}</td>
                             <td><a href="#" id="remove"
                                    onclick="
                                            document.getElementById('postAction').value = 'remove';
-                                           document.getElementById('idExposition').value = '${exposition.id}';
+                                           document.getElementById('idCountry').value = '${country.id}';
 
-                                           document.getElementById('expositionForm').submit();
+                                           document.getElementById('countryForm').submit();
                                            "
                             >
                                 <span class="glyphicon glyphicon-trash"></span>
@@ -100,15 +87,14 @@
             <c:otherwise>
                 <br>
                 <div class="alert alert-info">
-                    No expositions found matching your search criteria
+                    No countries found matching your search criteria
                 </div>
             </c:otherwise>
         </c:choose>
     </form>
-    <form action="/exposition">
-        <input type="hidden" name="getAction" value="new">
-        <br>
-        <button type="submit" class="btn btn-primary  btn-md">New exposition</button>
+    <form action ="/country">
+        <input type="hidden" name="getAction" value="new"/>
+        <button type="submit" class="btn btn-primary  btn-md">New country</button>
     </form>
 </div>
 </body>

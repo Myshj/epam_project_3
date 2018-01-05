@@ -9,18 +9,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
-    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+    <script src="../../js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container">
-    <form action="/ticket-type" method="post" role="form" data-toggle="validator">
+    <form action="/order-state" method="post" role="form" data-toggle="validator">
         <c:if test="${empty action}">
             <c:set var="action" value="createNew"/>
         </c:if>
         <input type="hidden" id="action" name="postAction" value="${action}"/>
-        <input type="hidden" id="idTicketType" name="id" value="${ticketType.id}"/>
-        <h2>Ticket type</h2>
+        <input type="hidden" id="idOrderState" name="id" value="${orderState.id}"/>
+        <h2>Order state</h2>
         <div class="form-group col-xs-4">
             <label for="name"
                    class="control-label col-xs-4"
@@ -29,7 +29,7 @@
                    name="name"
                    id="name"
                    class="form-control"
-                   value="${ticketType.name}"
+                   value="${orderState.name}"
                    required="true"
             />
             <br>

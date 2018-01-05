@@ -9,18 +9,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
-    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+    <script src="../../js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container">
-    <form action="/building" method="post" role="form" data-toggle="validator">
+    <form action="/city" method="post" role="form" data-toggle="validator">
         <c:if test="${empty action}">
             <c:set var="action" value="createNew"/>
         </c:if>
         <input type="hidden" id="action" name="postAction" value="${action}"/>
-        <input type="hidden" id="idBuilding" name="id" value="${building.id}"/>
-        <h2>Building</h2>
+        <input type="hidden" id="idCity" name="id" value="${city.id}"/>
+        <h2>City</h2>
         <div class="form-group col-xs-4">
             <label for="name"
                    class="control-label col-xs-4"
@@ -29,20 +29,20 @@
                    name="name"
                    id="name"
                    class="form-control"
-                   value="${building.name}"
+                   value="${city.name}"
                    required="true"
             />
-            <label for="street"
+            <label for="country"
                    class="control-label col-xs-4"
-            >Street:</label>
-            <select id="street"
-                    name="street_id"
+            >Country:</label>
+            <select id="country"
+                    name="country_id"
                     class="form-control"
             >
-                <c:forEach var="street" items="${streets}">
-                    <option value="${street.id}"
-                            <c:if test="${street.id.value == building.street.value.id.value}">selected</c:if>
-                    >${street.name}</option>
+                <c:forEach var="country" items="${countries}">
+                    <option value="${country.id}"
+                            <c:if test="${country.id.value == city.country.value.id.value}">selected</c:if>
+                    >${country.name}</option>
                 </c:forEach>
             </select>
             <br>

@@ -9,24 +9,25 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <script src="../../js/bootstrap.min.js"></script>
 </head>
 
 <body>
 <div class="container">
-    <h2>Order states</h2>
+    <h2>Tickets</h2>
     <!--Search Form -->
-    <form action="/order-state" method="get" id="searchOrderStateForm" role="form">
-        <input type="hidden" id="getAction" name="getAction" value="searchByName">
+    <form action="/ticket" method="get" id="searchTicketForm" role="form">
+        <input type="hidden" id="getAction" name="getAction" value="searchByExpositionName">
         <div class="form-group col-xs-5">
             <input type="text"
-                   name="name"
-                   id="orderStateName"
+                   name="expositionName"
+                   id="expositionName"
                    class="form-control"
-                   placeholder="Type the Name of the order state"
+                   placeholder="Type the Name of the exposition"
             />
         </div>
+
         <button type="submit" class="btn btn-info">
             <span class="glyphicon glyphicon-search"></span> Search
         </button>
@@ -34,29 +35,31 @@
         <br>
     </form>
 
-    <!--Order states List-->
+    <!--Tickets List-->
     <c:if test="${not empty message}">
         <div class="alert alert-success">
                 ${message}
         </div>
     </c:if>
-    <form action="/order-state" method="post" id="orderStateForm" role="form">
-        <input type="hidden" id="idOrderState" name="id">
+    <form action="/ticket" method="post" id="ticketForm" role="form">
+        <input type="hidden" id="idTicket" name="id">
         <input type="hidden" id="postAction" name="postAction">
         <c:choose>
-            <c:when test="${not empty orderStates}">
+            <c:when test="${not empty tickets}">
                 <table class="table table-striped">
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
+                        <th>Exposition</th>
+                        <th>Type</th>
+                        <th>Price</th>
                         <td></td>
                     </tr>
                     </thead>
-                    <c:forEach var="orderState" items="${orderStates}">
+                    <c:forEach var="ticket" items="${tickets}">
                         <c:set var="classSucess" value=""/>
                         <c:choose>
-                            <c:when test="${id == orderState.id.value}">
+                            <c:when test="${id == ticket.id.value}">
                                 <c:set var="classSuccess" value="info"/>
                             </c:when>
                             <c:otherwise>
@@ -65,15 +68,24 @@
                         </c:choose>
                         <tr class="${classSuccess}">
                             <td>
-                                <a href="/order-state?id=${orderState.id}&getAction=searchById">${orderState.id}</a>
+                                <a href="/ticket?id=${ticket.id}&getAction=searchById">${ticket.id}</a>
                             </td>
-                            <td>${orderState.name}</td>
+                            <td>
+                                <a href="/exposition?id=${ticket.exposition.value.id}&getAction=searchById"
+                                >${ticket.exposition.value.name}</a>
+                            </td>
+                            <td>
+                                <a href="/ticket-type?id=${ticket.type.value.id}&getAction=searchById"
+                                   >${ticket.type.value.name}</a>
+                            </td>
+                            <td>${ticket.price}</td>
+
                             <td><a href="#" id="remove"
                                    onclick="
                                            document.getElementById('postAction').value = 'remove';
-                                           document.getElementById('idOrderState').value = '${orderState.id}';
+                                           document.getElementById('idTicket').value = '${ticket.id}';
 
-                                           document.getElementById('orderStateForm').submit();
+                                           document.getElementById('ticketForm').submit();
                                            "
                             >
                                 <span class="glyphicon glyphicon-trash"></span>
@@ -87,14 +99,15 @@
             <c:otherwise>
                 <br>
                 <div class="alert alert-info">
-                    No order states found matching your search criteria
+                    No tickets found matching your search criteria
                 </div>
             </c:otherwise>
         </c:choose>
     </form>
-    <form action="/order-state">
-        <input type="hidden" name="getAction" value="new"/>
-        <button type="submit" class="btn btn-primary  btn-md">New order state</button>
+    <form action="/ticket">
+        <input type="hidden" name="getAction" value="new">
+        <br>
+        <button type="submit" class="btn btn-primary  btn-md">New ticket</button>
     </form>
 </div>
 </body>

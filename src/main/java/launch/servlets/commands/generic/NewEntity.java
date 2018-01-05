@@ -2,6 +2,7 @@ package launch.servlets.commands.generic;
 
 import orm.Model;
 import orm.repository.Repository;
+import utils.ResourceManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +32,7 @@ public class NewEntity<T extends Model> extends ServletCommand<T> {
         try {
             dispatcher(
                     String.format(
-                            "/jsp/new-%s.jsp",
+                            ResourceManager.URLS.get("newEntityTemplate"),
                             name
                     )
 

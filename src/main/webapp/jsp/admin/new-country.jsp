@@ -9,18 +9,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
-    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css"/>
+    <script src="../../js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container">
-    <form action="/street" method="post" role="form" data-toggle="validator">
+    <form action="/country" method="post" role="form" data-toggle="validator">
         <c:if test="${empty action}">
             <c:set var="action" value="createNew"/>
         </c:if>
         <input type="hidden" id="action" name="postAction" value="${action}"/>
-        <input type="hidden" id="idStreet" name="id" value="${street.id}"/>
-        <h2>Street</h2>
+        <input type="hidden" id="idCountry" name="id" value="${country.id}"/>
+        <h2>Country</h2>
         <div class="form-group col-xs-4">
             <label for="name"
                    class="control-label col-xs-4"
@@ -29,22 +29,9 @@
                    name="name"
                    id="name"
                    class="form-control"
-                   value="${street.name}"
+                   value="${country.name}"
                    required="true"
             />
-            <label for="city"
-                   class="control-label col-xs-4"
-            >City:</label>
-            <select id="city"
-                    name="city_id"
-                    class="form-control"
-            >
-                <c:forEach var="city" items="${cities}">
-                    <option value="${city.id}"
-                            <c:if test="${city.id.value == street.city.value.id.value}">selected</c:if>
-                    >${city.name}</option>
-                </c:forEach>
-            </select>
             <br>
             <button type="submit" class="btn btn-primary  btn-md">Accept</button>
         </div>

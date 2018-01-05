@@ -3,6 +3,7 @@ package launch.servlets.commands.generic;
 import launch.servlets.commands.generic.includers.IncludeListToRequest;
 import orm.Model;
 import orm.repository.Repository;
+import utils.ResourceManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -38,7 +39,7 @@ public class ForwardList<T extends Model> extends ServletCommand<T> {
         includer.execute(request, response);
         dispatcher(
                 String.format(
-                        "/jsp/list-%s.jsp",
+                        ResourceManager.URLS.get("listEntitiesTemplate"),
                         name
                 )
 

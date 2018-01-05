@@ -9,22 +9,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <script src="../../js/bootstrap.min.js"></script>
 </head>
 
 <body>
 <div class="container">
-    <h2>Countries</h2>
+    <h2>Ticket types</h2>
     <!--Search Form -->
-    <form action="/country" method="get" id="searchCountryForm" role="form">
+    <form action="/ticket-type" method="get" id="searchTicketTypeForm" role="form">
         <input type="hidden" id="getAction" name="getAction" value="searchByName">
         <div class="form-group col-xs-5">
             <input type="text"
                    name="name"
-                   id="countryName"
+                   id="ticketTypeName"
                    class="form-control"
-                   placeholder="Type the Name of the country"
+                   placeholder="Type the Name of the ticket type"
             />
         </div>
         <button type="submit" class="btn btn-info">
@@ -40,11 +40,11 @@
                 ${message}
         </div>
     </c:if>
-    <form action="/country" method="post" id="countryForm" role="form" >
-        <input type="hidden" id="idCountry" name="id">
+    <form action="/ticket-type" method="post" id="ticketTypeForm" role="form" >
+        <input type="hidden" id="idTicketType" name="id">
         <input type="hidden" id="postAction" name="postAction">
         <c:choose>
-            <c:when test="${not empty countries}">
+            <c:when test="${not empty ticketTypes}">
                 <table  class="table table-striped">
                     <thead>
                     <tr>
@@ -53,10 +53,10 @@
                         <td></td>
                     </tr>
                     </thead>
-                    <c:forEach var="country" items="${countries}">
+                    <c:forEach var="ticketType" items="${ticketTypes}">
                         <c:set var="classSucess" value=""/>
                         <c:choose>
-                            <c:when test="${id == country.id.value}">
+                            <c:when test="${id == ticketType.id.value}">
                                 <c:set var="classSuccess" value="info"/>
                             </c:when>
                             <c:otherwise>
@@ -65,15 +65,15 @@
                         </c:choose>
                         <tr class="${classSuccess}">
                             <td>
-                                <a href="/country?id=${country.id}&getAction=searchById">${country.id}</a>
+                                <a href="/ticket-type?id=${ticketType.id}&getAction=searchById">${ticketType.id}</a>
                             </td>
-                            <td>${country.name}</td>
+                            <td>${ticketType.name}</td>
                             <td><a href="#" id="remove"
                                    onclick="
                                            document.getElementById('postAction').value = 'remove';
-                                           document.getElementById('idCountry').value = '${country.id}';
+                                           document.getElementById('idTicketType').value = '${ticketType.id}';
 
-                                           document.getElementById('countryForm').submit();
+                                           document.getElementById('ticketTypeForm').submit();
                                            "
                             >
                                 <span class="glyphicon glyphicon-trash"></span>
@@ -87,14 +87,14 @@
             <c:otherwise>
                 <br>
                 <div class="alert alert-info">
-                    No countries found matching your search criteria
+                    No ticket types found matching your search criteria
                 </div>
             </c:otherwise>
         </c:choose>
     </form>
-    <form action ="/country">
+    <form action ="/ticket-type">
         <input type="hidden" name="getAction" value="new"/>
-        <button type="submit" class="btn btn-primary  btn-md">New country</button>
+        <button type="submit" class="btn btn-primary  btn-md">New ticket type</button>
     </form>
 </div>
 </body>
