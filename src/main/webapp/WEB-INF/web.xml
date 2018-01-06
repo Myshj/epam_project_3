@@ -25,4 +25,8 @@
         <error-code>404</error-code>
         <location>/jsp/error/errorPage.jsp</location>
     </error-page>
+
+    <session-config>
+        <session-timeout>10</session-timeout>
+    </session-config>
 </web-app>
