@@ -1,6 +1,7 @@
 package orm.repository;
 
 import orm.Model;
+import orm.commands.CountingCommand;
 import orm.commands.GetEntityCommand;
 import orm.commands.ListEntitiesCommand;
 
@@ -17,6 +18,7 @@ public class Repository<T extends Model> {
     private DeleteCommand<T> deleteCommand;
     private GetByIdCommand<T> getByIdCommand;
     private GetAllCommand<T> getAllCommand;
+    private CountAllCommand<T> countAllCommand;
 
     public Repository(Class<T> clazz, Connection connection) throws SQLException {
         insertCommand = new InsertCommand<>(clazz, connection);
@@ -24,6 +26,7 @@ public class Repository<T extends Model> {
         deleteCommand = new DeleteCommand<>(clazz, connection);
         getByIdCommand = new GetByIdCommand<>(clazz, connection);
         getAllCommand = new GetAllCommand<>(clazz, connection);
+        countAllCommand = new CountAllCommand<>(clazz, connection);
     }
 
     public Optional<T> getById(long id) {
@@ -59,6 +62,19 @@ public class Repository<T extends Model> {
             updateCommand.execute(entity);
         } else {
             insertCommand.execute(entity);
+        }
+    }
+
+    public long count() {
+        return count(countAllCommand);
+    }
+
+    public long count(CountingCommand<T> countingCommand) {
+        try {
+            return countingCommand.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
         }
     }
 }
