@@ -1,5 +1,6 @@
 package launch.servlets.general.commands;
 
+import launch.servlets.admin.commands.generic.includers.IncludeAddress;
 import launch.servlets.admin.commands.generic.includers.IncludeListToRequest;
 import models.Exposition;
 import models.ModelNameManager;
@@ -22,6 +23,8 @@ public class SearchShowroomById extends ServletCommand {
             ModelNameManager.INSTANCE.pluralName(Exposition.class)
     );
 
+    private IncludeAddress addressIncluder = new IncludeAddress(this.servlet, "address");
+
     private FindActiveExpositionsByShowroom expositionFinder;
 
     public SearchShowroomById(HttpServlet servlet) {
@@ -43,22 +46,17 @@ public class SearchShowroomById extends ServletCommand {
                 Long.valueOf(request.getParameter("id"))
         ).orElse(null);
         request.setAttribute("showroom", showroom);
-        expositionIncluder.withList(
-                expositionFinder.withShowroom(showroom)
-                        .withDateTime(LocalDateTime.now())
-                        .execute()
-        ).accept(request, response);
 
-        request.setAttribute(
-                "address",
-                String.format(
-                        "%s, %s, %s, %s",
-                        showroom.getBuilding().getValue().getStreet().getValue().getCity().getValue().getCountry().getValue().getName(),
-                        showroom.getBuilding().getValue().getStreet().getValue().getCity().getValue().getName(),
-                        showroom.getBuilding().getValue().getStreet().getValue().getName(),
-                        showroom.getBuilding().getValue().getName()
-                )
-        );
+        if (showroom != null) {
+            expositionIncluder.withList(
+                    expositionFinder.withShowroom(showroom)
+                            .withDateTime(LocalDateTime.now())
+                            .execute()
+            ).accept(request, response);
+
+            addressIncluder.withBuilding(showroom.getBuilding().getValue())
+                    .accept(request, response);
+        }
 
         dispatcher("/jsp/general/observe-showroom.jsp").forward(request, response);
     }

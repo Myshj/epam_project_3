@@ -7,7 +7,7 @@ import orm.commands.CountingCommand;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class CountAllCommand<T extends Model> extends CountingCommand<T> {
+public final class CountAllCommand<T extends Model> extends CountingCommand<T> {
     public CountAllCommand(Class<T> clazz, Connection connection) throws SQLException {
         super(
                 clazz, connection,

@@ -80,7 +80,7 @@
                     <tr class="${classSuccess}">
                         <td>${status.index + 1}</td>
                         <td>
-                            <a href="/general/showroom?id=${showroom.id}&getAction=searchById">${showroom.name}</a>
+                            <a href="/general?id=${showroom.id}&getAction=searchShowroomById">${showroom.name}</a>
                         </td>
                         <td>${showroom.building.value.street.value.city.value.country.value.name}</td>
                         <td>${showroom.building.value.street.value.city.value.name}</td>

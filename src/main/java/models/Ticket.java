@@ -4,6 +4,7 @@ import orm.annotations.Column;
 import orm.annotations.Entity;
 import orm.fields.DecimalField;
 import orm.fields.ForeignKey;
+import orm.fields.StringField;
 
 import java.math.BigDecimal;
 
@@ -17,15 +18,18 @@ public class Ticket extends WebModel {
     private ForeignKey<TicketType> type = new ForeignKey<>(TicketType.class, false);
 
     private DecimalField price = new DecimalField(false);
+    private StringField currency = new StringField(false);
 
     public Ticket(
             Exposition exposition,
             TicketType type,
-            BigDecimal price
+            BigDecimal price,
+            String currency
     ) {
         this.exposition.setValue(exposition);
         this.type.setValue(type);
         this.price.setValue(price);
+        this.currency.setValue(currency);
     }
 
     public Ticket() {
@@ -41,5 +45,9 @@ public class Ticket extends WebModel {
 
     public DecimalField getPrice() {
         return price;
+    }
+
+    public StringField getCurrency() {
+        return currency;
     }
 }
