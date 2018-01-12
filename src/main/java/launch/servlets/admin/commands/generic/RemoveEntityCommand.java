@@ -9,16 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class RemoveById<T extends Model> extends ForwardingCommand<T> {
+public class RemoveEntityCommand<T extends Model> extends ForwardingCommand<T> {
     private String message;
 
-    public RemoveById(
+    public RemoveEntityCommand(
             HttpServlet servlet,
             Repository<T> repository,
-            ForwardList<T> forwardList,
+            ShowList<T> showList,
             String message
     ) {
-        super(servlet, repository, forwardList);
+        super(servlet, repository, showList);
         this.message = message;
     }
 
@@ -33,6 +33,6 @@ public class RemoveById<T extends Model> extends ForwardingCommand<T> {
                 ).orElse(null)
         );
         request.setAttribute("message", message);
-        forwardList.withList(repository.getAll()).execute(request, response);
+        showList.withList(repository.getAll()).execute(request, response);
     }
 }

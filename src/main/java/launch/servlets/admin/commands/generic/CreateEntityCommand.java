@@ -1,8 +1,8 @@
 package launch.servlets.admin.commands.generic;
 
 import orm.Model;
-import orm.RepositoryManager;
 import utils.HttpServletRequestToEntityConverter;
+import utils.RepositoryManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,20 +12,20 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.function.Function;
 
-public class CreateCommand<T extends Model> extends ForwardingCommand<T> {
+public class CreateEntityCommand<T extends Model> extends ForwardingCommand<T> {
     private String createdSuccessfullyMessage;
     private Function<HttpServletRequest, T> converter;
 
-    public CreateCommand(
+    public CreateEntityCommand(
             Class<T> clazz,
             HttpServlet servlet,
-            ForwardList<T> forwardList,
+            ShowList<T> showList,
             String createdSuccessfullyMessage
     ) {
         super(
                 servlet,
                 RepositoryManager.INSTANCE.get(clazz),
-                forwardList
+                showList
         );
         this.createdSuccessfullyMessage = createdSuccessfullyMessage;
         this.converter = new HttpServletRequestToEntityConverter<>(clazz);//RequestToModelConverterManager.INSTANCE.get(clazz);
@@ -42,6 +42,6 @@ public class CreateCommand<T extends Model> extends ForwardingCommand<T> {
         }
         request.setAttribute("id", newEntity.getId().get().orElse(null));
         request.setAttribute("message", createdSuccessfullyMessage);
-        forwardList.withList(repository.getAll()).execute(request, response);
+        showList.withList(repository.getAll()).execute(request, response);
     }
 }

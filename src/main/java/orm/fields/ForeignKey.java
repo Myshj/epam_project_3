@@ -1,7 +1,7 @@
 package orm.fields;
 
 import orm.Model;
-import orm.RepositoryManager;
+import utils.RepositoryManager;
 
 import java.util.Optional;
 

@@ -1,5 +1,6 @@
-package orm;
+package utils;
 
+import orm.Model;
 import orm.repository.Repository;
 
 import java.sql.SQLException;

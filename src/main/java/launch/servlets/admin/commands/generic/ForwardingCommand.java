@@ -6,14 +6,14 @@ import orm.repository.Repository;
 import javax.servlet.http.HttpServlet;
 
 public abstract class ForwardingCommand<T extends Model> extends ModelCommand<T> {
-    protected final ForwardList<T> forwardList;
+    protected final ShowList<T> showList;
 
     public ForwardingCommand(
             HttpServlet servlet,
             Repository<T> repository,
-            ForwardList<T> forwardList
+            ShowList<T> showList
     ) {
         super(servlet, repository);
-        this.forwardList = forwardList;
+        this.showList = showList;
     }
 }

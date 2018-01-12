@@ -2,7 +2,7 @@ package launch.servlets.general;
 
 import models.User;
 import models.commands.FindUserByEmailAndPassword;
-import orm.ConnectionManager;
+import utils.ConnectionManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

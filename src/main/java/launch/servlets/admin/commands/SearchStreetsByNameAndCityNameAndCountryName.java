@@ -1,11 +1,11 @@
 package launch.servlets.admin.commands;
 
-import launch.servlets.admin.commands.generic.ForwardList;
 import launch.servlets.admin.commands.generic.ForwardingCommand;
+import launch.servlets.admin.commands.generic.ShowList;
 import models.commands.FindEntitiesByNameAndCityNameAndCountryName;
-import orm.ConnectionManager;
 import orm.Model;
 import orm.repository.Repository;
+import utils.ConnectionManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,9 +22,9 @@ public class SearchStreetsByNameAndCityNameAndCountryName<T extends Model> exten
             Class<T> clazz,
             HttpServlet servlet,
             Repository<T> repository,
-            ForwardList<T> forwardList
+            ShowList<T> showList
     ) {
-        super(servlet, repository, forwardList);
+        super(servlet, repository, showList);
         try {
             finder = new FindEntitiesByNameAndCityNameAndCountryName<>(
                     clazz,
@@ -54,6 +54,6 @@ public class SearchStreetsByNameAndCityNameAndCountryName<T extends Model> exten
         } catch (Exception e) {
             e.printStackTrace();
         }
-        forwardList.withList(result).execute(request, response);
+        showList.withList(result).execute(request, response);
     }
 }

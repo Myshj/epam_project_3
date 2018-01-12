@@ -2,7 +2,7 @@ package launch.servlets.admin.commands.generic.includers;
 
 import launch.servlets.admin.commands.generic.ModelCommand;
 import orm.Model;
-import orm.RepositoryManager;
+import utils.RepositoryManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

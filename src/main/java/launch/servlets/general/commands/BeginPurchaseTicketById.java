@@ -2,7 +2,7 @@ package launch.servlets.general.commands;
 
 import launch.servlets.admin.commands.generic.includers.IncludeAddress;
 import models.Ticket;
-import orm.RepositoryManager;
+import utils.RepositoryManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

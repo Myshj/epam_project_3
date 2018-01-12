@@ -1,8 +1,8 @@
 package launch.servlets.admin.commands.generic;
 
 import orm.Model;
-import orm.RepositoryManager;
 import utils.HttpServletRequestToEntityConverter;
+import utils.RepositoryManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,19 +13,19 @@ import java.lang.reflect.Constructor;
 import java.sql.SQLException;
 import java.util.function.Function;
 
-public class UpdateCommand<T extends Model> extends ForwardingCommand<T> {
+public class UpdateEntityCommand<T extends Model> extends ForwardingCommand<T> {
     Constructor<T> constructor;
     String updatedSuccessfullyMessage;
     //BiConsumer<T, HttpServletRequest> updater;
     Function<HttpServletRequest, T> updater;
 
-    public UpdateCommand(
+    public UpdateEntityCommand(
             Class<T> clazz,
             HttpServlet servlet,
-            ForwardList<T> forwardList,
+            ShowList<T> showList,
             String updatedSuccessfullyMessage
     ) {
-        super(servlet, RepositoryManager.INSTANCE.get(clazz), forwardList);
+        super(servlet, RepositoryManager.INSTANCE.get(clazz), showList);
         this.updatedSuccessfullyMessage = updatedSuccessfullyMessage;
         updater = new HttpServletRequestToEntityConverter<>(clazz);
         try {
@@ -46,6 +46,6 @@ public class UpdateCommand<T extends Model> extends ForwardingCommand<T> {
         }
         request.setAttribute("id", entity.getId().getValue());
         request.setAttribute("message", updatedSuccessfullyMessage);
-        forwardList.withList(repository.getAll()).execute(request, response);
+        showList.withList(repository.getAll()).execute(request, response);
     }
 }

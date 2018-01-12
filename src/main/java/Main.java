@@ -1,7 +1,7 @@
 import models.City;
 import models.Country;
-import orm.ConnectionManager;
 import orm.repository.Repository;
+import utils.ConnectionManager;
 
 import java.sql.SQLException;
 

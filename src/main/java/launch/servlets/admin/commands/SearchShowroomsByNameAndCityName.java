@@ -1,11 +1,11 @@
 package launch.servlets.admin.commands;
 
-import launch.servlets.admin.commands.generic.ForwardList;
 import launch.servlets.admin.commands.generic.ForwardingCommand;
+import launch.servlets.admin.commands.generic.ShowList;
 import models.Showroom;
 import models.commands.FindShowroomsByNameAndCityName;
-import orm.ConnectionManager;
 import orm.repository.Repository;
+import utils.ConnectionManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,9 +22,9 @@ public class SearchShowroomsByNameAndCityName extends ForwardingCommand<Showroom
             Class<Showroom> clazz,
             HttpServlet servlet,
             Repository<Showroom> repository,
-            ForwardList<Showroom> forwardList
+            ShowList<Showroom> showList
     ) {
-        super(servlet, repository, forwardList);
+        super(servlet, repository, showList);
         try {
             finder = new FindShowroomsByNameAndCityName(
                     clazz,
@@ -52,6 +52,6 @@ public class SearchShowroomsByNameAndCityName extends ForwardingCommand<Showroom
         } catch (Exception e) {
             e.printStackTrace();
         }
-        forwardList.withList(result).execute(request, response);
+        showList.withList(result).execute(request, response);
     }
 }

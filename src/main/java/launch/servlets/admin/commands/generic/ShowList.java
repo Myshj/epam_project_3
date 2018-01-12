@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class ForwardList<T extends Model> extends ModelCommand<T> {
+public class ShowList<T extends Model> extends ModelCommand<T> {
     private final String name;
     private IncludeListToRequest<T> includer;
 
-    public ForwardList(
+    public ShowList(
             HttpServlet servlet,
             Repository<T> repository,
             String name
@@ -26,7 +26,7 @@ public class ForwardList<T extends Model> extends ModelCommand<T> {
         this.includer = new IncludeListToRequest<>(servlet, name);
     }
 
-    public ForwardList withList(List<T> list) {
+    public ShowList withList(List<T> list) {
         includer.withList(list);
         return this;
     }

@@ -5,7 +5,7 @@ import models.Building;
 import models.City;
 import models.Country;
 import models.Street;
-import orm.RepositoryManager;
+import utils.RepositoryManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

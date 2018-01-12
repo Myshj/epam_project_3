@@ -2,11 +2,11 @@ package launch.servlets.general.commands;
 
 import launch.servlets.admin.commands.generic.includers.IncludeListToRequest;
 import models.Exposition;
-import models.ModelNameManager;
 import models.Ticket;
 import models.commands.FindTicketsByExposition;
-import orm.ConnectionManager;
-import orm.RepositoryManager;
+import utils.ConnectionManager;
+import utils.ModelNameManager;
+import utils.RepositoryManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

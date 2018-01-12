@@ -12,10 +12,10 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SearchById<T extends Model> extends ModelCommand<T> {
+public class ShowCreateFormCommand<T extends Model> extends ModelCommand<T> {
     private String name;
 
-    public SearchById(
+    public ShowCreateFormCommand(
             HttpServlet servlet,
             Repository<T> repository,
             String name
@@ -30,13 +30,6 @@ public class SearchById<T extends Model> extends ModelCommand<T> {
             HttpServletResponse response
     ) throws ServletException, IOException {
         try {
-            request.setAttribute(
-                    name,
-                    repository.getById(
-                            Integer.valueOf(request.getParameter("id"))
-                    ).orElse(null)
-            );
-            request.setAttribute("action", "edit");
             dispatcher(
                     String.format(
                             ResourceManager.URLS.get("newEntityTemplate"),
