@@ -25,7 +25,7 @@
                 <tr>
                     <th>Showroom:</th>
                     <td>
-                        <a href="/general?getAction=searchShowroomById&id=${exposition.place.value.id}"
+                        <a href="/common/search_showroom?id=${exposition.place.value.id}"
                         >${exposition.place.value.name}</a>
                     </td>
                 </tr>
@@ -44,7 +44,7 @@
                         <ul>
                             <c:forEach var="ticket" items="${tickets}" varStatus="status">
                                 <li>
-                                    <a href="/general?getAction=searchTicketById&id=${ticket.id}"
+                                    <a href="/common/search_ticket?id=${ticket.id}"
                                     >${ticket.type.value.name}, ${ticket.currency}, ${ticket.price}</a>
                                 </li>
                             </c:forEach>

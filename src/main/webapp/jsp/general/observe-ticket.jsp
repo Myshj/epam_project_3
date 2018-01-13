@@ -21,7 +21,7 @@
                 <tr>
                     <th>Exposition:</th>
                     <td>
-                        <a href="/general?getAction=searchExpositionById&id=${ticket.exposition.value.id}"
+                        <a href="/common/search_exposition?id=${ticket.exposition.value.id}"
                         >${ticket.exposition.value.name}</a>
                     </td>
                 </tr>
@@ -34,7 +34,7 @@
                     <td>${ticket.currency}, ${ticket.price}</td>
                 </tr>
             </table>
-            <form action="/general?getAction=purchaseTicketById&id=${ticket.id}" role="form">
+            <form action="/common/purchase_ticket?id=${ticket.id}" role="form">
                 <div class="form-group col-xs-4">
                     <button type="submit" class="btn btn-primary  btn-md">Purchase</button>
                 </div>

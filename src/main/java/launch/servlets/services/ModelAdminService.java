@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServlet;
 import java.util.Arrays;
 
 public class ModelAdminService<T extends WebModel> extends ServletService {
+    static {
+        System.out.println("service static");
+    }
 
     private final Class<T> clazz;
 
@@ -22,7 +25,13 @@ public class ModelAdminService<T extends WebModel> extends ServletService {
 
     public ModelAdminService(HttpServlet servlet, Class<T> clazz) {
         super(servlet);
+        System.out.println("service constructor");
         this.clazz = clazz;
+        try {
+            getClass().getClassLoader().loadClass(clazz.getName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         repository = RepositoryManager.INSTANCE.get(clazz);
         showList = new ShowList<>(this.servlet, repository, pluralName());
         init();

@@ -1,44 +1,21 @@
-package launch.servlets.general;
+package launch.servlets.general.commands;
 
 import models.User;
 import models.commands.FindUserByEmailAndPassword;
 import utils.ConnectionManager;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet(
-        name = "LoginServlet",
-        urlPatterns = {"/login"}
-)
-public class LoginServlet extends HttpServlet {
+public class AuthorizationCommand extends ServletCommand {
     private FindUserByEmailAndPassword command;
 
     @Override
-    public void init() throws ServletException {
-        super.init();
-        try {
-            command = new FindUserByEmailAndPassword(
-                    User.class,
-                    ConnectionManager.INSTANCE.get()
-            );
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/jsp/login.jsp").forward(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
@@ -57,5 +34,17 @@ public class LoginServlet extends HttpServlet {
         }
 
         request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
+    }
+
+    public AuthorizationCommand(HttpServlet servlet) {
+        super(servlet);
+        try {
+            command = new FindUserByEmailAndPassword(
+                    User.class,
+                    ConnectionManager.INSTANCE.get()
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -9,9 +9,9 @@ public class AdminService extends ServletService {
     public AdminService(HttpServlet servlet) {
         super(servlet);
         ModelNameManager.INSTANCE.classes().forEach(
-                c -> commands.put(
+                c -> registerCommand(
                         String.format(
-                                "/admin/%s/",
+                                "/admin/%s/.*",
                                 ModelNameManager.INSTANCE.singularName(c)
                         ),
                         new ModelAdminService(servlet, c)

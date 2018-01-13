@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="container">
-    <form action="/login" method="post" role="form" data-toggle="validator">
+    <form action="/login/confirm" method="post" role="form" data-toggle="validator">
         <input type="hidden" id="idUser" name="id" value="${user.id}"/>
         <h2>Login</h2>
         <div class="form-group col-xs-4">

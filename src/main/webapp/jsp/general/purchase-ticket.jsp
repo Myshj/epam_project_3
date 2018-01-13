@@ -21,7 +21,7 @@
                 <tr>
                     <th>Exposition:</th>
                     <td>
-                        <a href="/general?getAction=searchExpositionById&id=${ticket.exposition.value.id}"
+                        <a href="/common/search_exposition?id=${ticket.exposition.value.id}"
                         >${ticket.exposition.value.name}</a>
                     </td>
                 </tr>
@@ -46,7 +46,7 @@
                     <td>${ticket.currency}, ${ticket.price}</td>
                 </tr>
             </table>
-            <form action="/general" method="post" role="form">
+            <form action="/common/confirm_purchase" method="post" role="form">
                 <input type="hidden" name="postAction" value="purchaseTicketById"/>
                 <input type="hidden" name="id" value="${ticket.id}">
                 <div class="form-group col-xs-4">

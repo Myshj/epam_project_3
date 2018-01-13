@@ -21,32 +21,6 @@
 <body>
 <div class="container">
     <h2>Showrooms</h2>
-    <!--Search Form -->
-    <%--<form action="/general/showroom" method="get" id="searchShowroomForm" role="form">--%>
-    <%--<input type="hidden" id="getAction" name="getAction" value="searchByNameAndCityName">--%>
-    <%--<div class="form-group col-xs-5">--%>
-    <%--<input type="text"--%>
-    <%--name="name"--%>
-    <%--id="showroomName"--%>
-    <%--class="form-control"--%>
-    <%--placeholder="Type the Name of the showroom"--%>
-    <%--/>--%>
-    <%--<input type="text"--%>
-    <%--name="cityName"--%>
-    <%--id="cityName"--%>
-    <%--class="form-control"--%>
-    <%--placeholder="Type the Name of the city"--%>
-    <%--/>--%>
-    <%--</div>--%>
-
-    <%--<button type="submit" class="btn btn-info">--%>
-    <%--<span class="glyphicon glyphicon-search"></span> Search--%>
-    <%--</button>--%>
-    <%--<br>--%>
-    <%--<br>--%>
-    <%--</form>--%>
-
-    <!--Showrooms List-->
     <c:choose>
         <c:when test="${not empty showrooms}">
             <table class="table table-striped table-bordered">
@@ -80,7 +54,7 @@
                     <tr class="${classSuccess}">
                         <td>${status.index + 1}</td>
                         <td>
-                            <a href="/general?id=${showroom.id}&getAction=searchShowroomById">${showroom.name}</a>
+                            <a href="/common/search_showroom?id=${showroom.id}">${showroom.name}</a>
                         </td>
                         <td>${showroom.building.value.street.value.city.value.country.value.name}</td>
                         <td>${showroom.building.value.street.value.city.value.name}</td>

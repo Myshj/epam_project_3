@@ -32,7 +32,7 @@
                         <ul>
                             <c:forEach var="exposition" items="${expositions}" varStatus="status">
                                 <li>
-                                    <a href="/general?getAction=searchExpositionById&id=${exposition.id}">${exposition.name}</a>
+                                    <a href="/common/search_exposition?id=${exposition.id}">${exposition.name}</a>
                                 </li>
                             </c:forEach>
                         </ul>

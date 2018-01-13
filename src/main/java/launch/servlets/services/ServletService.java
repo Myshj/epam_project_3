@@ -10,7 +10,7 @@ import java.util.function.BiConsumer;
 
 public abstract class ServletService implements BiConsumer<HttpServletRequest, HttpServletResponse> {
 
-    final Map<String, BiConsumer<HttpServletRequest, HttpServletResponse>> commands = new HashMap<>();
+    private final Map<String, BiConsumer<HttpServletRequest, HttpServletResponse>> commands = new HashMap<>();
     final HttpServlet servlet;
 
     void registerCommand(String pattern, BiConsumer<HttpServletRequest, HttpServletResponse> command) {
@@ -41,7 +41,7 @@ public abstract class ServletService implements BiConsumer<HttpServletRequest, H
 
     @Override
     public final void accept(HttpServletRequest request, HttpServletResponse response) {
-        commands.keySet().stream().filter(request.getRequestURI()::startsWith)
+        commands.keySet().stream().filter(request.getRequestURI()::matches)
                 .map(commands::get)
                 .forEach(c -> c.accept(request, response));
     }
