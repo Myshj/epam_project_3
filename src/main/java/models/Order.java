@@ -8,16 +8,20 @@ import orm.fields.TimeStampField;
 import java.time.LocalDateTime;
 
 @Entity(table = "orders")
+@EntityNames(singular = "order", plural = "orders")
 public class Order extends WebModel {
     private TimeStampField made = new TimeStampField(false);
 
     @Column(name = "ticket_id")
+    @Relatives(pluralName = "tickets")
     private ForeignKey<Ticket> ticket = new ForeignKey<>(Ticket.class, false);
 
     @Column(name = "user_id")
+    @Relatives(pluralName = "users")
     private ForeignKey<User> user = new ForeignKey<>(User.class, false);
 
     @Column(name = "state_id")
+    @Relatives(pluralName = "orderStates")
     private ForeignKey<OrderState> state = new ForeignKey<>(OrderState.class, false);
 
     public Order() {

@@ -41,9 +41,9 @@
                 <tr>
                     <th>Tickets:</th>
                     <td>
-                        <ul>
+                        <ul class="list-group">
                             <c:forEach var="ticket" items="${tickets}" varStatus="status">
-                                <li>
+                                <li class="list-group-item">
                                     <a href="/common/search_ticket?id=${ticket.id}"
                                     >${ticket.type.value.name}, ${ticket.currency}, ${ticket.price}</a>
                                 </li>

@@ -9,8 +9,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
-    <script src="../../js/bootstrap.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -29,13 +37,67 @@
                 <tr>
                     <th>Expositions:</th>
                     <td>
-                        <ul>
-                            <c:forEach var="exposition" items="${expositions}" varStatus="status">
-                                <li>
-                                    <a href="/common/search_exposition?id=${exposition.id}">${exposition.name}</a>
-                                </li>
-                            </c:forEach>
-                        </ul>
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"
+                                        >Active <span class="badge">${activeExpositions.size()}</span></a>
+
+                                    </h4>
+                                </div>
+                                <div id="collapse1" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        <ul class="list-group">
+                                            <c:forEach var="exposition" items="${activeExpositions}" varStatus="status">
+                                                <li class="list-group-item">
+                                                    <a href="/common/search_exposition?id=${exposition.id}">${exposition.name}</a>
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"
+                                        >Planned <span class="badge">${plannedExpositions.size()}</span></a>
+                                    </h4>
+                                </div>
+                                <div id="collapse2" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <ul class="list-group">
+                                            <c:forEach var="exposition" items="${plannedExpositions}"
+                                                       varStatus="status">
+                                                <li class="list-group-item">
+                                                    <a href="/common/search_exposition?id=${exposition.id}">${exposition.name}</a>
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3"
+                                        >Old <span class="badge">${oldExpositions.size()}</span></a>
+                                    </h4>
+                                </div>
+                                <div id="collapse3" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <ul class="list-group">
+                                            <c:forEach var="exposition" items="${oldExpositions}" varStatus="status">
+                                                <li class="list-group-item">
+                                                    <a href="/common/search_exposition?id=${exposition.id}">${exposition.name}</a>
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             </table>

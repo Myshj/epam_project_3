@@ -4,6 +4,7 @@ import orm.annotations.Entity;
 import orm.fields.StringField;
 
 @Entity(table = "roles")
+@EntityNames(singular = "userRole", plural = "userRolea")
 public class UserRole extends WebModel {
     private StringField name = new StringField(false);
 

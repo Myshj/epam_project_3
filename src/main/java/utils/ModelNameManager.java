@@ -10,28 +10,19 @@ import java.util.Set;
 public enum ModelNameManager {
     INSTANCE;
 
-    private static class Names {
-        public final String singular;
-        public final String plural;
-
-        public Names(String singular, String plural) {
-            this.singular = singular;
-            this.plural = plural;
-        }
-    }
-
-    private Map<Class<? extends Model>, Names> names = new HashMap<Class<? extends Model>, Names>() {{
-        put(City.class, new Names("city", "cities"));
-        put(Country.class, new Names("country", "countries"));
-        put(Exposition.class, new Names("exposition", "expositions"));
-        put(Order.class, new Names("order", "orders"));
-        put(OrderState.class, new Names("orderState", "orderStates"));
-        put(Showroom.class, new Names("showroom", "showrooms"));
-        put(Street.class, new Names("street", "streets"));
-        put(Ticket.class, new Names("ticket", "tickets"));
-        put(TicketType.class, new Names("ticketType", "ticketTypes"));
-        put(User.class, new Names("user", "users"));
-        put(UserRole.class, new Names("userRole", "userRoles"));
+    private Map<Class<? extends Model>, ModelNames> names = new HashMap<Class<? extends Model>, ModelNames>() {{
+        put(City.class, new ModelNames("city", "cities"));
+        put(Building.class, new ModelNames("building", "buildings"));
+        put(Country.class, new ModelNames("country", "countries"));
+        put(Exposition.class, new ModelNames("exposition", "expositions"));
+        put(Order.class, new ModelNames("order", "orders"));
+        put(OrderState.class, new ModelNames("orderState", "orderStates"));
+        put(Showroom.class, new ModelNames("showroom", "showrooms"));
+        put(Street.class, new ModelNames("street", "streets"));
+        put(Ticket.class, new ModelNames("ticket", "tickets"));
+        put(TicketType.class, new ModelNames("ticketType", "ticketTypes"));
+        put(User.class, new ModelNames("user", "users"));
+        put(UserRole.class, new ModelNames("userRole", "userRoles"));
     }};
 
 

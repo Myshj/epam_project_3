@@ -11,9 +11,9 @@ import java.util.function.BiConsumer;
 public abstract class ServletService implements BiConsumer<HttpServletRequest, HttpServletResponse> {
 
     private final Map<String, BiConsumer<HttpServletRequest, HttpServletResponse>> commands = new HashMap<>();
-    final HttpServlet servlet;
+    protected final HttpServlet servlet;
 
-    void registerCommand(String pattern, BiConsumer<HttpServletRequest, HttpServletResponse> command) {
+    protected void registerCommand(String pattern, BiConsumer<HttpServletRequest, HttpServletResponse> command) {
         commands.putIfAbsent(pattern, command);
     }
 
@@ -27,7 +27,7 @@ public abstract class ServletService implements BiConsumer<HttpServletRequest, H
         commands.put(actionName, command.andThen(commands.get(actionName)));
     }
 
-    final void addCommandBefore(
+    protected final void addCommandBefore(
             List<String> actionNames,
             BiConsumer<HttpServletRequest, HttpServletResponse> command
     ) {
@@ -35,7 +35,7 @@ public abstract class ServletService implements BiConsumer<HttpServletRequest, H
     }
 
 
-    ServletService(HttpServlet servlet) {
+    protected ServletService(HttpServlet servlet) {
         this.servlet = servlet;
     }
 

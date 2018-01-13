@@ -6,11 +6,13 @@ import orm.fields.ForeignKey;
 import orm.fields.StringField;
 
 @Entity(table = "users")
+@EntityNames(singular = "user", plural = "users")
 public class User extends WebModel {
     private StringField email = new StringField(false);
     private StringField password = new StringField(false);
 
     @Column(name = "role_id")
+    @Relatives(pluralName = "userRoles")
     private ForeignKey<UserRole> role = new ForeignKey<>(UserRole.class, false);
 
     public User(

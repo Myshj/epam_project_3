@@ -9,12 +9,15 @@ import orm.fields.TimeStampField;
 import java.time.LocalDateTime;
 
 @Entity(table = "expositions")
+@EntityNames(singular = "exposition", plural = "expositions")
 public class Exposition extends WebModel {
 
     private StringField name = new StringField(false);
 
     @Column(name = "showroom_id")
+    @Relatives(pluralName = "places")
     private ForeignKey<Showroom> place = new ForeignKey<>(Showroom.class, false);
+
     private TimeStampField begins = new TimeStampField(false);
     private TimeStampField ends = new TimeStampField(false);
 

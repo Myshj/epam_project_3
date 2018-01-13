@@ -6,10 +6,13 @@ import orm.fields.ForeignKey;
 import orm.fields.StringField;
 
 @Entity(table = "cities")
+@EntityNames(singular = "city", plural = "cities")
 public class City extends WebModel {
 
     private StringField name = new StringField(false);
+
     @Column(name = "country_id")
+    @Relatives(pluralName = "countries")
     private ForeignKey<Country> country = new ForeignKey<>(Country.class, true);
 
     public City() {

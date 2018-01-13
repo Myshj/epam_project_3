@@ -9,12 +9,14 @@ import orm.fields.StringField;
 import java.math.BigDecimal;
 
 @Entity(table = "tickets")
+@EntityNames(singular = "ticket", plural = "tickets")
 public class Ticket extends WebModel {
 
     @Column(name = "exposition_id")
     private ForeignKey<Exposition> exposition = new ForeignKey<>(Exposition.class, false);
 
     @Column(name = "type_id")
+    @Relatives(pluralName = "ticketTypes")
     private ForeignKey<TicketType> type = new ForeignKey<>(TicketType.class, false);
 
     private DecimalField price = new DecimalField(false);

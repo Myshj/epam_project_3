@@ -6,11 +6,13 @@ import orm.fields.ForeignKey;
 import orm.fields.StringField;
 
 @Entity(table = "showrooms")
+@EntityNames(singular = "showroom", plural = "showrooms")
 public class Showroom extends WebModel {
 
     private StringField name = new StringField(false);
 
     @Column(name = "building_id")
+    @Relatives(pluralName = "buildings")
     private ForeignKey<Building> building = new ForeignKey<>(Building.class, false);
 
     public Showroom() {

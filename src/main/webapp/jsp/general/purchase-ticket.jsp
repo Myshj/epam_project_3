@@ -26,18 +26,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>Address:</th>
-                    <td>${address}</td>
-                </tr>
-                <tr>
-                    <th>Begins:</th>
-                    <td>${ticket.exposition.value.begins.asLocalDate()}</td>
-                </tr>
-                <tr>
-                    <th>Ends</th>
-                    <td>${ticket.exposition.value.ends.asLocalDate()}</td>
-                </tr>
-                <tr>
                     <th>Type:</th>
                     <td>${ticket.type.value.name}</td>
                 </tr>
@@ -46,10 +34,30 @@
                     <td>${ticket.currency}, ${ticket.price}</td>
                 </tr>
             </table>
+
             <form action="/common/confirm_purchase" method="post" role="form">
-                <input type="hidden" name="postAction" value="purchaseTicketById"/>
+
                 <input type="hidden" name="id" value="${ticket.id}">
                 <div class="form-group col-xs-4">
+                    <label for="userEmail"
+                           class="control-label col-xs-4"
+                    >Your email*:</label>
+                    <input type="email"
+                           id="userEmail"
+                           name="email"
+                           placeholder="example@example.com"
+                           class="form-control"
+                           required
+                    >
+                    <label for="userName"
+                           class="control-label col-xs-4"
+                    >Your name:</label>
+                    <input type="text"
+                           id="userName"
+                           name="name"
+                           class="form-control"
+                    >
+                    <br>
                     <button type="submit" class="btn btn-primary  btn-md">Confirm</button>
                 </div>
             </form>
