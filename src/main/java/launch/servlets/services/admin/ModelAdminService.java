@@ -24,11 +24,6 @@ public class ModelAdminService<T extends WebModel> extends ServletService {
         super(servlet);
         System.out.println("service constructor");
         this.clazz = clazz;
-        try {
-            getClass().getClassLoader().loadClass(clazz.getName());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
         repository = RepositoryManager.INSTANCE.get(clazz);
         showList = new ShowList<>(clazz, this.servlet, repository);
         init();

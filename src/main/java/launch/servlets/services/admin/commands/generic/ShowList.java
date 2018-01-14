@@ -40,10 +40,6 @@ public class ShowList<T extends Model> extends ModelCommand<T> {
         includer.execute(request, response);
         request.setAttribute("meta", meta);
         dispatcher(
-//                String.format(
-//                        ResourceManager.URLS.get("listEntitiesTemplate"),
-//                        name
-//                )
                 "/jsp/admin/list-entities.jsp"
 
         ).forward(request, response);

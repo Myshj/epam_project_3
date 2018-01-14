@@ -21,10 +21,6 @@ public class ShowAllCommand<T extends Model> extends ModelCommand<T> {
         includeAll.accept(request, response);
         request.setAttribute("meta", meta);
         dispatcher(
-//                String.format(
-//                        ResourceManager.URLS.get("listEntitiesTemplate"),
-//                        name
-//                )
                 "/jsp/admin/list-entities.jsp"
 
         ).forward(request, response);

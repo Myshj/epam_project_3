@@ -38,14 +38,9 @@ public class ShowUpdateFormCommand<T extends Model> extends ModelCommand<T> {
                     "entity",
                     entity
             );
-            //request.setAttribute("action", "edit"); OLD
             request.setAttribute("action", "update");
             request.setAttribute("meta", meta);
             dispatcher(
-//                    String.format(
-//                            ResourceManager.URLS.get("newEntityTemplate"),
-//                            name
-//                    ) OLD
                     "/jsp/admin/edit-entity.jsp"
 
             ).forward(request, response);

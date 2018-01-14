@@ -9,15 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.sql.SQLException;
 import java.util.function.Function;
 
 public class UpdateEntityCommand<T extends Model> extends ForwardingCommand<T> {
-    Constructor<T> constructor;
-    String updatedSuccessfullyMessage;
-    //BiConsumer<T, HttpServletRequest> updater;
-    Function<HttpServletRequest, T> updater;
+    private String updatedSuccessfullyMessage;
+    private Function<HttpServletRequest, T> updater;
 
     public UpdateEntityCommand(
             Class<T> clazz,
@@ -28,11 +25,6 @@ public class UpdateEntityCommand<T extends Model> extends ForwardingCommand<T> {
         super(servlet, RepositoryManager.INSTANCE.get(clazz), showList);
         this.updatedSuccessfullyMessage = updatedSuccessfullyMessage;
         updater = new HttpServletRequestToEntityConverter<>(clazz);
-        try {
-            constructor = clazz.getDeclaredConstructor();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

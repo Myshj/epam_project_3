@@ -33,10 +33,6 @@ public class ShowCreateFormCommand<T extends Model> extends ModelCommand<T> {
         try {
             request.setAttribute("meta", meta);
             dispatcher(
-//                    String.format(
-//                            ResourceManager.URLS.get("newEntityTemplate"),
-//                            name
-//                    )
                     "/jsp/admin/edit-entity.jsp"
 
             ).forward(request, response);

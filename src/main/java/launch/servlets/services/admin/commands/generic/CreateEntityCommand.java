@@ -28,7 +28,7 @@ public class CreateEntityCommand<T extends Model> extends ForwardingCommand<T> {
                 showList
         );
         this.createdSuccessfullyMessage = createdSuccessfullyMessage;
-        this.converter = new HttpServletRequestToEntityConverter<>(clazz);//RequestToModelConverterManager.INSTANCE.get(clazz);
+        this.converter = new HttpServletRequestToEntityConverter<>(clazz);
     }
 
     @Override
