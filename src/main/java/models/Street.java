@@ -24,7 +24,11 @@ public class Street extends WebModel {
     }
 
     public Street() {
+    }
 
+    @Override
+    public String getDisplayName() {
+        return name.getValue();
     }
 
     public StringField getName() {

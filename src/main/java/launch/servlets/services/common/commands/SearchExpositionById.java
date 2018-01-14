@@ -6,8 +6,8 @@ import models.Exposition;
 import models.Ticket;
 import models.commands.FindTicketsByExposition;
 import utils.ConnectionManager;
-import utils.ModelNameManager;
 import utils.RepositoryManager;
+import utils.meta.MetaInfoManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +19,7 @@ import java.sql.SQLException;
 public class SearchExpositionById extends ServletCommand {
     private FindTicketsByExposition ticketsFinder;
     private IncludeListToRequest<Ticket> ticketIncluder = new IncludeListToRequest<>(
-            this.servlet, ModelNameManager.INSTANCE.pluralName(Ticket.class)
+            this.servlet, MetaInfoManager.INSTANCE.get(Ticket.class).getNames().getPlural()
     );
 
     @Override

@@ -12,4 +12,5 @@ public abstract class Model {
         return id;
     }
 
+    public abstract String getDisplayName();
 }

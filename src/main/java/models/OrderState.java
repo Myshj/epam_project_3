@@ -17,6 +17,11 @@ public class OrderState extends WebModel {
     public OrderState() {
     }
 
+    @Override
+    public String getDisplayName() {
+        return name.getValue();
+    }
+
     public StringField getName() {
         return name;
     }

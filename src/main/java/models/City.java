@@ -23,6 +23,11 @@ public class City extends WebModel {
         this.country.setValue(country);
     }
 
+    @Override
+    public String getDisplayName() {
+        return name.getValue();
+    }
+
     public StringField getName() {
         return name;
     }

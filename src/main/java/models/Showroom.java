@@ -26,6 +26,11 @@ public class Showroom extends WebModel {
         this.building.setValue(building);
     }
 
+    @Override
+    public String getDisplayName() {
+        return name.getValue();
+    }
+
     public StringField getName() {
         return name;
     }

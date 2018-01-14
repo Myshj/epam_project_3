@@ -3,7 +3,8 @@ package launch.servlets.services.admin.commands.generic;
 import launch.servlets.services.admin.commands.generic.includers.IncludeAll;
 import orm.Model;
 import utils.RepositoryManager;
-import utils.ResourceManager;
+import utils.meta.MetaInfoManager;
+import utils.meta.ModelMetaInfo;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,23 +14,25 @@ import java.io.IOException;
 
 public class ShowAllCommand<T extends Model> extends ModelCommand<T> {
     private IncludeAll<T> includeAll;
-    private String name;
+    private ModelMetaInfo meta;
 
     @Override
     protected void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         includeAll.accept(request, response);
+        request.setAttribute("meta", meta);
         dispatcher(
-                String.format(
-                        ResourceManager.URLS.get("listEntitiesTemplate"),
-                        name
-                )
+//                String.format(
+//                        ResourceManager.URLS.get("listEntitiesTemplate"),
+//                        name
+//                )
+                "/jsp/admin/list-entities.jsp"
 
         ).forward(request, response);
     }
 
-    public ShowAllCommand(Class<T> clazz, HttpServlet servlet, String name) {
+    public ShowAllCommand(Class<T> clazz, HttpServlet servlet) {
         super(servlet, RepositoryManager.INSTANCE.get(clazz));
-        this.includeAll = new IncludeAll<>(clazz, servlet, name);
-        this.name = name;
+        meta = MetaInfoManager.INSTANCE.get(clazz);
+        includeAll = new IncludeAll<>(clazz, servlet, "entities");
     }
 }

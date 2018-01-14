@@ -7,8 +7,8 @@ import models.Exposition;
 import models.Showroom;
 import models.commands.FindExpositionsByShowroom;
 import utils.ConnectionManager;
-import utils.ModelNameManager;
 import utils.RepositoryManager;
+import utils.meta.MetaInfoManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class SearchShowroomById extends ServletCommand {
     private IncludeListToRequest<Exposition> expositionIncluder = new IncludeListToRequest<>(
             this.servlet,
-            ModelNameManager.INSTANCE.pluralName(Exposition.class)
+            MetaInfoManager.INSTANCE.get(Exposition.class).getNames().getPlural()
     );
 
     private IncludeAddress addressIncluder = new IncludeAddress(this.servlet, "address");

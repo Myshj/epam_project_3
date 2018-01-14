@@ -2,6 +2,7 @@ package utils;
 
 import models.*;
 import orm.Model;
+import utils.meta.ModelNames;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,11 +28,11 @@ public enum ModelNameManager {
 
 
     public String singularName(Class<? extends Model> clazz) {
-        return names.get(clazz).singular;
+        return names.get(clazz).getSingular();
     }
 
     public String pluralName(Class<? extends Model> clazz) {
-        return names.get(clazz).plural;
+        return names.get(clazz).getPlural();
     }
 
 

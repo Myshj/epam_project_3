@@ -28,6 +28,11 @@ public class User extends WebModel {
     public User() {
     }
 
+    @Override
+    public String getDisplayName() {
+        return email.getValue();
+    }
+
     public StringField getEmail() {
         return email;
     }

@@ -40,6 +40,11 @@ public class Order extends WebModel {
 
     }
 
+    @Override
+    public String getDisplayName() {
+        return made.asLocalDateTime().toString();
+    }
+
     public TimeStampField getMade() {
         return made;
     }

@@ -8,6 +8,10 @@ import orm.fields.StringField;
 @Entity(table = "buildings")
 @EntityNames(singular = "building", plural = "buildings")
 public class Building extends WebModel {
+    @Override
+    public String getDisplayName() {
+        return name.getValue();
+    }
 
     private StringField name = new StringField(false);
 

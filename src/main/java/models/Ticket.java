@@ -37,6 +37,11 @@ public class Ticket extends WebModel {
     public Ticket() {
     }
 
+    @Override
+    public String getDisplayName() {
+        return String.format("%s, %s", exposition.getValue().getDisplayName(), type.getValue().getDisplayName());
+    }
+
     public ForeignKey<Exposition> getExposition() {
         return exposition;
     }

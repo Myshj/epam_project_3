@@ -16,6 +16,11 @@ public class Country extends WebModel {
     public Country() {
     }
 
+    @Override
+    public String getDisplayName() {
+        return name.getValue();
+    }
+
     public StringField getName() {
         return name;
     }

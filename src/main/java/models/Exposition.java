@@ -36,6 +36,11 @@ public class Exposition extends WebModel {
     public Exposition() {
     }
 
+    @Override
+    public String getDisplayName() {
+        return name.getValue();
+    }
+
     public StringField getName() {
         return name;
     }

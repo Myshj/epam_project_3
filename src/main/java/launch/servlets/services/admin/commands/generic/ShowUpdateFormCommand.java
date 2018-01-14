@@ -2,7 +2,8 @@ package launch.servlets.services.admin.commands.generic;
 
 import orm.Model;
 import orm.repository.Repository;
-import utils.ResourceManager;
+import utils.meta.MetaInfoManager;
+import utils.meta.ModelMetaInfo;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,15 +14,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ShowUpdateFormCommand<T extends Model> extends ModelCommand<T> {
-    private String name;
+    private ModelMetaInfo meta;
 
     public ShowUpdateFormCommand(
+            Class<T> clazz,
             HttpServlet servlet,
-            Repository<T> repository,
-            String name
+            Repository<T> repository
     ) {
         super(servlet, repository);
-        this.name = name;
+        meta = MetaInfoManager.INSTANCE.get(clazz);
     }
 
     @Override
@@ -30,18 +31,22 @@ public class ShowUpdateFormCommand<T extends Model> extends ModelCommand<T> {
             HttpServletResponse response
     ) throws ServletException, IOException {
         try {
+            T entity = repository.getById(
+                    Long.valueOf(request.getParameter("id"))
+            ).orElse(null);
             request.setAttribute(
-                    name,
-                    repository.getById(
-                            Integer.valueOf(request.getParameter("id"))
-                    ).orElse(null)
+                    "entity",
+                    entity
             );
-            request.setAttribute("action", "edit");
+            //request.setAttribute("action", "edit"); OLD
+            request.setAttribute("action", "update");
+            request.setAttribute("meta", meta);
             dispatcher(
-                    String.format(
-                            ResourceManager.URLS.get("newEntityTemplate"),
-                            name
-                    )
+//                    String.format(
+//                            ResourceManager.URLS.get("newEntityTemplate"),
+//                            name
+//                    ) OLD
+                    "/jsp/admin/edit-entity.jsp"
 
             ).forward(request, response);
         } catch (Exception ex) {

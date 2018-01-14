@@ -5,18 +5,15 @@ import launch.servlets.services.admin.commands.generic.*;
 import launch.servlets.services.admin.commands.generic.includers.IncludeAll;
 import models.WebModel;
 import orm.repository.Repository;
-import utils.ModelNameManager;
 import utils.RelationsManager;
 import utils.RepositoryManager;
 import utils.ResourceManager;
+import utils.meta.MetaInfoManager;
 
 import javax.servlet.http.HttpServlet;
 import java.util.Arrays;
 
 public class ModelAdminService<T extends WebModel> extends ServletService {
-    static {
-        System.out.println("service static");
-    }
 
     private final Class<T> clazz;
 
@@ -34,17 +31,17 @@ public class ModelAdminService<T extends WebModel> extends ServletService {
             e.printStackTrace();
         }
         repository = RepositoryManager.INSTANCE.get(clazz);
-        showList = new ShowList<>(this.servlet, repository, pluralName());
+        showList = new ShowList<>(clazz, this.servlet, repository);
         init();
     }
 
 
     private String singularName() {
-        return ModelNameManager.INSTANCE.singularName(clazz);
+        return MetaInfoManager.INSTANCE.get(clazz).getNames().getSingular();
     }
 
     private String pluralName() {
-        return ModelNameManager.INSTANCE.pluralName(clazz);
+        return MetaInfoManager.INSTANCE.get(clazz).getNames().getPlural();
     }
 
     private String message(String action) {
@@ -54,15 +51,15 @@ public class ModelAdminService<T extends WebModel> extends ServletService {
     private void init() {
         registerCommand(
                 String.format("/admin/%s/show_all", singularName()),
-                new ShowAllCommand<>(clazz, this.servlet, pluralName())
+                new ShowAllCommand<>(clazz, this.servlet)
         );
         registerCommand(
                 String.format("/admin/%s/show_update_form", singularName()),
-                new ShowUpdateFormCommand<>(this.servlet, repository, singularName())
+                new ShowUpdateFormCommand<>(clazz, this.servlet, repository)
         );
         registerCommand(
                 String.format("/admin/%s/show_create_form", singularName()),
-                new ShowCreateFormCommand<>(this.servlet, repository, singularName())
+                new ShowCreateFormCommand<>(clazz, this.servlet, repository)
         );
         registerCommand(
                 String.format("/admin/%s/create", singularName()),

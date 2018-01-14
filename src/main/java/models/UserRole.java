@@ -4,7 +4,7 @@ import orm.annotations.Entity;
 import orm.fields.StringField;
 
 @Entity(table = "roles")
-@EntityNames(singular = "userRole", plural = "userRolea")
+@EntityNames(singular = "userRole", plural = "userRoles")
 public class UserRole extends WebModel {
     private StringField name = new StringField(false);
 
@@ -15,6 +15,11 @@ public class UserRole extends WebModel {
     }
 
     public UserRole() {
+    }
+
+    @Override
+    public String getDisplayName() {
+        return name.getValue();
     }
 
     public StringField getName() {

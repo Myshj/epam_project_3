@@ -17,6 +17,11 @@ public class TicketType extends WebModel {
     public TicketType() {
     }
 
+    @Override
+    public String getDisplayName() {
+        return name.getValue();
+    }
+
     public StringField getName() {
         return name;
     }

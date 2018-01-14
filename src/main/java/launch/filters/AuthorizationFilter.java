@@ -4,14 +4,13 @@ import models.UserRole;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(
-        filterName = "AuthorizationFilter",
-        urlPatterns = {"/admin/*"}
-)
+//@WebFilter(
+//        filterName = "AuthorizationFilter",
+//        urlPatterns = {"/admin/*"}
+//)
 public class AuthorizationFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

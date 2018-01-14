@@ -10,8 +10,8 @@ import models.commands.GetCountOfOldExpositions;
 import models.commands.GetCountOfPlannedExpositions;
 import orm.repository.Repository;
 import utils.ConnectionManager;
-import utils.ModelNameManager;
 import utils.RepositoryManager;
+import utils.meta.MetaInfoManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,7 +29,7 @@ public class ShowMainPage extends ServletCommand {
     private IncludeAll<Showroom> showroomsIncluder = new IncludeAll<>(
             Showroom.class,
             this.servlet,
-            ModelNameManager.INSTANCE.pluralName(Showroom.class)
+            MetaInfoManager.INSTANCE.get(Showroom.class).getNames().getPlural()
     );
 
 
