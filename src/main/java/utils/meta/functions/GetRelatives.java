@@ -1,6 +1,6 @@
 package utils.meta.functions;
 
-import models.Relatives;
+import models.annotations.Relatives;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import orm.Model;
 

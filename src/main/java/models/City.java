@@ -1,5 +1,7 @@
 package models;
 
+import models.annotations.EntityNames;
+import models.annotations.Relatives;
 import orm.annotations.Column;
 import orm.annotations.Entity;
 import orm.fields.ForeignKey;

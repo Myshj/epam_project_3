@@ -1,5 +1,6 @@
 package models;
 
+import models.annotations.EntityNames;
 import orm.annotations.Entity;
 import orm.fields.StringField;
 

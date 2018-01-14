@@ -1,6 +1,6 @@
 package utils.meta.functions;
 
-import models.Relatives;
+import models.annotations.Relatives;
 import orm.Model;
 import orm.OrmFieldUtils;
 import orm.fields.SimpleOrmField;

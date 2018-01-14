@@ -1,6 +1,6 @@
 package utils.meta.functions;
 
-import models.EntityNames;
+import models.annotations.EntityNames;
 import orm.Model;
 import utils.meta.ModelNames;
 

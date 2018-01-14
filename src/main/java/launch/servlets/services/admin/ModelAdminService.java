@@ -5,7 +5,6 @@ import launch.servlets.services.admin.commands.generic.*;
 import launch.servlets.services.admin.commands.generic.includers.IncludeAll;
 import models.WebModel;
 import orm.repository.Repository;
-import utils.RelationsManager;
 import utils.RepositoryManager;
 import utils.ResourceManager;
 import utils.meta.MetaInfoManager;
@@ -79,7 +78,7 @@ public class ModelAdminService<T extends WebModel> extends ServletService {
 
 
     private void rememberRelatives() {
-        RelationsManager.INSTANCE.get(clazz).forEach(
+        MetaInfoManager.INSTANCE.get(clazz).getRelatives().forEach(
                 (k, v) -> addCommandBefore(
                         Arrays.asList(
                                 String.format("/admin/%s/show_update_form", singularName()),
