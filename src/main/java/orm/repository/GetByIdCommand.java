@@ -7,14 +7,17 @@ import orm.commands.GetEntityCommand;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Selects entity by id.
+ *
+ * @param <T>
+ */
 final class GetByIdCommand<T extends Model> extends GetEntityCommand<T> {
-
-    //private long id;
 
     GetByIdCommand(
             Class<T> clazz,
             Connection connection
-    ) throws SQLException {
+    )  {
         super(
                 clazz, connection,
                 String.format(
@@ -25,7 +28,6 @@ final class GetByIdCommand<T extends Model> extends GetEntityCommand<T> {
     }
 
     GetByIdCommand<T> withId(long id) {
-        //this.id = id;
         try {
             statement.setLong(1, id);
         } catch (SQLException e) {

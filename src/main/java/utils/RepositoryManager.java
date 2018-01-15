@@ -3,7 +3,6 @@ package utils;
 import orm.Model;
 import orm.repository.Repository;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +16,7 @@ public enum RepositoryManager {
             Repository<T> r = new Repository<>(clazz, ConnectionManager.INSTANCE.get());
             repositories.putIfAbsent(clazz, r);
             return repositories.get(clazz);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             //e.printStackTrace();
             return null;
         }

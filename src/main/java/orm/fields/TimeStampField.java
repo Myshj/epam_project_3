@@ -4,6 +4,9 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * Stores TimeStamp value.
+ */
 public final class TimeStampField extends SimpleOrmField<Timestamp> {
     public TimeStampField(boolean nullable) {
         super(nullable);

@@ -10,14 +10,18 @@ import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
+/**
+ * Writes entity fields to the corresponding record in database.
+ *
+ * @param <T>
+ */
 final class UpdateCommand<T extends Model> extends CommandWithNoReturn<T> {
 
 
     public UpdateCommand(
             Class<T> clazz,
             Connection connection
-    ) throws SQLException {
-
+    ) {
         super(
                 clazz, connection,
                 String.format(

@@ -20,12 +20,8 @@ public class AuthorizationCommand extends ServletCommand {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        User user = null;
-        try {
-            user = command.withEmail(email).withPassword(password).execute().orElse(null);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        User user = command.withEmail(email).withPassword(password).execute().orElse(null);
+
 
         if (user != null) {
             request.getSession().setAttribute("user", user);

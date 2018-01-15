@@ -5,10 +5,14 @@ import orm.OrmFieldUtils;
 import orm.commands.CountingCommand;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
+/**
+ * Counts ALL entities in a table.
+ *
+ * @param <T>
+ */
 public final class CountAllCommand<T extends Model> extends CountingCommand<T> {
-    public CountAllCommand(Class<T> clazz, Connection connection) throws SQLException {
+    public CountAllCommand(Class<T> clazz, Connection connection) {
         super(
                 clazz, connection,
                 String.format(

@@ -23,11 +23,7 @@ public class Main {
         countryRepository.getById(3).ifPresent(
                 c -> {
                     c.getName().setValue("tatatandia");
-                    try {
-                        countryRepository.save(c);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                    countryRepository.save(c);
                 }
         );
 

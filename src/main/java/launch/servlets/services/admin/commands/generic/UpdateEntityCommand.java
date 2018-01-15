@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.function.Function;
 
 public class UpdateEntityCommand<T extends Model> extends ForwardingCommand<T> {
@@ -31,11 +30,8 @@ public class UpdateEntityCommand<T extends Model> extends ForwardingCommand<T> {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         T entity = updater.apply(request);
         entity.getId().setValue(Long.valueOf(request.getParameter("id")));
-        try {
-            repository.save(entity);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        repository.save(entity);
+
         request.setAttribute("id", entity.getId().getValue());
         request.setAttribute("message", updatedSuccessfullyMessage);
         showList.withList(repository.getAll()).execute(request, response);

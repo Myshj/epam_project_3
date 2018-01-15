@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.function.Function;
 
 public class CreateEntityCommand<T extends Model> extends ForwardingCommand<T> {
@@ -33,13 +32,8 @@ public class CreateEntityCommand<T extends Model> extends ForwardingCommand<T> {
 
     @Override
     public final void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        T newEntity = null;
-        try {
-            newEntity = converter.apply(request);
-            repository.save(newEntity);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        T newEntity = converter.apply(request);
+        repository.save(newEntity);
         request.setAttribute("id", newEntity.getId().get().orElse(null));
         request.setAttribute("message", createdSuccessfullyMessage);
         showList.withList(repository.getAll()).execute(request, response);
