@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * Returns metainfo about all fields of model.
+ */
 public class GetFields implements Function<Class<? extends Model>, Map<String, FieldMetaInfo>> {
     @Override
     public Map<String, FieldMetaInfo> apply(Class<? extends Model> clazz) {

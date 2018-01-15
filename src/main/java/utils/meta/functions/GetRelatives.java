@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * Returns all related classes referenced with ForeignKeys of models.
+ */
 public class GetRelatives implements Function<Class<? extends Model>, Map<String, Class<? extends Model>>> {
     @Override
     public Map<String, Class<? extends Model>> apply(Class<? extends Model> clazz) {

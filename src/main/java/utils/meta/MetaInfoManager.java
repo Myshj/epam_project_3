@@ -10,7 +10,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Stores metainfo about entities.
+ * Used in admin-related classes.
+ */
 public enum MetaInfoManager {
+    /**
+     * Add entity class to this list in order to have admin pages for it.
+     */
     INSTANCE(
             Country.class, City.class, Street.class, Building.class,
             Showroom.class, Exposition.class, Ticket.class, TicketType.class,
@@ -20,10 +27,18 @@ public enum MetaInfoManager {
 
     private final Map<Class<? extends Model>, ModelMetaInfo> infoMap = new HashMap<>();
 
+    /**
+     * @param clazz class of model
+     * @return model metainfo.
+     */
     public final ModelMetaInfo get(Class<? extends Model> clazz) {
         return infoMap.getOrDefault(clazz, null);
     }
 
+    /**
+     *
+     * @return set of all managed classes.
+     */
     public final Set<Class<? extends Model>> classes() {
         return infoMap.keySet();
     }

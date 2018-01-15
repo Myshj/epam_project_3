@@ -13,6 +13,11 @@ import java.sql.Timestamp;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * Makes entity from map.
+ *
+ * @param <T>
+ */
 public class MapToEntityConverter<T extends Model> implements Function<Map<String, Object>, T> {
     private Map<String, Field> fieldMap;
     private Constructor<T> constructor;
@@ -36,6 +41,12 @@ public class MapToEntityConverter<T extends Model> implements Function<Map<Strin
         return null;
     }
 
+    /**
+     * Writes fields represented by map into existing entity.
+     * @param entity entity to write fields to
+     * @param map map to read parameters from
+     * @return entity
+     */
     private T writeFields(T entity, Map<String, Object> map) {
         for (Map.Entry<String, Field> pair : fieldMap.entrySet()) {
             Field f = pair.getValue();

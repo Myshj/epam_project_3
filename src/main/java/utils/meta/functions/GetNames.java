@@ -6,6 +6,9 @@ import utils.meta.ModelNames;
 
 import java.util.function.Function;
 
+/**
+ * Returns names of a given entity.
+ */
 public class GetNames implements Function<Class<? extends Model>, ModelNames> {
     @Override
     public ModelNames apply(Class<? extends Model> clazz) {

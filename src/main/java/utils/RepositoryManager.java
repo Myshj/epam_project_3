@@ -6,11 +6,21 @@ import orm.repository.Repository;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Stores model repositories.
+ */
 public enum RepositoryManager {
     INSTANCE;
 
     private Map<Class, Repository> repositories = new HashMap<>();
 
+    /**
+     * Returns repository for a given model class.
+     *
+     * @param clazz class of model.
+     * @param <T>   class of model
+     * @return repository for a given model class
+     */
     public <T extends Model> Repository<T> get(Class<T> clazz) {
         try {
             Repository<T> r = new Repository<>(clazz, ConnectionManager.INSTANCE.get());

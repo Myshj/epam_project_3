@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * Converts ResultSet into a map.
+ */
 public class ResultSetToMapConverter implements Function<ResultSet, Map<String, Object>> {
     @Override
     public Map<String, Object> apply(ResultSet resultSet) {

@@ -5,6 +5,9 @@ import orm.fields.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Stores metainfo about field.
+ */
 public class FieldMetaInfo {
     private final static Map<Class<? extends SimpleOrmField>, String> stringTypes =
             new HashMap<Class<? extends SimpleOrmField>, String>() {{
@@ -19,18 +22,33 @@ public class FieldMetaInfo {
     private final String stringType;
     private final String relatedName;
 
+    /**
+     * @return corresponding database field
+     */
     public String getDbName() {
         return dbName;
     }
 
+    /**
+     *
+     * @return class of field.
+     */
     public Class<? extends SimpleOrmField> getReferenceType() {
         return referenceType;
     }
 
+    /**
+     * Used in list-entities.jsp and edit-entity.jsp.
+     * @return short string representation of field class.
+     */
     public String getStringType() {
         return stringType;
     }
 
+    /**
+     *
+     * @return referenced entity relation name if field is ForeignKey. null otherwise.
+     */
     public String getRelatedName() {
         return relatedName;
     }

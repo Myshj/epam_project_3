@@ -3,6 +3,9 @@ package utils;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Manages internationalized strings of different purposes.
+ */
 public enum ResourceManager {
     APPLICATION("application"),
     ACTIONS("actions"),

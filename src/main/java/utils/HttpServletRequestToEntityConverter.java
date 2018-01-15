@@ -14,6 +14,11 @@ import java.time.LocalDate;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * Makes entity from http request parameters.
+ *
+ * @param <T>
+ */
 public class HttpServletRequestToEntityConverter<T extends Model> implements Function<HttpServletRequest, T> {
 
     private Map<String, Field> fieldMap;
@@ -42,7 +47,14 @@ public class HttpServletRequestToEntityConverter<T extends Model> implements Fun
         return null;
     }
 
-    private T writeFields(T entity, HttpServletRequest map) {
+    /**
+     * Writes fields represented by http parameters into existing entity.
+     *
+     * @param entity  entity to write fields to
+     * @param request request to read parameters from
+     * @return entity
+     */
+    private T writeFields(T entity, HttpServletRequest request) {
         for (Map.Entry<String, Field> pair : fieldMap.entrySet()) {
             Field f = pair.getValue();
             if (!updateMapping.containsKey(f)) {
@@ -52,7 +64,7 @@ public class HttpServletRequestToEntityConverter<T extends Model> implements Fun
             Class type = f.getType();
             try {
                 Object realField = FieldUtils.readField(f, entity, true);
-                String value = map.getParameter(s);
+                String value = request.getParameter(s);
                 if (type == IntegerField.class) {
                     ((IntegerField) realField).setValue(Long.valueOf(value));
 
