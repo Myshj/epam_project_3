@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+/**
+ * Get count of over expositions.
+ */
 public class GetCountOfOldExpositions extends ExpositionCountingByDateCommand {
     public GetCountOfOldExpositions(Class<Exposition> clazz, Connection connection) throws SQLException {
         super(

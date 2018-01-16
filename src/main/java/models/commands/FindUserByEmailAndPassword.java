@@ -6,6 +6,9 @@ import orm.commands.GetEntityCommand;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Find user with given credentials.
+ */
 public class FindUserByEmailAndPassword extends GetEntityCommand<User> {
     public FindUserByEmailAndPassword withEmail(String email) {
         try {

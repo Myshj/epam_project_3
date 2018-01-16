@@ -7,6 +7,9 @@ import orm.commands.ListEntitiesCommand;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Select all expositions in showroom.
+ */
 public class FindExpositionsByShowroom extends ListEntitiesCommand<Exposition> {
     public FindExpositionsByShowroom withShowroom(Showroom showroom) {
         try {

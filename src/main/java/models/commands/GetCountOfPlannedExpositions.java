@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+/**
+ * Get count of not started expositions.
+ */
 public class GetCountOfPlannedExpositions extends ExpositionCountingByDateCommand {
     @Override
     public ExpositionCountingByDateCommand withDateTime(LocalDateTime dateTime) {

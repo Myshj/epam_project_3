@@ -1,6 +1,7 @@
 package launch.servlets.services.admin;
 
 import launch.servlets.services.ServletService;
+import launch.servlets.services.admin.commands.ShowMainAdminPage;
 import utils.meta.MetaInfoManager;
 
 import javax.servlet.http.HttpServlet;
@@ -18,5 +19,6 @@ public class AdminService extends ServletService {
                         new ModelAdminService(servlet, c)
                 )
         );
+        registerCommand("/admin(/)+", new ShowMainAdminPage(servlet));
     }
 }

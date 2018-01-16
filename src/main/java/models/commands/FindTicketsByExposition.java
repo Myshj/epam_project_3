@@ -7,6 +7,9 @@ import orm.commands.ListEntitiesCommand;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Select all tickets for exposition.
+ */
 public class FindTicketsByExposition extends ListEntitiesCommand<Ticket> {
     public FindTicketsByExposition withExposition(Exposition exposition) {
         try {

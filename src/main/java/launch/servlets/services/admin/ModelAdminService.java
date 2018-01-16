@@ -22,7 +22,6 @@ public class ModelAdminService<T extends WebModel> extends ServletService {
 
     public ModelAdminService(HttpServlet servlet, Class<T> clazz) {
         super(servlet);
-        System.out.println("service constructor");
         this.clazz = clazz;
         repository = RepositoryManager.INSTANCE.get(clazz);
         showList = new ShowList<>(clazz, this.servlet, repository);

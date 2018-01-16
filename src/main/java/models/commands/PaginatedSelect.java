@@ -6,6 +6,11 @@ import orm.commands.ListEntitiesCommand;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Select entities with pagination.
+ *
+ * @param <T>
+ */
 public class PaginatedSelect<T extends Model> extends ListEntitiesCommand<T> {
     private int parameterCount;
 
