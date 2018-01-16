@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 public class Ticket extends WebModel {
 
     @Column(name = "exposition_id")
+    @Relatives(pluralName = "expositions")
     private ForeignKey<Exposition> exposition = new ForeignKey<>(Exposition.class, false);
 
     @Column(name = "type_id")

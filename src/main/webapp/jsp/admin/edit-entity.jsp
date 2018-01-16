@@ -54,7 +54,15 @@
                                value="${entity[field]}"
                         />
                     </c:when>
-                    <c:when test="${fieldType == 'integer' || 'decimal'}">
+                    <c:when test="${fieldType == 'integer'}">
+                        <input type="number"
+                               name="${controlName}"
+                               id="${field}"
+                               class="form-control"
+                               value="${entity[field]}"
+                        />
+                    </c:when>
+                    <c:when test="${fieldType == 'decimal'}">
                         <input type="number"
                                name="${controlName}"
                                id="${field}"

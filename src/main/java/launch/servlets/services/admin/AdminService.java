@@ -19,6 +19,6 @@ public class AdminService extends ServletService {
                         new ModelAdminService(servlet, c)
                 )
         );
-        registerCommand("/admin(/)+", new ShowMainAdminPage(servlet));
+        registerCommand("/admin(/)*", new ShowMainAdminPage(servlet));
     }
 }
