@@ -26,7 +26,7 @@ public class AuthorizationCommand extends ServletCommand {
         if (user != null) {
             request.getSession().setAttribute("user", user);
             request.getSession().setAttribute("userRole", user.getRole().getValue());
-            response.sendRedirect("/admin/city");
+            response.sendRedirect("/admin/");
             return;
         }
 
