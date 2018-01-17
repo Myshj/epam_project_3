@@ -58,15 +58,7 @@ public final class ForeignKey<T extends Model> extends SimpleOrmField<T> {
     @Override
     public Optional<T> get() {
         logger.info("started getting value");
-        if (id == null) {
-            logger.info("null id --> returning nothing");
-            return Optional.empty();
-        }
-
-        logger.info("id not null --> updating value");
-        updateValue();
-        logger.info("get value");
-        return Optional.ofNullable(value);
+        return Optional.ofNullable(getValue());
     }
 
     /**

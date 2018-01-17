@@ -1,5 +1,7 @@
 package orm.repository;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import orm.Model;
 import orm.OrmFieldUtils;
 import orm.commands.ListEntitiesCommand;
@@ -12,6 +14,7 @@ import java.sql.Connection;
  * @param <T>
  */
 final class GetAllCommand<T extends Model> extends ListEntitiesCommand<T> {
+    private static final Logger logger = LogManager.getLogger(GetAllCommand.class);
     GetAllCommand(Class<T> clazz, Connection connection) {
         super(
                 clazz, connection,
@@ -20,5 +23,6 @@ final class GetAllCommand<T extends Model> extends ListEntitiesCommand<T> {
                         OrmFieldUtils.getTableName(clazz)
                 )
         );
+        logger.info("created");
     }
 }

@@ -1,6 +1,8 @@
 package orm.repository;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import orm.Model;
 import orm.OrmFieldUtils;
 import orm.commands.CommandWithNoReturn;
@@ -16,7 +18,7 @@ import java.util.stream.Collectors;
  * @param <T>
  */
 final class UpdateCommand<T extends Model> extends CommandWithNoReturn<T> {
-
+    private static final Logger logger = LogManager.getLogger(UpdateCommand.class);
 
     public UpdateCommand(
             Class<T> clazz,
@@ -40,15 +42,18 @@ final class UpdateCommand<T extends Model> extends CommandWithNoReturn<T> {
                         )
                 )
         );
+        logger.info("constructed");
     }
 
     public final void execute(T entity) {
+        logger.info("started execution");
         queryParametersMap.forEach(
                 (f, n) -> {
                     try {
                         statement.setObject(n, FieldUtils.readField(f, entity, true).toString());
                     } catch (IllegalAccessException | SQLException e) {
                         //e.printStackTrace();
+                        logger.error(e);
                     }
                 }
         );
@@ -56,7 +61,8 @@ final class UpdateCommand<T extends Model> extends CommandWithNoReturn<T> {
             statement.setLong(queryParametersMap.size() + 1, entity.getId().get().get());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
+        logger.info("executed");
     }
 }

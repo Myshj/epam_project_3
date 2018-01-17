@@ -7,7 +7,7 @@ import models.Ticket;
 import models.commands.FindTicketsByExposition;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import utils.ConnectionManager;
+import utils.ConnectionServiceProvider;
 import utils.RepositoryManager;
 import utils.meta.MetaInfoManager;
 
@@ -50,7 +50,7 @@ public class SearchExpositionById extends ServletCommand {
         super(servlet);
         logger.info("started construction");
         try {
-            ticketsFinder = new FindTicketsByExposition(Ticket.class, ConnectionManager.INSTANCE.get());
+            ticketsFinder = new FindTicketsByExposition(Ticket.class, ConnectionServiceProvider.INSTANCE.get());
         } catch (SQLException e) {
             e.printStackTrace();
             logger.error(e);

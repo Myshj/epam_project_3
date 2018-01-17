@@ -1,6 +1,8 @@
 package utils;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import orm.Model;
 import orm.OrmFieldUtils;
 import orm.fields.*;
@@ -20,6 +22,8 @@ import java.util.function.Function;
  * @param <T>
  */
 public class HttpServletRequestToEntityConverter<T extends Model> implements Function<HttpServletRequest, T> {
+    private static final Logger logger = LogManager.getLogger(HttpServletRequestToEntityConverter.class);
+
 
     private Map<String, Field> fieldMap;
     private Constructor<T> constructor;
@@ -28,13 +32,11 @@ public class HttpServletRequestToEntityConverter<T extends Model> implements Fun
     public HttpServletRequestToEntityConverter(
             Class<T> clazz
     ) {
+        logger.info("started construction");
         fieldMap = OrmFieldUtils.getRelationalToObjectMapping(clazz);
         updateMapping = OrmFieldUtils.getUpdateMapping(clazz);
-        try {
-            constructor = clazz.getConstructor();
-        } catch (NoSuchMethodException e) {
-            // e.printStackTrace();
-        }
+        constructor = new DefaultConstructorExtractor<T>().apply(clazz);
+        logger.info("constructed");
     }
 
     @Override
@@ -43,8 +45,8 @@ public class HttpServletRequestToEntityConverter<T extends Model> implements Fun
             return writeFields(constructor.newInstance(), request);
         } catch (InstantiationException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     /**
@@ -87,7 +89,7 @@ public class HttpServletRequestToEntityConverter<T extends Model> implements Fun
                 } else if (type == DecimalField.class) {
                     ((DecimalField) realField).setValue(BigDecimal.valueOf(Double.valueOf(value)));
                 }
-            } catch (IllegalAccessException e) {
+            } catch (Exception e) {
                 return null;
             }
         }

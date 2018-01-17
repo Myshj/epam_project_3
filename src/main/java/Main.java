@@ -1,15 +1,15 @@
 import models.City;
 import models.Country;
 import orm.repository.Repository;
-import utils.ConnectionManager;
+import utils.ConnectionServiceProvider;
 
 import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
-        Repository<Country> countryRepository = new Repository<>(Country.class, ConnectionManager.INSTANCE.get());
-        Repository<City> cityRepository = new Repository<>(City.class, ConnectionManager.INSTANCE.get());
+        Repository<Country> countryRepository = new Repository<>(Country.class, ConnectionServiceProvider.INSTANCE.get());
+        Repository<City> cityRepository = new Repository<>(City.class, ConnectionServiceProvider.INSTANCE.get());
         countryRepository.save(new Country("myshandi"));
         City newCity = new City("myshgorod", countryRepository.getById(3).orElseThrow(SQLException::new));
         cityRepository.save(

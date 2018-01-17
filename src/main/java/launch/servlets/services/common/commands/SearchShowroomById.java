@@ -8,7 +8,7 @@ import models.Showroom;
 import models.commands.FindExpositionsByShowroom;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import utils.ConnectionManager;
+import utils.ConnectionServiceProvider;
 import utils.RepositoryManager;
 import utils.meta.MetaInfoManager;
 
@@ -43,7 +43,7 @@ public class SearchShowroomById extends ServletCommand {
         try {
             expositionFinder = new FindExpositionsByShowroom(
                     Exposition.class,
-                    ConnectionManager.INSTANCE.get()
+                    ConnectionServiceProvider.INSTANCE.get()
             );
         } catch (SQLException e) {
             e.printStackTrace();

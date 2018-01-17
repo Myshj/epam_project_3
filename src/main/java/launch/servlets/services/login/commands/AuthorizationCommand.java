@@ -5,7 +5,7 @@ import models.User;
 import models.commands.FindUserByEmailAndPassword;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import utils.ConnectionManager;
+import utils.ConnectionServiceProvider;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -49,7 +49,7 @@ public class AuthorizationCommand extends ServletCommand {
         try {
             command = new FindUserByEmailAndPassword(
                     User.class,
-                    ConnectionManager.INSTANCE.get()
+                    ConnectionServiceProvider.INSTANCE.get()
             );
         } catch (SQLException e) {
             logger.error(e);

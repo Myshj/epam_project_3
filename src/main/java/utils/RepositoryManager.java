@@ -19,11 +19,11 @@ public enum RepositoryManager {
      *
      * @param clazz class of model.
      * @param <T>   class of model
-     * @return repository for a given model class
+     * @return repository for a given model class or null if any exception occured
      */
     public <T extends Model> Repository<T> get(Class<T> clazz) {
         try {
-            Repository<T> r = new Repository<>(clazz, ConnectionManager.INSTANCE.get());
+            Repository<T> r = new Repository<>(clazz, ConnectionServiceProvider.INSTANCE.get());
             repositories.putIfAbsent(clazz, r);
             return repositories.get(clazz);
         } catch (Exception e) {

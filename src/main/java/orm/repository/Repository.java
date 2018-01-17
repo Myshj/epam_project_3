@@ -1,5 +1,7 @@
 package orm.repository;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import orm.Model;
 import orm.commands.CountingCommand;
 import orm.commands.GetEntityCommand;
@@ -15,6 +17,7 @@ import java.util.Optional;
  * @param <T> Type of served entities.
  */
 public class Repository<T extends Model> {
+    private static final Logger logger = LogManager.getLogger(Repository.class);
 
     private InsertCommand<T> insertCommand;
     private UpdateCommand<T> updateCommand;
@@ -30,12 +33,14 @@ public class Repository<T extends Model> {
      * @param connection Connection to work with.
      */
     public Repository(Class<T> clazz, Connection connection) {
+        logger.info("started construction");
         insertCommand = new InsertCommand<>(clazz, connection);
         updateCommand = new UpdateCommand<>(clazz, connection);
         deleteCommand = new DeleteCommand<>(clazz, connection);
         getByIdCommand = new GetByIdCommand<>(clazz, connection);
         getAllCommand = new GetAllCommand<>(clazz, connection);
         countAllCommand = new CountAllCommand<>(clazz, connection);
+        logger.info("constructed");
     }
 
     /**
@@ -90,11 +95,15 @@ public class Repository<T extends Model> {
      * @param entity entity to insert or update.
      */
     public void save(T entity) {
+        logger.info("started saving");
         if (entity.getId().get().isPresent()) {
+            logger.info("entity has id --> updating");
             updateCommand.execute(entity);
         } else {
+            logger.info("entity does not have id --> inserting");
             insertCommand.execute(entity);
         }
+        logger.info("saved");
     }
 
     /**

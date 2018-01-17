@@ -1,6 +1,8 @@
 package orm.repository;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import orm.Model;
 import orm.OrmFieldUtils;
 
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
  * @param <T>
  */
 final class InsertCommand<T extends Model> {
+    private static final Logger logger = LogManager.getLogger(InsertCommand.class);
     private PreparedStatement statement;
 
     private Map<Field, Integer> queryParametersMap;
@@ -25,6 +28,7 @@ final class InsertCommand<T extends Model> {
             Class<T> clazz,
             Connection connection
     )  {
+        logger.info("started construction");
         queryParametersMap = OrmFieldUtils.getUpdateMapping(clazz);
 
         try {
@@ -53,11 +57,15 @@ final class InsertCommand<T extends Model> {
                     Statement.RETURN_GENERATED_KEYS
             );
         } catch (SQLException e) {
+            logger.error("SQLException occured. Rethrowing.");
+            logger.error(e);
             throw new RuntimeException(e);
         }
+        logger.info("constructed");
     }
 
     void execute(T entity) {
+        logger.info("started execution");
         queryParametersMap.forEach(
                 (f, n) -> {
                     try {
@@ -78,12 +86,14 @@ final class InsertCommand<T extends Model> {
                         true
                 );
             } catch (IllegalAccessException e) {
+                logger.error(e);
                 throw new RuntimeException(e);
             }
         } catch (SQLException e) {
+            logger.error(e);
             throw new RuntimeException(e);
         }
-
+        logger.info("executed");
         //return rs.getLong(1);
     }
 }

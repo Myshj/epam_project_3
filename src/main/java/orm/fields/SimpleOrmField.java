@@ -16,7 +16,7 @@ public abstract class SimpleOrmField<T> extends OrmField<T> {
 
     @Override
     public Optional<T> get() {
-        return Optional.ofNullable(value);
+        return Optional.ofNullable(getValue());
     }
 
     /**

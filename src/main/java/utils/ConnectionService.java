@@ -2,17 +2,12 @@ package utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.util.function.Supplier;
 
-/**
- * Stores connection to database.
- */
-public enum ConnectionManager {
-    INSTANCE;
-
+public class ConnectionService implements Supplier<Connection> {
     private Connection connection;
 
-    ConnectionManager() {
+    ConnectionService() {
         ResourceManager rm = ResourceManager.APPLICATION;
         try {
             Class.forName(
@@ -23,11 +18,11 @@ public enum ConnectionManager {
                     rm.get("db.user"),
                     rm.get("db.password")
             );
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
         }
     }
 
+    @Override
     public Connection get() {
         return connection;
     }

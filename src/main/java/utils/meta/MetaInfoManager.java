@@ -24,7 +24,6 @@ public enum MetaInfoManager {
             User.class, UserRole.class, Order.class, OrderState.class
     );
 
-
     private final Map<Class<? extends Model>, ModelMetaInfo> infoMap = new HashMap<>();
 
     /**

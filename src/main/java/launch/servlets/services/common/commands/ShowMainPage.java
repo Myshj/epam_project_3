@@ -11,7 +11,7 @@ import models.commands.GetCountOfPlannedExpositions;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.repository.Repository;
-import utils.ConnectionManager;
+import utils.ConnectionServiceProvider;
 import utils.RepositoryManager;
 import utils.meta.MetaInfoManager;
 
@@ -46,15 +46,15 @@ public class ShowMainPage extends ServletCommand {
         try {
             getCountOfActiveExpositions = new GetCountOfActiveExpositions(
                     Exposition.class,
-                    ConnectionManager.INSTANCE.get()
+                    ConnectionServiceProvider.INSTANCE.get()
             );
             getCountOfOldExpositions = new GetCountOfOldExpositions(
                     Exposition.class,
-                    ConnectionManager.INSTANCE.get()
+                    ConnectionServiceProvider.INSTANCE.get()
             );
             getCountOfPlannedExpositions = new GetCountOfPlannedExpositions(
                     Exposition.class,
-                    ConnectionManager.INSTANCE.get()
+                    ConnectionServiceProvider.INSTANCE.get()
             );
         } catch (SQLException e) {
             logger.error(e);
