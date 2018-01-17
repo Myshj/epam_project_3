@@ -21,7 +21,7 @@ public class GetActualParameterClass implements Function<Field, Class> {
             return Class.forName(TypeUtils.getTypeArguments(
                     (ParameterizedType) field.getGenericType()
             ).values().iterator().next().getTypeName());
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             logger.error("exception thrown --> return null");
             logger.error(e);
             return null;

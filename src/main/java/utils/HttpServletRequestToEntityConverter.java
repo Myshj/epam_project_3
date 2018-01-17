@@ -1,19 +1,10 @@
 package utils;
 
-import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
-import orm.OrmFieldUtils;
-import orm.fields.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.Map;
 import java.util.function.Function;
 
 /**
@@ -24,75 +15,27 @@ import java.util.function.Function;
 public class HttpServletRequestToEntityConverter<T extends Model> implements Function<HttpServletRequest, T> {
     private static final Logger logger = LogManager.getLogger(HttpServletRequestToEntityConverter.class);
 
-
-    private Map<String, Field> fieldMap;
-    private Constructor<T> constructor;
-    private Map<Field, Integer> updateMapping;
+    private DefaultInstantiator<T> instantiator;
+    private EntityFromHttpServletRequestWriter<T> writer;
 
     public HttpServletRequestToEntityConverter(
             Class<T> clazz
     ) {
         logger.info("started construction");
-        fieldMap = OrmFieldUtils.getRelationalToObjectMapping(clazz);
-        updateMapping = OrmFieldUtils.getUpdateMapping(clazz);
-        constructor = new DefaultConstructorExtractor<T>().apply(clazz);
+        writer = new EntityFromHttpServletRequestWriter<>(clazz);
+        instantiator = new DefaultInstantiator<>(clazz);
         logger.info("constructed");
     }
 
     @Override
     public T apply(HttpServletRequest request) {
         try {
-            return writeFields(constructor.newInstance(), request);
-        } catch (InstantiationException | InvocationTargetException | IllegalAccessException e) {
-            e.printStackTrace();
+            return writer.apply(instantiator.get(), request);
+        } catch (Exception e) {
+            logger.error("exception occured --> return null");
             return null;
         }
     }
 
-    /**
-     * Writes fields represented by http parameters into existing entity.
-     *
-     * @param entity  entity to write fields to
-     * @param request request to read parameters from
-     * @return entity
-     */
-    private T writeFields(T entity, HttpServletRequest request) {
-        for (Map.Entry<String, Field> pair : fieldMap.entrySet()) {
-            Field f = pair.getValue();
-            if (!updateMapping.containsKey(f)) {
-                continue;
-            }
-            String s = pair.getKey();
-            Class type = f.getType();
-            try {
-                Object realField = FieldUtils.readField(f, entity, true);
-                String value = request.getParameter(s);
-                if (type == IntegerField.class) {
-                    ((IntegerField) realField).setValue(Long.valueOf(value));
 
-                } else if (type == StringField.class) {
-                    ((StringField) realField).setValue(value);
-                } else if (type == ForeignKey.class) {
-                    FieldUtils.writeField(
-                            realField, "id", Long.valueOf(value),
-                            true
-                    );
-                } else if (type == EnumField.class) {
-                    ((EnumField) realField).setValue(
-                            Enum.valueOf(
-                                    (Class) FieldUtils.readField(realField, "clazz", true),
-                                    value
-                            )
-                    );
-                } else if (type == TimeStampField.class) {
-                    ((TimeStampField) realField).setValue(LocalDate.parse(value).atStartOfDay());
-                } else if (type == DecimalField.class) {
-                    ((DecimalField) realField).setValue(BigDecimal.valueOf(Double.valueOf(value)));
-                }
-            } catch (Exception e) {
-                return null;
-            }
-        }
-        return entity;
-    }
 }

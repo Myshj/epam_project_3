@@ -3,7 +3,6 @@ package utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.function.Supplier;
 
 public class DefaultInstantiator<T> implements Supplier<T> {
@@ -20,7 +19,7 @@ public class DefaultInstantiator<T> implements Supplier<T> {
         logger.info("started execution");
         try {
             return constructorExtractor.apply(clazz).newInstance();
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+        } catch (Exception e) {
             logger.error("exception during instantiation --> return null");
             logger.error(e);
             return null;

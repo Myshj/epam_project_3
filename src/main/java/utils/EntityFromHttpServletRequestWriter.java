@@ -5,56 +5,64 @@ import orm.Model;
 import orm.OrmFieldUtils;
 import orm.fields.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.function.BiFunction;
 
 /**
- * Writes given fields to the given entity and returns changed entity.
- *
- * @param <T>
+ * Writes fields represented by http parameters into existing entity.
  */
-public class FieldFromMapWriter<T extends Model> implements BiFunction<T, Map<String, Object>, T> {
-    private Class<T> clazz;
+public class EntityFromHttpServletRequestWriter<T extends Model> implements BiFunction<T, HttpServletRequest, T> {
 
-    public FieldFromMapWriter(Class<T> clazz) {
+    private final Class<T> clazz;
+
+    public EntityFromHttpServletRequestWriter(Class<T> clazz) {
         this.clazz = clazz;
     }
 
     @Override
-    public T apply(T entity, Map<String, Object> map) {
+    public T apply(T entity, HttpServletRequest request) {
         for (Map.Entry<String, Field> pair : OrmFieldUtils.getRelationalToObjectMapping(clazz).entrySet()) {
             Field f = pair.getValue();
+            if (!OrmFieldUtils.getUpdateMapping(clazz).containsKey(f)) {
+                continue;
+            }
             String s = pair.getKey();
             Class type = f.getType();
+
+
             try {
-                Object realField = FieldUtils.readField(f, entity, true);
-                Object value = map.get(s);
+                OrmField realField = (OrmField) FieldUtils.readField(f, entity, true);
+                String value = request.getParameter(s);
+                if (value == null && realField.isNullable()) {
+                    continue;
+                }
                 if (type == IntegerField.class) {
-                    ((IntegerField) realField).setValue(((Integer) value).longValue());
+                    ((IntegerField) realField).setValue(Long.valueOf(value));
 
                 } else if (type == StringField.class) {
-                    ((StringField) realField).setValue((String) value);
+                    ((StringField) realField).setValue(value);
                 } else if (type == ForeignKey.class) {
                     FieldUtils.writeField(
-                            realField, "id", ((Integer) value).longValue(),
+                            realField, "id", Long.valueOf(value),
                             true
                     );
                 } else if (type == EnumField.class) {
                     ((EnumField) realField).setValue(
                             Enum.valueOf(
                                     (Class) FieldUtils.readField(realField, "clazz", true),
-                                    (String) value
+                                    value
                             )
                     );
                 } else if (type == TimeStampField.class) {
-                    ((TimeStampField) realField).setValue((Timestamp) value);
+                    ((TimeStampField) realField).setValue(LocalDate.parse(value).atStartOfDay());
                 } else if (type == DecimalField.class) {
-                    ((DecimalField) realField).setValue((BigDecimal) value);
+                    ((DecimalField) realField).setValue(BigDecimal.valueOf(Double.valueOf(value)));
                 }
-            } catch (IllegalAccessException e) {
+            } catch (Exception e) {
                 return null;
             }
         }

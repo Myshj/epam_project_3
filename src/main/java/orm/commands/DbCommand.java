@@ -28,7 +28,6 @@ public abstract class DbCommand<T extends Model> {
      * @param clazz Class of related entity.
      * @param connection Connection to execute command in.
      * @param sql Statement to execute.
-     * @throws RuntimeException if unable to prepare statement using connection.
      */
     public DbCommand(
             Class<T> clazz,
@@ -39,8 +38,10 @@ public abstract class DbCommand<T extends Model> {
         try {
             statement = connection.prepareStatement(sql);
         } catch (SQLException e) {
+            logger.error("unable to prepare statement");
             logger.error(e);
         }
         converter = new MapToEntityConverter<>(clazz).compose(new ResultSetToMapConverter());
+        logger.info("constructed");
     }
 }
