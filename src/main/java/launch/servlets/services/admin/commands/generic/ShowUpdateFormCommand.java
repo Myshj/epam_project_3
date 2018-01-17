@@ -57,6 +57,6 @@ public class ShowUpdateFormCommand<T extends Model> extends ModelCommand<T> {
         } catch (Exception ex) {
             logger.error(ex);
         }
-        looger.info("executed");
+        logger.info("executed");
     }
 }

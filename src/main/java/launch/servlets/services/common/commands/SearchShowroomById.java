@@ -47,7 +47,7 @@ public class SearchShowroomById extends ServletCommand {
             );
         } catch (SQLException e) {
             e.printStackTrace();
-            logger.error();
+            logger.error(e);
         }
         logger.info("constructed");
     }

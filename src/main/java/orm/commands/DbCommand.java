@@ -18,7 +18,7 @@ import java.util.function.Function;
  * @param <T> Type of related entity.
  */
 public abstract class DbCommand<T extends Model> {
-    private static final Logger logger = LogManager.getLogger(DbComand.class);
+    private static final Logger logger = LogManager.getLogger(DbCommand.class);
 
     protected PreparedStatement statement;
     Function<ResultSet, T> converter;

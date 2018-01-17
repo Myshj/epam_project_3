@@ -78,7 +78,7 @@ public final class ForeignKey<T extends Model> extends SimpleOrmField<T> {
     public T getValue() {
         logger.info("started getting value");
         if (id == null) {
-            loger.info("null id --> returning nothing");
+            logger.info("null id --> returning nothing");
             return null;
         }
         logger.info("id not null --> updating value");
@@ -100,6 +100,6 @@ public final class ForeignKey<T extends Model> extends SimpleOrmField<T> {
         if (value == null) {
             value = RepositoryManager.INSTANCE.get(clazz).getById(id).orElse(null);
         }
-        loggerr.info("updated value");
+        logger.info("updated value");
     }
 }

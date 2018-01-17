@@ -1,5 +1,8 @@
 package launch.servlets.services;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +16,7 @@ import java.util.function.BiConsumer;
  * Maps incoming requests to child services and commands.
  */
 public abstract class ServletService implements BiConsumer<HttpServletRequest, HttpServletResponse> {
-
+    private static final Logger logger = LogManager.getLogger(ServletService.class);
     private final Map<String, BiConsumer<HttpServletRequest, HttpServletResponse>> commands = new HashMap<>();
     protected final HttpServlet servlet;
 

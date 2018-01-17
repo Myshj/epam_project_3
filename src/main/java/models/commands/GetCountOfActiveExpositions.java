@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * Get count of currently active expositions.
  */
 public class GetCountOfActiveExpositions extends ExpositionCountingByDateCommand {
-    private static final Logger logger = LogManager.getLogger(GetCountOf / currentlyActiveExpositions.class);
+    private static final Logger logger = LogManager.getLogger(GetCountOfActiveExpositions.class);
 
     public GetCountOfActiveExpositions(Class<Exposition> clazz, Connection connection) throws SQLException {
         super(

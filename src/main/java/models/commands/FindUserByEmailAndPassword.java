@@ -19,7 +19,7 @@ public class FindUserByEmailAndPassword extends GetEntityCommand<User> {
         try {
             statement.setString(1, email);
         } catch (SQLException e) {
-            loger.error(e);
+            logger.error(e);
         }
         logger.info("remembered email");
         return this;

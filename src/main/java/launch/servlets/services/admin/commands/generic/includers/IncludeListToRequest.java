@@ -26,8 +26,8 @@ public class IncludeListToRequest<T extends Model> extends ModelCommand<T> {
             HttpServlet servlet,
             String name
     ) {
-        logger.info("created");
         super(servlet, null);
+        logger.info("created");
         this.name = name;
     }
 
