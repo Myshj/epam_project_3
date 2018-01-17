@@ -7,6 +7,10 @@ import orm.annotations.Entity;
 import orm.fields.ForeignKey;
 import orm.fields.StringField;
 
+/**
+ * User.
+ * Has name, role, email and password.
+ */
 @Entity(table = "users")
 @EntityNames(singular = "user", plural = "users")
 public class User extends WebModel {

@@ -1,5 +1,7 @@
 package launch.servlets.services.admin.commands.generic;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import orm.Model;
 import orm.repository.Repository;
 import utils.meta.MetaInfoManager;
@@ -10,10 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+/**
+ * Shows form for new entity creation.
+ *
+ * @param <T> Type of entities to work with.
+ */
 public class ShowCreateFormCommand<T extends Model> extends ModelCommand<T> {
+    private static final Logger logger = LogManager.getLogger(ShowCreateFormCommand.class);
+
     private ModelMetaInfo meta;
 
     public ShowCreateFormCommand(
@@ -22,7 +29,9 @@ public class ShowCreateFormCommand<T extends Model> extends ModelCommand<T> {
             Repository<T> repository
     ) {
         super(servlet, repository);
+        logger.info("started construction");
         meta = MetaInfoManager.INSTANCE.get(clazz);
+        logger.info("constructed");
     }
 
     @Override
@@ -30,6 +39,7 @@ public class ShowCreateFormCommand<T extends Model> extends ModelCommand<T> {
             HttpServletRequest request,
             HttpServletResponse response
     ) throws ServletException, IOException {
+        logger.info("started execution");
         try {
             request.setAttribute("meta", meta);
             dispatcher(
@@ -37,7 +47,8 @@ public class ShowCreateFormCommand<T extends Model> extends ModelCommand<T> {
 
             ).forward(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            logger.error(ex);
         }
+        logger.info("executed");
     }
 }

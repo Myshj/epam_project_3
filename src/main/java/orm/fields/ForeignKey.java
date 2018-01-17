@@ -1,5 +1,7 @@
 package orm.fields;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import orm.Model;
 import utils.RepositoryManager;
 
@@ -11,6 +13,7 @@ import java.util.Optional;
  * @param <T> Type of object to reference.
  */
 public final class ForeignKey<T extends Model> extends SimpleOrmField<T> {
+    private static final Logger logger = LogManager.getLogger(ForeignKey.class);
 
     private Long id;
     private Class<T> clazz;
@@ -22,23 +25,29 @@ public final class ForeignKey<T extends Model> extends SimpleOrmField<T> {
      */
     public ForeignKey(Class<T> clazz, boolean nullable) {
         super(nullable);
+        logger.info("started construction");
         this.clazz = clazz;
-        if (value == null) {
-            this.id = null;
-        } else {
-            this.id = value.getId().get().orElse(null);
-        }
+        logger.info("constructed");
+//        if (value == null) {
+//            this.id = null;
+//        } else {
+//            this.id = value.getId().get().orElse(null);
+//        }
     }
 
     @Override
     protected void setCleaned(T value) {
+        logger.info("started setting value");
         if (value == null) {
+            logger.info("null received --> setting null");
             this.id = null;
             this.value = null;
         } else {
+            logger.info("received value --> setting value");
             this.value = value;
             this.id = value.getId().get().orElse(null);
         }
+        logger.info("set value");
     }
 
     /**
@@ -48,11 +57,15 @@ public final class ForeignKey<T extends Model> extends SimpleOrmField<T> {
      */
     @Override
     public Optional<T> get() {
+        logger.info("started getting value");
         if (id == null) {
+            logger.info("null id --> returning nothing");
             return Optional.empty();
-        } else {
-            updateValue();
         }
+
+        logger.info("id not null --> updating value");
+        updateValue();
+        logger.info("get value");
         return Optional.ofNullable(value);
     }
 
@@ -63,11 +76,14 @@ public final class ForeignKey<T extends Model> extends SimpleOrmField<T> {
      */
     @Override
     public T getValue() {
+        logger.info("started getting value");
         if (id == null) {
+            loger.info("null id --> returning nothing");
             return null;
-        } else {
-            updateValue();
         }
+        logger.info("id not null --> updating value");
+        updateValue();
+        logger.info("get value");
         return value;
     }
 
@@ -80,8 +96,10 @@ public final class ForeignKey<T extends Model> extends SimpleOrmField<T> {
      * If the reference to object is null, updates it from the database.
      */
     private void updateValue() {
+        logger.info("started updating value");
         if (value == null) {
             value = RepositoryManager.INSTANCE.get(clazz).getById(id).orElse(null);
         }
+        loggerr.info("updated value");
     }
 }

@@ -4,6 +4,10 @@ import models.annotations.EntityNames;
 import orm.annotations.Entity;
 import orm.fields.StringField;
 
+/**
+ * Order state.
+ * Has name.
+ */
 @Entity(table = "order_states")
 @EntityNames(singular = "orderState", plural = "orderStates")
 public class OrderState extends WebModel {

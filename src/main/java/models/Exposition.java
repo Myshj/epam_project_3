@@ -10,6 +10,10 @@ import orm.fields.TimeStampField;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents exposition.
+ * Has name, start/end dates and place of location.
+ */
 @Entity(table = "expositions")
 @EntityNames(singular = "exposition", plural = "expositions")
 public class Exposition extends WebModel {

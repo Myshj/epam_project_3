@@ -7,6 +7,9 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
+/**
+ * Changes request and response encodings to UTF-8.
+ */
 @WebFilter("/*")
 public class CharacterEncodingFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(CharacterEncodingFilter.class);

@@ -10,6 +10,10 @@ import orm.fields.StringField;
 
 import java.math.BigDecimal;
 
+/**
+ * Ticket.
+ * Has type, price and is related with exposition.
+ */
 @Entity(table = "tickets")
 @EntityNames(singular = "ticket", plural = "tickets")
 public class Ticket extends WebModel {

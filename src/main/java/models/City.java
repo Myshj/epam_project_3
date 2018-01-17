@@ -7,6 +7,10 @@ import orm.annotations.Entity;
 import orm.fields.ForeignKey;
 import orm.fields.StringField;
 
+/**
+ * Represents city.
+ * Has name and reference to country.
+ */
 @Entity(table = "cities")
 @EntityNames(singular = "city", plural = "cities")
 public class City extends WebModel {

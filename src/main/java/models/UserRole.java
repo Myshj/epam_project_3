@@ -4,6 +4,10 @@ import models.annotations.EntityNames;
 import orm.annotations.Entity;
 import orm.fields.StringField;
 
+/**
+ * User role.
+ * Has name.
+ */
 @Entity(table = "roles")
 @EntityNames(singular = "userRole", plural = "userRoles")
 public class UserRole extends WebModel {

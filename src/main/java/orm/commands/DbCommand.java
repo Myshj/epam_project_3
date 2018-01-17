@@ -1,5 +1,7 @@
 package orm.commands;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import orm.Model;
 import utils.MapToEntityConverter;
 import utils.ResultSetToMapConverter;
@@ -16,6 +18,8 @@ import java.util.function.Function;
  * @param <T> Type of related entity.
  */
 public abstract class DbCommand<T extends Model> {
+    private static final Logger logger = LogManager.getLogger(DbComand.class);
+
     protected PreparedStatement statement;
     Function<ResultSet, T> converter;
 
@@ -31,10 +35,11 @@ public abstract class DbCommand<T extends Model> {
             Connection connection,
             String sql
     ) {
+        logger.info("started construction");
         try {
             statement = connection.prepareStatement(sql);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            logger.error(e);
         }
         converter = new MapToEntityConverter<>(clazz).compose(new ResultSetToMapConverter());
     }

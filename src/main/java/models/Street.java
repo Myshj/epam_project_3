@@ -7,6 +7,10 @@ import orm.annotations.Entity;
 import orm.fields.ForeignKey;
 import orm.fields.StringField;
 
+/**
+ * Street.
+ * Has name and is placed in city.
+ */
 @Entity(table = "streets")
 @EntityNames(singular = "street", plural = "streets")
 public class Street extends WebModel {

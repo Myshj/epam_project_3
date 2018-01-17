@@ -7,6 +7,10 @@ import orm.annotations.Entity;
 import orm.fields.ForeignKey;
 import orm.fields.StringField;
 
+/**
+ * Represents building
+ * Has name and reference to street.
+ */
 @Entity(table = "buildings")
 @EntityNames(singular = "building", plural = "buildings")
 public class Building extends WebModel {
@@ -15,8 +19,14 @@ public class Building extends WebModel {
         return name.getValue();
     }
 
+    /**
+     * Name/number of the building.
+     */
     private StringField name = new StringField(false);
 
+    /**
+     * Street building placed at.
+     */
     @Column(name = "street_id")
     @Relatives(pluralName = "streets")
     private ForeignKey<Street> street = new ForeignKey<>(Street.class, false);

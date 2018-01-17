@@ -4,6 +4,10 @@ import models.annotations.EntityNames;
 import orm.annotations.Entity;
 import orm.fields.StringField;
 
+/**
+ * Ticket type.
+ * Has name.
+ */
 @Entity(table = "ticket_types")
 @EntityNames(singular = "ticketType", plural = "ticketTypes")
 public class TicketType extends WebModel {

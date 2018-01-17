@@ -9,6 +9,11 @@ import orm.fields.TimeStampField;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents order.
+ * User pays some amount of money and purchases ticket.
+ * Order has also a state.
+ */
 @Entity(table = "orders")
 @EntityNames(singular = "order", plural = "orders")
 public class Order extends WebModel {

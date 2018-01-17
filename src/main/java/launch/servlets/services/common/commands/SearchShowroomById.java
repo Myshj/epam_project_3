@@ -6,6 +6,8 @@ import launch.servlets.services.commands.ServletCommand;
 import models.Exposition;
 import models.Showroom;
 import models.commands.FindExpositionsByShowroom;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import utils.ConnectionManager;
 import utils.RepositoryManager;
 import utils.meta.MetaInfoManager;
@@ -20,7 +22,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Command to search showroom, its address and expositions by a given id of showroon.
+ */
 public class SearchShowroomById extends ServletCommand {
+    private static final Logger logger = LogManager.getLogger(SearchShowroomById.class);
+
     private IncludeListToRequest<Exposition> expositionIncluder = new IncludeListToRequest<>(
             this.servlet,
             MetaInfoManager.INSTANCE.get(Exposition.class).getNames().getPlural()
@@ -32,6 +39,7 @@ public class SearchShowroomById extends ServletCommand {
 
     public SearchShowroomById(HttpServlet servlet) {
         super(servlet);
+        logger.info("started construction");
         try {
             expositionFinder = new FindExpositionsByShowroom(
                     Exposition.class,
@@ -39,12 +47,15 @@ public class SearchShowroomById extends ServletCommand {
             );
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.error();
         }
+        logger.info("constructed");
     }
 
     @Override
     protected void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        logger.info("started execution");
         Showroom showroom = RepositoryManager.INSTANCE.get(Showroom.class).getById(
                 Long.valueOf(request.getParameter("id"))
         ).orElse(null);
@@ -81,5 +92,6 @@ public class SearchShowroomById extends ServletCommand {
         }
 
         dispatcher("/jsp/general/observe-showroom.jsp").forward(request, response);
+        logger.info("executed");
     }
 }

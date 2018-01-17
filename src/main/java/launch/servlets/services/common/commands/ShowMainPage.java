@@ -8,6 +8,8 @@ import models.commands.ExpositionCountingByDateCommand;
 import models.commands.GetCountOfActiveExpositions;
 import models.commands.GetCountOfOldExpositions;
 import models.commands.GetCountOfPlannedExpositions;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import orm.repository.Repository;
 import utils.ConnectionManager;
 import utils.RepositoryManager;
@@ -21,7 +23,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+/**
+ * Command to show the main page of our system.
+ */
 public class ShowMainPage extends ServletCommand {
+    private static final Logger logger = LogManager.getLogger(ShowMainPage.class);
+
     private Repository<Exposition> expositionRepository = RepositoryManager.INSTANCE.get(Exposition.class);
     private ExpositionCountingByDateCommand getCountOfActiveExpositions;
     private ExpositionCountingByDateCommand getCountOfOldExpositions;
@@ -35,6 +42,7 @@ public class ShowMainPage extends ServletCommand {
 
     public ShowMainPage(HttpServlet servlet) {
         super(servlet);
+        logger.info("started construction");
         try {
             getCountOfActiveExpositions = new GetCountOfActiveExpositions(
                     Exposition.class,
@@ -49,12 +57,14 @@ public class ShowMainPage extends ServletCommand {
                     ConnectionManager.INSTANCE.get()
             );
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
+        logger.info("constructed");
     }
 
     @Override
     protected void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        logger.info("started execution");
         showroomsIncluder.accept(request, response);
 
         LocalDateTime now = LocalDateTime.now();
@@ -75,5 +85,6 @@ public class ShowMainPage extends ServletCommand {
         );
 
         dispatcher("/jsp/general/list-showrooms.jsp").forward(request, response);
+        logger.info("executed");
     }
 }
