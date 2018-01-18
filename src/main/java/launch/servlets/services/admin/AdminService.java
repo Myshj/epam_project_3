@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import utils.meta.MetaInfoManager;
 
-import javax.servlet.http.HttpServlet;
+import javax.servlet.ServletContext;
 
 /**
  * The main admin service.
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServlet;
 public class AdminService extends ServletService {
     private static final Logger logger = LogManager.getLogger(AdminService.class);
 
-    public AdminService(HttpServlet servlet) {
+    public AdminService(ServletContext servlet) {
         super(servlet);
         logger.info("started construction");
         MetaInfoManager.INSTANCE.classes().forEach(

@@ -5,8 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class IncludeListToRequest<T extends Model> extends ModelCommand<T> {
     private List<T> list;
 
     public IncludeListToRequest(
-            HttpServlet servlet,
+            ServletContext servlet,
             String name
     ) {
         super(servlet, null);

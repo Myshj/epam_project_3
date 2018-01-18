@@ -6,8 +6,8 @@ import org.apache.logging.log4j.Logger;
 import orm.Model;
 import utils.RepositoryManager;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class IncludeAll<T extends Model> extends ModelCommand<T> {
 
     public IncludeAll(
             Class<T> clazz,
-            HttpServlet servlet,
+            ServletContext servlet,
             String name
     ) {
         super(servlet, RepositoryManager.INSTANCE.get(clazz));

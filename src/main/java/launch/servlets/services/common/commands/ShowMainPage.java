@@ -15,8 +15,8 @@ import utils.ConnectionServiceProvider;
 import utils.RepositoryManager;
 import utils.meta.MetaInfoManager;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -35,12 +35,12 @@ public class ShowMainPage extends ServletCommand {
     private ExpositionCountingByDateCommand getCountOfPlannedExpositions;
     private IncludeAll<Showroom> showroomsIncluder = new IncludeAll<>(
             Showroom.class,
-            this.servlet,
+            this.servletContext,
             MetaInfoManager.INSTANCE.get(Showroom.class).getNames().getPlural()
     );
 
 
-    public ShowMainPage(HttpServlet servlet) {
+    public ShowMainPage(ServletContext servlet) {
         super(servlet);
         logger.info("started construction");
         try {

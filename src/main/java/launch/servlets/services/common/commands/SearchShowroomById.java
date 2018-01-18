@@ -12,8 +12,8 @@ import utils.ConnectionServiceProvider;
 import utils.RepositoryManager;
 import utils.meta.MetaInfoManager;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -29,15 +29,15 @@ public class SearchShowroomById extends ServletCommand {
     private static final Logger logger = LogManager.getLogger(SearchShowroomById.class);
 
     private IncludeListToRequest<Exposition> expositionIncluder = new IncludeListToRequest<>(
-            this.servlet,
+            this.servletContext,
             MetaInfoManager.INSTANCE.get(Exposition.class).getNames().getPlural()
     );
 
-    private IncludeAddress addressIncluder = new IncludeAddress(this.servlet, "address");
+    private IncludeAddress addressIncluder = new IncludeAddress(this.servletContext, "address");
 
     private FindExpositionsByShowroom expositionFinder;
 
-    public SearchShowroomById(HttpServlet servlet) {
+    public SearchShowroomById(ServletContext servlet) {
         super(servlet);
         logger.info("started construction");
         try {

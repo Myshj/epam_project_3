@@ -4,8 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -17,10 +17,10 @@ import java.util.function.BiConsumer;
 public abstract class ServletCommand implements BiConsumer<HttpServletRequest, HttpServletResponse> {
     private static final Logger logger = LogManager.getLogger(ServletCommand.class);
 
-    protected final HttpServlet servlet;
+    protected final ServletContext servletContext;
 
-    public ServletCommand(HttpServlet servlet) {
-        this.servlet = servlet;
+    public ServletCommand(ServletContext servletContext) {
+        this.servletContext = servletContext;
     }
 
     /**
@@ -30,7 +30,7 @@ public abstract class ServletCommand implements BiConsumer<HttpServletRequest, H
      * @return dispatcher serving url.
      */
     protected final RequestDispatcher dispatcher(String url) {
-        return servlet.getServletContext().getRequestDispatcher(url);
+        return servletContext.getRequestDispatcher(url);
     }
 
     /**

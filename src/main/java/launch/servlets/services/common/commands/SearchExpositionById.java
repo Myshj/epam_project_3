@@ -11,8 +11,8 @@ import utils.ConnectionServiceProvider;
 import utils.RepositoryManager;
 import utils.meta.MetaInfoManager;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class SearchExpositionById extends ServletCommand {
 
     private FindTicketsByExposition ticketsFinder;
     private IncludeListToRequest<Ticket> ticketIncluder = new IncludeListToRequest<>(
-            this.servlet, MetaInfoManager.INSTANCE.get(Ticket.class).getNames().getPlural()
+            this.servletContext, MetaInfoManager.INSTANCE.get(Ticket.class).getNames().getPlural()
     );
 
     @Override
@@ -46,7 +46,7 @@ public class SearchExpositionById extends ServletCommand {
         logger.info("executed");
     }
 
-    public SearchExpositionById(HttpServlet servlet) {
+    public SearchExpositionById(ServletContext servlet) {
         super(servlet);
         logger.info("started construction");
         try {

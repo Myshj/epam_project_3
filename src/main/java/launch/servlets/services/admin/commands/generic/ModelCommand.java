@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import orm.Model;
 import orm.repository.Repository;
 
-import javax.servlet.http.HttpServlet;
+import javax.servlet.ServletContext;
 
 /**
  * Base class for all commands that work with entities.
@@ -19,7 +19,7 @@ public abstract class ModelCommand<T extends Model> extends ServletCommand {
 
     protected Repository<T> repository;
 
-    public ModelCommand(HttpServlet servlet, Repository<T> repository) {
+    public ModelCommand(ServletContext servlet, Repository<T> repository) {
         super(servlet);
         logger.info("constructed");
         this.repository = repository;

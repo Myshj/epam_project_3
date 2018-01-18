@@ -8,8 +8,8 @@ import java.util.ResourceBundle;
  */
 public enum ResourceManager {
     APPLICATION("application"),
-    ACTIONS("actions"),
-    URLS("urls"),
+    //    ACTIONS("actions"),
+//    URLS("urls"),
     MESSAGES("messages");
 
     private String resourceName;

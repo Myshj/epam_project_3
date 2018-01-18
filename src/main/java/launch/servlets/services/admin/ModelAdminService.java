@@ -11,7 +11,7 @@ import utils.RepositoryManager;
 import utils.ResourceManager;
 import utils.meta.MetaInfoManager;
 
-import javax.servlet.http.HttpServlet;
+import javax.servlet.ServletContext;
 import java.util.Arrays;
 
 /**
@@ -28,12 +28,12 @@ public class ModelAdminService<T extends WebModel> extends ServletService {
 
     protected final ShowList<T> showList;
 
-    public ModelAdminService(HttpServlet servlet, Class<T> clazz) {
+    public ModelAdminService(ServletContext servlet, Class<T> clazz) {
         super(servlet);
         logger.info("started construction");
         this.clazz = clazz;
         repository = RepositoryManager.INSTANCE.get(clazz);
-        showList = new ShowList<>(clazz, this.servlet, repository);
+        showList = new ShowList<>(clazz, this.servletContext, repository);
         init();
         logger.info("constructed");
     }
@@ -70,27 +70,27 @@ public class ModelAdminService<T extends WebModel> extends ServletService {
         logger.info("started child commands registration");
         registerCommand(
                 String.format("/admin/%s/show_all", singularName()),
-                new ShowAllCommand<>(clazz, this.servlet)
+                new ShowAllCommand<>(clazz, this.servletContext)
         );
         registerCommand(
                 String.format("/admin/%s/show_update_form", singularName()),
-                new ShowUpdateFormCommand<>(clazz, this.servlet, repository)
+                new ShowUpdateFormCommand<>(clazz, this.servletContext, repository)
         );
         registerCommand(
                 String.format("/admin/%s/show_create_form", singularName()),
-                new ShowCreateFormCommand<>(clazz, this.servlet, repository)
+                new ShowCreateFormCommand<>(clazz, this.servletContext, repository)
         );
         registerCommand(
                 String.format("/admin/%s/create", singularName()),
-                new CreateEntityCommand<>(clazz, this.servlet, showList, message("CreatedSuccessfully"))
+                new CreateEntityCommand<>(clazz, this.servletContext, showList, message("CreatedSuccessfully"))
         );
         registerCommand(
                 String.format("/admin/%s/update", singularName()),
-                new UpdateEntityCommand<>(clazz, this.servlet, showList, message("UpdatedSuccessfully"))
+                new UpdateEntityCommand<>(clazz, this.servletContext, showList, message("UpdatedSuccessfully"))
         );
         registerCommand(
                 String.format("/admin/%s/remove", singularName()),
-                new RemoveEntityCommand<>(this.servlet, repository, showList, message("RemovedSuccessfully"))
+                new RemoveEntityCommand<>(this.servletContext, repository, showList, message("RemovedSuccessfully"))
         );
 
         rememberRelatives();
@@ -109,7 +109,7 @@ public class ModelAdminService<T extends WebModel> extends ServletService {
                                 String.format("/admin/%s/show_update_form", singularName()),
                                 String.format("/admin/%s/show_create_form", singularName())
                         ),
-                        new IncludeAll<>(v, this.servlet, k)
+                        new IncludeAll<>(v, this.servletContext, k)
                 )
         );
     }

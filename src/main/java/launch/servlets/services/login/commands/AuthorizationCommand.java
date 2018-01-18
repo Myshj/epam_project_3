@@ -7,8 +7,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import utils.ConnectionServiceProvider;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -43,7 +43,7 @@ public class AuthorizationCommand extends ServletCommand {
         logger.info("executed");
     }
 
-    public AuthorizationCommand(HttpServlet servlet) {
+    public AuthorizationCommand(ServletContext servlet) {
         super(servlet);
         logger.info("started construction");
         try {

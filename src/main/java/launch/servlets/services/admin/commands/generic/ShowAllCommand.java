@@ -8,8 +8,8 @@ import utils.RepositoryManager;
 import utils.meta.MetaInfoManager;
 import utils.meta.ModelMetaInfo;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -37,7 +37,7 @@ public class ShowAllCommand<T extends Model> extends ModelCommand<T> {
         logger.info("executed");
     }
 
-    public ShowAllCommand(Class<T> clazz, HttpServlet servlet) {
+    public ShowAllCommand(Class<T> clazz, ServletContext servlet) {
         super(servlet, RepositoryManager.INSTANCE.get(clazz));
         logger.info("started construction");
         meta = MetaInfoManager.INSTANCE.get(clazz);

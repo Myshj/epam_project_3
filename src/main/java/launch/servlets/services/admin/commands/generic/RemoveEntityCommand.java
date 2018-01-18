@@ -5,8 +5,8 @@ import org.apache.logging.log4j.Logger;
 import orm.Model;
 import orm.repository.Repository;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class RemoveEntityCommand<T extends Model> extends ForwardingCommand<T> {
     private String message;
 
     public RemoveEntityCommand(
-            HttpServlet servlet,
+            ServletContext servlet,
             Repository<T> repository,
             ShowList<T> showList,
             String message

@@ -9,8 +9,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import utils.RepositoryManager;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class IncludeAddress extends ModelCommand<Building> {
         return this;
     }
 
-    public IncludeAddress(HttpServlet servlet, String name) {
+    public IncludeAddress(ServletContext servlet, String name) {
         super(servlet, RepositoryManager.INSTANCE.get(Building.class));
         logger.info("created");
         this.name = name;

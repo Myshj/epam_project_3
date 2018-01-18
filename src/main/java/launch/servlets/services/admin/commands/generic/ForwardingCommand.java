@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 import orm.Model;
 import orm.repository.Repository;
 
-import javax.servlet.http.HttpServlet;
+import javax.servlet.ServletContext;
 
 /**
  * Base class for all commands that eventually display list of entities.
@@ -18,7 +18,7 @@ public abstract class ForwardingCommand<T extends Model> extends ModelCommand<T>
     protected final ShowList<T> showList;
 
     public ForwardingCommand(
-            HttpServlet servlet,
+            ServletContext servlet,
             Repository<T> repository,
             ShowList<T> showList
     ) {

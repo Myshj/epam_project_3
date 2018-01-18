@@ -6,8 +6,8 @@ import orm.Model;
 import utils.HttpServletRequestToEntityConverter;
 import utils.RepositoryManager;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class CreateEntityCommand<T extends Model> extends ForwardingCommand<T> {
 
     public CreateEntityCommand(
             Class<T> clazz,
-            HttpServlet servlet,
+            ServletContext servlet,
             ShowList<T> showList,
             String createdSuccessfullyMessage
     ) {

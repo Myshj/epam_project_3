@@ -21,6 +21,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<a href="/admin/#{meta.names.singular}/show_all">back</a>
+<a href="/admin">to main page</a>
 <div class="container">
     <c:choose>
         <c:when test="${empty action}">

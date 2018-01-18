@@ -8,8 +8,8 @@ import orm.repository.Repository;
 import utils.meta.MetaInfoManager;
 import utils.meta.ModelMetaInfo;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -28,7 +28,7 @@ public class ShowList<T extends Model> extends ModelCommand<T> {
 
     public ShowList(
             Class<T> clazz,
-            HttpServlet servlet,
+            ServletContext servlet,
             Repository<T> repository
     ) {
         super(servlet, repository);

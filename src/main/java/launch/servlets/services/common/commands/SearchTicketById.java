@@ -7,8 +7,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import utils.RepositoryManager;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -19,7 +19,7 @@ import java.io.IOException;
 public class SearchTicketById extends ServletCommand {
     private static final Logger logger = LogManager.getLogger(SearchTicketById.class);
 
-    private IncludeAddress addressIncluder = new IncludeAddress(this.servlet, "address");
+    private IncludeAddress addressIncluder = new IncludeAddress(this.servletContext, "address");
 
     @Override
     protected void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,7 +38,7 @@ public class SearchTicketById extends ServletCommand {
         logger.info("executed");
     }
 
-    public SearchTicketById(HttpServlet servlet) {
+    public SearchTicketById(ServletContext servlet) {
         super(servlet);
         logger.info("constructed");
     }

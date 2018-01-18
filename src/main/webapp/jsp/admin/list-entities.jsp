@@ -23,6 +23,7 @@
 
 <body>
 <div class="container">
+    <a href="/admin/">back</a>
     <h2>List ${meta.names.plural}</h2>
 
     <%--<!--Entity List-->--%>

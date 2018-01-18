@@ -6,8 +6,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import utils.RepositoryManager;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -29,7 +29,7 @@ public class ShowPurchaseForm extends ServletCommand {
         logger.info("executed");
     }
 
-    public ShowPurchaseForm(HttpServlet servlet) {
+    public ShowPurchaseForm(ServletContext servlet) {
         super(servlet);
         logger.info("constructed");
     }

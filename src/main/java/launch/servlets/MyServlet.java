@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Main servlet controller.
+ * Main servletContext controller.
  * Serves /admin, /common and /login urls.
  */
 @WebServlet(
@@ -22,7 +22,7 @@ import java.io.IOException;
 public class MyServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(MyServlet.class);
 
-    private final MainService mainService = new MainService(this);
+    private final MainService mainService = new MainService(this.getServletContext());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

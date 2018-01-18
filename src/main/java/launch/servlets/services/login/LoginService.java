@@ -6,7 +6,7 @@ import launch.servlets.services.login.commands.AuthorizationCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.http.HttpServlet;
+import javax.servlet.ServletContext;
 
 /**
  * Service for user authorization and authentication.
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 public class LoginService extends ServletService {
     private static final Logger logger = LogManager.getLogger(LoginService.class);
 
-    public LoginService(HttpServlet servlet) {
+    public LoginService(ServletContext servlet) {
         super(servlet);
         logger.info("started construction");
         registerCommand("/login", new SimpleForwarder(servlet).withUrl("/jsp/login.jsp"));

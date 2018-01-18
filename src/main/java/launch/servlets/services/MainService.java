@@ -6,7 +6,7 @@ import launch.servlets.services.login.LoginService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.http.HttpServlet;
+import javax.servlet.ServletContext;
 
 /**
  * The main service.
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServlet;
 public class MainService extends ServletService {
     private static final Logger logger = LogManager.getLogger(MainService.class);
 
-    public MainService(HttpServlet servlet) {
+    public MainService(ServletContext servlet) {
         super(servlet);
         logger.info("started construction");
         registerCommand("/admin.*", new AdminService(servlet));

@@ -9,14 +9,14 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-    <!--<servlet>-->
-    <!--<servlet-name>errorPage</servlet-name>-->
+    <!--<servletContext>-->
+    <!--<servletContext-name>errorPage</servletContext-name>-->
     <!--<jsp-file>/jsp/error/errorPage.jsp</jsp-file>-->
-    <!--</servlet>-->
-    <!--<servlet-mapping>-->
-    <!--<servlet-name>errorPage</servlet-name>-->
+    <!--</servletContext>-->
+    <!--<servletContext-mapping>-->
+    <!--<servletContext-name>errorPage</servletContext-name>-->
     <!--<url-pattern>/error</url-pattern>-->
-    <!--</servlet-mapping>-->
+    <!--</servletContext-mapping>-->
     <error-page>
         <error-code>500</error-code>
         <!--<location>/jsp/error/errorPage.jsp</location>-->
