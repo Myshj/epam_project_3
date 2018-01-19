@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="../localized.jsp" %>
 <html>
 <head>
     <%@include file="../bootstrap.jsp" %>
@@ -30,7 +31,7 @@
           data-toggle="validator"
     >
         <input type="hidden" name="id" value="${entity.id}"/>
-        <h2>Edit ${meta.names.singular}</h2>
+        <h2><fmt:message key="edit"/> ${meta.names.singular}</h2>
         <div class="form-group col-xs-4">
             <c:forEach var="field" items="${meta.fields.keySet()}">
                 <label for="${field}"
@@ -90,7 +91,7 @@
                 <br>
             </c:forEach>
 
-            <button type="submit" class="btn btn-primary  btn-md">Accept</button>
+            <button type="submit" class="btn btn-primary  btn-md"><fmt:message key="accept"/></button>
         </div>
     </form>
 </div>

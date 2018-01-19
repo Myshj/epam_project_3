@@ -26,7 +26,7 @@ public class FindExpositionsByShowroom extends ListEntitiesCommand<Exposition> {
         return this;
     }
 
-    public FindExpositionsByShowroom(CommandContext<Exposition> context) throws SQLException {
+    public FindExpositionsByShowroom(CommandContext<Exposition> context) {
         super(
                 context,
                 "SELECT * FROM expositions WHERE showroom_id=?;"

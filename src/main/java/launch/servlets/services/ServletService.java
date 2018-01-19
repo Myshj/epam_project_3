@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * Base class for all servletContext services.
  * Maps incoming requests to child services and commands.
  */
-public abstract class ServletService extends HasAccessToContext implements BiConsumer<HttpServletRequest, HttpServletResponse> {
+public abstract class ServletService extends HasServiceContext implements BiConsumer<HttpServletRequest, HttpServletResponse> {
     private static final Logger logger = LogManager.getLogger(ServletService.class);
     private final Map<String, BiConsumer<HttpServletRequest, HttpServletResponse>> commands = new HashMap<>();
 
@@ -38,8 +38,8 @@ public abstract class ServletService extends HasAccessToContext implements BiCon
     protected ServletService(ServiceContext context) {
         super(context);
         logger.info("started construction");
-        notFoundRedirecter = new SimpleForwarder(context).withUrl("/jsp/error/errorPage.jsp");
-        errorRedirecter = new SimpleForwarder(context).withUrl("/jsp/error/errorPage.jsp");
+        notFoundRedirecter = new SimpleForwarder(context).withUrl("/jsp/error/error404.jsp");
+        errorRedirecter = new SimpleForwarder(context).withUrl("/jsp/error/error500.jsp");
         logger.info("constructed");
     }
 

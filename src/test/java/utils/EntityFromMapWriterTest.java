@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import orm.commands.CommandContext;
+import utils.converters.EntityFromMapWriter;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;

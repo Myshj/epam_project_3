@@ -1,7 +1,7 @@
-package utils;
+package utils.converters;
 
 import launch.servlets.ServiceContext;
-import launch.servlets.services.HasAccessToContext;
+import launch.servlets.services.HasServiceContext;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import orm.Model;
 import orm.OrmFieldUtils;
@@ -17,7 +17,7 @@ import java.util.function.BiFunction;
 /**
  * Writes fields represented by http parameters into existing entity.
  */
-public class EntityFromHttpServletRequestWriter<T extends Model> extends HasAccessToContext implements BiFunction<T, HttpServletRequest, T> {
+public class EntityFromHttpServletRequestWriter<T extends Model> extends HasServiceContext implements BiFunction<T, HttpServletRequest, T> {
 
     private final Class<T> clazz;
 

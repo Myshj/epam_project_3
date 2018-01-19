@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 import orm.Model;
 import orm.OrmFieldUtils;
 import utils.MapToEntityConverter;
-import utils.ResultSetToMapConverter;
+import utils.converters.EntityResultSetToMapConverter;
 
 import java.lang.reflect.Field;
 import java.sql.PreparedStatement;
@@ -49,7 +49,7 @@ public abstract class DbCommand<T extends Model> {
         this.context = context;
         queryParametersMap = OrmFieldUtils.getUpdateMapping(context.getClazz());
         statement = prepareStatement(sql);
-        converter = new MapToEntityConverter<>(context).compose(new ResultSetToMapConverter());
+        converter = new MapToEntityConverter<>(context).compose(new EntityResultSetToMapConverter());
 
         logger.info("constructed");
     }

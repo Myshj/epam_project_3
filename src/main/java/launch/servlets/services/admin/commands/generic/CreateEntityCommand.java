@@ -4,7 +4,7 @@ import launch.servlets.ServiceContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
-import utils.HttpServletRequestToEntityConverter;
+import utils.converters.HttpServletRequestToEntityConverter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

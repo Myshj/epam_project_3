@@ -2,10 +2,10 @@ package launch.servlets.services;
 
 import launch.servlets.ServiceContext;
 
-public abstract class HasAccessToContext {
+public abstract class HasServiceContext {
     protected final ServiceContext context;
 
-    public HasAccessToContext(ServiceContext context) {
+    public HasServiceContext(ServiceContext context) {
         this.context = context;
     }
 }

@@ -11,7 +11,7 @@
     </welcome-file-list>
     <!--<servletContext>-->
     <!--<servletContext-name>errorPage</servletContext-name>-->
-    <!--<jsp-file>/jsp/error/errorPage.jsp</jsp-file>-->
+    <!--<jsp-file>/jsp/error/error500.jsp</jsp-file>-->
     <!--</servletContext>-->
     <!--<servletContext-mapping>-->
     <!--<servletContext-name>errorPage</servletContext-name>-->
@@ -19,12 +19,12 @@
     <!--</servletContext-mapping>-->
     <error-page>
         <error-code>500</error-code>
-        <!--<location>/jsp/error/errorPage.jsp</location>-->
-        <location>/jsp/error/errorPage.jsp</location>
+        <!--<location>/jsp/error/error500.jsp</location>-->
+        <location>/jsp/error/error500.jsp</location>
     </error-page>
     <error-page>
         <error-code>404</error-code>
-        <location>/jsp/error/errorPage.jsp</location>
+        <location>/jsp/error/error500.jsp</location>
     </error-page>
 
     <session-config>

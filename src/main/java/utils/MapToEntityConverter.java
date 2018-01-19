@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
 import orm.commands.CommandContext;
+import utils.converters.EntityFromMapWriter;
 
 import java.lang.reflect.Constructor;
 import java.util.Map;

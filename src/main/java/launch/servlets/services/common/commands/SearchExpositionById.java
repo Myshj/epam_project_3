@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.commands.CommandContext;
 import utils.meta.MetaInfoManager;
+import utils.transactions.TransactionExecutor;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -32,15 +33,20 @@ public class SearchExpositionById extends ServletCommand {
     @Override
     protected void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("started execution");
-        Exposition exposition = context.getManagers().getRepository().get(Exposition.class).getById(
-                Long.valueOf(request.getParameter("id"))
-        ).orElse(null);
-        request.setAttribute("exposition", exposition);
+        new TransactionExecutor(context.getManagers().getConnection().get()).apply(
+                () -> {
+                    Exposition exposition = context.getManagers().getRepository().get(Exposition.class).getById(
+                            Long.valueOf(request.getParameter("id"))
+                    ).orElse(null);
+                    request.setAttribute("exposition", exposition);
 
-        if (exposition != null) {
-            ticketIncluder.withList(ticketsFinder.withExposition(exposition).execute())
-                    .accept(request, response);
-        }
+                    if (exposition != null) {
+                        ticketIncluder.withList(ticketsFinder.withExposition(exposition).execute())
+                                .accept(request, response);
+                    }
+                }
+        );
+
 
         dispatcher("/jsp/general/observe-exposition.jsp").forward(request, response);
         logger.info("executed");

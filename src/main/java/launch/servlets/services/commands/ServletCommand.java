@@ -1,7 +1,7 @@
 package launch.servlets.services.commands;
 
 import launch.servlets.ServiceContext;
-import launch.servlets.services.HasAccessToContext;
+import launch.servlets.services.HasServiceContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,7 +15,7 @@ import java.util.function.BiConsumer;
 /**
  * Base class for all end commands executed by servlets and their services.
  */
-public abstract class ServletCommand extends HasAccessToContext implements BiConsumer<HttpServletRequest, HttpServletResponse> {
+public abstract class ServletCommand extends HasServiceContext implements BiConsumer<HttpServletRequest, HttpServletResponse> {
     private static final Logger logger = LogManager.getLogger(ServletCommand.class);
 
     public ServletCommand(ServiceContext context) {

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import utils.converters.EntityResultSetToMapConverter;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -13,8 +14,8 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ResultSetToMapConverterTest {
-    private ResultSetToMapConverter converter = new ResultSetToMapConverter();
+class EntityResultSetToMapConverterTest {
+    private EntityResultSetToMapConverter converter = new EntityResultSetToMapConverter();
     @Mock
     private ResultSet goodResultSet;
 

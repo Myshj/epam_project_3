@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="../localized.jsp" %>
 <html>
 <head>
     <%@include file="../bootstrap.jsp" %>
@@ -15,7 +16,7 @@
 <body>
 <div class="container">
     <h3><a href="/admin/">back</a></h3>
-    <h2>List ${meta.names.plural}</h2>
+    <h2><fmt:message key="list"/> ${meta.names.plural}</h2>
 
     <%--<!--Entity List-->--%>
     <%--<c:if test="${not empty message}">--%>
@@ -64,7 +65,7 @@
         </tbody>
     </table>
     <form action="/admin/${meta.names.singular}/show_create_form">
-        <button type="submit" class="btn btn-primary  btn-md">New ${meta.names.singular}</button>
+        <button type="submit" class="btn btn-primary  btn-md"><fmt:message key="new"/> ${meta.names.singular}</button>
     </form>
 </div>
 </body>

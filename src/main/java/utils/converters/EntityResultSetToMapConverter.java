@@ -1,4 +1,4 @@
-package utils;
+package utils.converters;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,8 +12,8 @@ import java.util.function.Function;
 /**
  * Converts ResultSet into a map.
  */
-public class ResultSetToMapConverter implements Function<ResultSet, Map<String, Object>> {
-    private static final Logger logger = LogManager.getLogger(ResultSetToMapConverter.class);
+public class EntityResultSetToMapConverter implements Function<ResultSet, Map<String, Object>> {
+    private static final Logger logger = LogManager.getLogger(EntityResultSetToMapConverter.class);
 
     @Override
     public Map<String, Object> apply(ResultSet resultSet) {

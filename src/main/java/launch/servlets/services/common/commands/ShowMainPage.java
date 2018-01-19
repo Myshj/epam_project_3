@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import orm.commands.CommandContext;
 import orm.repository.IRepository;
 import utils.meta.MetaInfoManager;
+import utils.transactions.TransactionExecutor;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -76,23 +77,28 @@ public class ShowMainPage extends ServletCommand {
     @Override
     protected void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("started execution");
-        showroomsIncluder.accept(request, response);
 
-        LocalDateTime now = LocalDateTime.now();
+        new TransactionExecutor(context.getManagers().getConnection().get()).apply(
+                () -> {
+                    showroomsIncluder.accept(request, response);
 
-        request.setAttribute(
-                "countOfActiveExpositions",
-                expositionRepository.count(getCountOfActiveExpositions.withDateTime(now))
-        );
+                    LocalDateTime now = LocalDateTime.now();
 
-        request.setAttribute(
-                "countOfOldExpositions",
-                expositionRepository.count(getCountOfOldExpositions.withDateTime(now))
-        );
+                    request.setAttribute(
+                            "countOfActiveExpositions",
+                            expositionRepository.count(getCountOfActiveExpositions.withDateTime(now))
+                    );
 
-        request.setAttribute(
-                "countOfPlannedExpositions",
-                expositionRepository.count(getCountOfPlannedExpositions.withDateTime(now))
+                    request.setAttribute(
+                            "countOfOldExpositions",
+                            expositionRepository.count(getCountOfOldExpositions.withDateTime(now))
+                    );
+
+                    request.setAttribute(
+                            "countOfPlannedExpositions",
+                            expositionRepository.count(getCountOfPlannedExpositions.withDateTime(now))
+                    );
+                }
         );
 
         dispatcher("/jsp/general/list-showrooms.jsp").forward(request, response);
