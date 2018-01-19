@@ -1,10 +1,11 @@
 package launch.servlets.services.commands;
 
+import launch.servlets.ServiceContext;
+import launch.servlets.services.HasAccessToContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,13 +15,11 @@ import java.util.function.BiConsumer;
 /**
  * Base class for all end commands executed by servlets and their services.
  */
-public abstract class ServletCommand implements BiConsumer<HttpServletRequest, HttpServletResponse> {
+public abstract class ServletCommand extends HasAccessToContext implements BiConsumer<HttpServletRequest, HttpServletResponse> {
     private static final Logger logger = LogManager.getLogger(ServletCommand.class);
 
-    protected final ServletContext servletContext;
-
-    public ServletCommand(ServletContext servletContext) {
-        this.servletContext = servletContext;
+    public ServletCommand(ServiceContext context) {
+        super(context);
     }
 
     /**
@@ -30,7 +29,7 @@ public abstract class ServletCommand implements BiConsumer<HttpServletRequest, H
      * @return dispatcher serving url.
      */
     protected final RequestDispatcher dispatcher(String url) {
-        return servletContext.getRequestDispatcher(url);
+        return context.getServlet().getRequestDispatcher(url);
     }
 
     /**

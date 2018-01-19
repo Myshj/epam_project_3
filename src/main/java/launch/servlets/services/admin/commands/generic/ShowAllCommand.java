@@ -1,14 +1,13 @@
 package launch.servlets.services.admin.commands.generic;
 
+import launch.servlets.ServiceContext;
 import launch.servlets.services.admin.commands.generic.includers.IncludeAll;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
-import utils.RepositoryManager;
 import utils.meta.MetaInfoManager;
 import utils.meta.ModelMetaInfo;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,11 +36,14 @@ public class ShowAllCommand<T extends Model> extends ModelCommand<T> {
         logger.info("executed");
     }
 
-    public ShowAllCommand(Class<T> clazz, ServletContext servlet) {
-        super(servlet, RepositoryManager.INSTANCE.get(clazz));
+    public ShowAllCommand(
+            ServiceContext context,
+            Class<T> clazz
+    ) {
+        super(context, clazz);
         logger.info("started construction");
         meta = MetaInfoManager.INSTANCE.get(clazz);
-        includeAll = new IncludeAll<>(clazz, servlet, "entities");
+        includeAll = new IncludeAll<>(context, clazz, "entities");
         logger.info("construction");
     }
 }

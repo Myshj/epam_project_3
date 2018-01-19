@@ -1,11 +1,10 @@
 package launch.servlets.services.admin.commands.generic;
 
+import launch.servlets.ServiceContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
-import orm.repository.Repository;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,12 +21,12 @@ public class RemoveEntityCommand<T extends Model> extends ForwardingCommand<T> {
     private String message;
 
     public RemoveEntityCommand(
-            ServletContext servlet,
-            Repository<T> repository,
+            ServiceContext context,
+            Class<T> clazz,
             ShowList<T> showList,
             String message
     ) {
-        super(servlet, repository, showList);
+        super(context, clazz, showList);
         logger.info("constructed");
         this.message = message;
     }

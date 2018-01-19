@@ -1,11 +1,11 @@
 package launch.servlets.services.admin.commands.generic.includers;
 
+import launch.servlets.ServiceContext;
 import launch.servlets.services.admin.commands.generic.ModelCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,10 +23,11 @@ public class IncludeListToRequest<T extends Model> extends ModelCommand<T> {
     private List<T> list;
 
     public IncludeListToRequest(
-            ServletContext servlet,
+            ServiceContext context,
+            Class<T> clazz,
             String name
     ) {
-        super(servlet, null);
+        super(context, clazz);
         logger.info("created");
         this.name = name;
     }

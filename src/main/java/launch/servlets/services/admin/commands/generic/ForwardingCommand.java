@@ -1,11 +1,9 @@
 package launch.servlets.services.admin.commands.generic;
 
+import launch.servlets.ServiceContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
-import orm.repository.Repository;
-
-import javax.servlet.ServletContext;
 
 /**
  * Base class for all commands that eventually display list of entities.
@@ -18,11 +16,11 @@ public abstract class ForwardingCommand<T extends Model> extends ModelCommand<T>
     protected final ShowList<T> showList;
 
     public ForwardingCommand(
-            ServletContext servlet,
-            Repository<T> repository,
+            ServiceContext context,
+            Class<T> clazz,
             ShowList<T> showList
     ) {
-        super(servlet, repository);
+        super(context, clazz);
         logger.info("constructed");
         this.showList = showList;
     }

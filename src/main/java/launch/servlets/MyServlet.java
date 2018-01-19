@@ -3,6 +3,10 @@ package launch.servlets;
 import launch.servlets.services.MainService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import utils.globals.Managers;
+import utils.managers.ConnectionManager;
+import utils.managers.resource.ResourceBundleAccessor;
+import utils.managers.resource.ResourceManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +26,25 @@ import java.io.IOException;
 public class MyServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(MyServlet.class);
 
-    private final MainService mainService = new MainService(this.getServletContext());
+    private MainService mainService;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        ConnectionManager connectionManager = new ConnectionManager(
+                new ResourceManager(
+                        new ResourceBundleAccessor().withResource("application")
+                )
+        );
+        mainService = new MainService(
+                new ServiceContext(
+                        getServletContext(),
+                        new Managers()
+                )
+        );
+
+
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

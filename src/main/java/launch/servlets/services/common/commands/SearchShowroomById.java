@@ -1,5 +1,6 @@
 package launch.servlets.services.common.commands;
 
+import launch.servlets.ServiceContext;
 import launch.servlets.services.admin.commands.generic.includers.IncludeAddress;
 import launch.servlets.services.admin.commands.generic.includers.IncludeListToRequest;
 import launch.servlets.services.commands.ServletCommand;
@@ -8,11 +9,8 @@ import models.Showroom;
 import models.commands.FindExpositionsByShowroom;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import utils.ConnectionServiceProvider;
-import utils.RepositoryManager;
 import utils.meta.MetaInfoManager;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,22 +27,25 @@ public class SearchShowroomById extends ServletCommand {
     private static final Logger logger = LogManager.getLogger(SearchShowroomById.class);
 
     private IncludeListToRequest<Exposition> expositionIncluder = new IncludeListToRequest<>(
-            this.servletContext,
+            context,
+            Exposition.class,
             MetaInfoManager.INSTANCE.get(Exposition.class).getNames().getPlural()
     );
 
-    private IncludeAddress addressIncluder = new IncludeAddress(this.servletContext, "address");
+    private IncludeAddress addressIncluder;// = new IncludeAddress(this.servletContext, "address");
 
     private FindExpositionsByShowroom expositionFinder;
 
-    public SearchShowroomById(ServletContext servlet) {
-        super(servlet);
+    public SearchShowroomById(ServiceContext context) {
+        super(context);
         logger.info("started construction");
         try {
             expositionFinder = new FindExpositionsByShowroom(
                     Exposition.class,
-                    ConnectionServiceProvider.INSTANCE.get()
+                    context.getManagers().getConnection().get()
+                    //ConnectionServiceProvider.INSTANCE.get()
             );
+            addressIncluder = new IncludeAddress(context);
         } catch (SQLException e) {
             e.printStackTrace();
             logger.error(e);
@@ -56,7 +57,7 @@ public class SearchShowroomById extends ServletCommand {
     protected void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         logger.info("started execution");
-        Showroom showroom = RepositoryManager.INSTANCE.get(Showroom.class).getById(
+        Showroom showroom = context.getManagers().getRepository().get(Showroom.class).getById(
                 Long.valueOf(request.getParameter("id"))
         ).orElse(null);
         request.setAttribute("showroom", showroom);

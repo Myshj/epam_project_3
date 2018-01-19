@@ -1,14 +1,13 @@
 package launch.servlets.services.admin.commands.generic;
 
+import launch.servlets.ServiceContext;
 import launch.servlets.services.admin.commands.generic.includers.IncludeListToRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
-import orm.repository.Repository;
 import utils.meta.MetaInfoManager;
 import utils.meta.ModelMetaInfo;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,13 +26,12 @@ public class ShowList<T extends Model> extends ModelCommand<T> {
     private ModelMetaInfo meta;
 
     public ShowList(
-            Class<T> clazz,
-            ServletContext servlet,
-            Repository<T> repository
+            ServiceContext context,
+            Class<T> clazz
     ) {
-        super(servlet, repository);
+        super(context, clazz);
         logger.info("started construction");
-        this.includer = new IncludeListToRequest<>(servlet, "entities");
+        this.includer = new IncludeListToRequest<>(context, clazz, "entities");
         meta = MetaInfoManager.INSTANCE.get(clazz);
         logger.info("constructed");
     }

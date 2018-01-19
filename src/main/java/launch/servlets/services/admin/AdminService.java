@@ -1,12 +1,11 @@
 package launch.servlets.services.admin;
 
+import launch.servlets.ServiceContext;
 import launch.servlets.services.ServletService;
 import launch.servlets.services.admin.commands.ShowMainAdminPage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import utils.meta.MetaInfoManager;
-
-import javax.servlet.ServletContext;
 
 /**
  * The main admin service.
@@ -15,8 +14,8 @@ import javax.servlet.ServletContext;
 public class AdminService extends ServletService {
     private static final Logger logger = LogManager.getLogger(AdminService.class);
 
-    public AdminService(ServletContext servlet) {
-        super(servlet);
+    public AdminService(ServiceContext context) {
+        super(context);
         logger.info("started construction");
         MetaInfoManager.INSTANCE.classes().forEach(
                 c -> registerCommand(
@@ -24,10 +23,10 @@ public class AdminService extends ServletService {
                                 "/admin/%s/.*",
                                 MetaInfoManager.INSTANCE.get(c).getNames().getSingular()
                         ),
-                        new ModelAdminService(servlet, c)
+                        new ModelAdminService(context, c)
                 )
         );
-        registerCommand("/admin(/)*", new ShowMainAdminPage(servlet));
+        registerCommand("/admin(/)*", new ShowMainAdminPage(context));
         logger.info("constructed");
     }
 }

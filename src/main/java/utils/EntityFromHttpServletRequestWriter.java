@@ -1,5 +1,7 @@
 package utils;
 
+import launch.servlets.ServiceContext;
+import launch.servlets.services.HasAccessToContext;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import orm.Model;
 import orm.OrmFieldUtils;
@@ -15,11 +17,12 @@ import java.util.function.BiFunction;
 /**
  * Writes fields represented by http parameters into existing entity.
  */
-public class EntityFromHttpServletRequestWriter<T extends Model> implements BiFunction<T, HttpServletRequest, T> {
+public class EntityFromHttpServletRequestWriter<T extends Model> extends HasAccessToContext implements BiFunction<T, HttpServletRequest, T> {
 
     private final Class<T> clazz;
 
-    public EntityFromHttpServletRequestWriter(Class<T> clazz) {
+    public EntityFromHttpServletRequestWriter(ServiceContext context, Class<T> clazz) {
+        super(context);
         this.clazz = clazz;
     }
 
@@ -49,6 +52,9 @@ public class EntityFromHttpServletRequestWriter<T extends Model> implements BiFu
                     FieldUtils.writeField(
                             realField, "id", Long.valueOf(value),
                             true
+                    );
+                    FieldUtils.writeField(
+                            realField, "repositoryManager", context.getManagers().getRepository()
                     );
                 } else if (type == EnumField.class) {
                     ((EnumField) realField).setValue(

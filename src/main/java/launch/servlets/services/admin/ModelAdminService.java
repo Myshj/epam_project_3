@@ -1,18 +1,14 @@
 package launch.servlets.services.admin;
 
+import launch.servlets.ServiceContext;
 import launch.servlets.services.ServletService;
 import launch.servlets.services.admin.commands.generic.*;
-import launch.servlets.services.admin.commands.generic.includers.IncludeAll;
 import models.WebModel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.repository.Repository;
-import utils.RepositoryManager;
-import utils.ResourceManager;
+import utils.managers.resource.IResourceManager;
 import utils.meta.MetaInfoManager;
-
-import javax.servlet.ServletContext;
-import java.util.Arrays;
 
 /**
  * Admin CRUD service for a single entity class.
@@ -24,22 +20,29 @@ public class ModelAdminService<T extends WebModel> extends ServletService {
 
     private final Class<T> clazz;
 
+    private final IResourceManager modelMessageMessager;
+
     protected final Repository<T> repository;
 
     protected final ShowList<T> showList;
 
-    public ModelAdminService(ServletContext servlet, Class<T> clazz) {
-        super(servlet);
+    public ModelAdminService(
+            ServiceContext context,
+            Class<T> clazz
+    ) {
+        super(context);
         logger.info("started construction");
         this.clazz = clazz;
-        repository = RepositoryManager.INSTANCE.get(clazz);
-        showList = new ShowList<>(clazz, this.servletContext, repository);
+        this.modelMessageMessager = context.getManagers().getResources().getMessages();
+        this.repository = context.getManagers().getRepository().get(clazz);
+        showList = new ShowList<>(context, clazz);
         init();
         logger.info("constructed");
     }
 
     /**
      * Shortcut to retrieving singular name of entity .
+     *
      * @return singular name of served entity.
      */
     private String singularName() {
@@ -48,6 +51,7 @@ public class ModelAdminService<T extends WebModel> extends ServletService {
 
     /**
      * Shortcut to retrieving plural name of entity.
+     *
      * @return plural name of served entity.
      */
     private String pluralName() {
@@ -56,11 +60,12 @@ public class ModelAdminService<T extends WebModel> extends ServletService {
 
     /**
      * Returns localized name of action.
+     *
      * @param action action to localize
      * @return localized name of action.
      */
     private String message(String action) {
-        return ResourceManager.MESSAGES.get(singularName() + action);
+        return modelMessageMessager.withKey(singularName() + action).get(); //ResourceManager.MESSAGES.get(singularName() + action);
     }
 
     /**
@@ -70,47 +75,29 @@ public class ModelAdminService<T extends WebModel> extends ServletService {
         logger.info("started child commands registration");
         registerCommand(
                 String.format("/admin/%s/show_all", singularName()),
-                new ShowAllCommand<>(clazz, this.servletContext)
+                new ShowAllCommand<>(context, clazz)
         );
         registerCommand(
                 String.format("/admin/%s/show_update_form", singularName()),
-                new ShowUpdateFormCommand<>(clazz, this.servletContext, repository)
+                new ShowUpdateFormCommand<>(context, clazz)
         );
         registerCommand(
                 String.format("/admin/%s/show_create_form", singularName()),
-                new ShowCreateFormCommand<>(clazz, this.servletContext, repository)
+                new ShowCreateFormCommand<>(context, clazz)
         );
         registerCommand(
                 String.format("/admin/%s/create", singularName()),
-                new CreateEntityCommand<>(clazz, this.servletContext, showList, message("CreatedSuccessfully"))
+                new CreateEntityCommand<>(context, clazz, showList, message("CreatedSuccessfully"))
         );
         registerCommand(
                 String.format("/admin/%s/update", singularName()),
-                new UpdateEntityCommand<>(clazz, this.servletContext, showList, message("UpdatedSuccessfully"))
+                new UpdateEntityCommand<>(context, clazz, showList, message("UpdatedSuccessfully"))
         );
         registerCommand(
                 String.format("/admin/%s/remove", singularName()),
-                new RemoveEntityCommand<>(this.servletContext, repository, showList, message("RemovedSuccessfully"))
+                new RemoveEntityCommand<>(context, clazz, showList, message("RemovedSuccessfully"))
         );
 
-        rememberRelatives();
         logger.info("registered child commands");
-    }
-
-    /**
-     * TO DELETE
-     * Remembers to include relatives to request served by ShowUpdateForm and ShowCreateForm
-     * commands.
-     */
-    private void rememberRelatives() {
-        MetaInfoManager.INSTANCE.get(clazz).getRelatives().forEach(
-                (k, v) -> addCommandBefore(
-                        Arrays.asList(
-                                String.format("/admin/%s/show_update_form", singularName()),
-                                String.format("/admin/%s/show_create_form", singularName())
-                        ),
-                        new IncludeAll<>(v, this.servletContext, k)
-                )
-        );
     }
 }

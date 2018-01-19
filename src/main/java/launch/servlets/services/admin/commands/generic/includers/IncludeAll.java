@@ -1,12 +1,11 @@
 package launch.servlets.services.admin.commands.generic.includers;
 
+import launch.servlets.ServiceContext;
 import launch.servlets.services.admin.commands.generic.ModelCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
-import utils.RepositoryManager;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,11 +21,11 @@ public class IncludeAll<T extends Model> extends ModelCommand<T> {
     private String name;
 
     public IncludeAll(
+            ServiceContext context,
             Class<T> clazz,
-            ServletContext servlet,
             String name
     ) {
-        super(servlet, RepositoryManager.INSTANCE.get(clazz));
+        super(context, clazz);
         logger.info("created");
         this.name = name;
     }

@@ -1,28 +1,20 @@
-package utils;
+package utils.managers;
 
 import orm.Model;
 import orm.repository.Repository;
-import utils.managers.ConnectionManager;
-import utils.managers.resource.ResourceBundleAccessor;
-import utils.managers.resource.ResourceManager;
 
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-/**
- * Stores model repositories.
- */
-public enum RepositoryManager {
-    INSTANCE;
-
+public class NewRepositoryManager {
     private Map<Class, Repository> repositories = new HashMap<>();
-    private Supplier<Connection> connectionSupplier = new ConnectionManager(
-            new ResourceManager(
-                    new ResourceBundleAccessor().withResource("application")
-            )
-    );
+    private Supplier<Connection> connectionSupplier;
+
+    public NewRepositoryManager(Supplier<Connection> connectionSupplier) {
+        this.connectionSupplier = connectionSupplier;
+    }
 
     /**
      * Returns repository for a given model class.

@@ -1,5 +1,6 @@
 package launch.servlets.services.admin.commands.generic.includers;
 
+import launch.servlets.ServiceContext;
 import launch.servlets.services.admin.commands.generic.ModelCommand;
 import models.Building;
 import models.City;
@@ -7,9 +8,7 @@ import models.Country;
 import models.Street;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import utils.RepositoryManager;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +20,6 @@ import java.io.IOException;
 public class IncludeAddress extends ModelCommand<Building> {
     private static final Logger logger = LogManager.getLogger(IncludeAddress.class);
 
-    private String name;
     private Building building;
 
     public IncludeAddress withBuilding(Building building) {
@@ -30,10 +28,9 @@ public class IncludeAddress extends ModelCommand<Building> {
         return this;
     }
 
-    public IncludeAddress(ServletContext servlet, String name) {
-        super(servlet, RepositoryManager.INSTANCE.get(Building.class));
+    public IncludeAddress(ServiceContext context) {
+        super(context, Building.class);
         logger.info("created");
-        this.name = name;
     }
 
     @Override

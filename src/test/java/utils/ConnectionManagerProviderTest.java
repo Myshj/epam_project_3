@@ -1,6 +1,6 @@
 package utils;
 
-class ConnectionServiceProviderTest {
+class ConnectionManagerProviderTest {
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
     }

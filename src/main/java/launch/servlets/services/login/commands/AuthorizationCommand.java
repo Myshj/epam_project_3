@@ -1,13 +1,12 @@
 package launch.servlets.services.login.commands;
 
+import launch.servlets.ServiceContext;
 import launch.servlets.services.commands.ServletCommand;
 import models.User;
 import models.commands.FindUserByEmailAndPassword;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import utils.ConnectionServiceProvider;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,13 +42,14 @@ public class AuthorizationCommand extends ServletCommand {
         logger.info("executed");
     }
 
-    public AuthorizationCommand(ServletContext servlet) {
-        super(servlet);
+    public AuthorizationCommand(ServiceContext context) {
+        super(context);
         logger.info("started construction");
         try {
             command = new FindUserByEmailAndPassword(
                     User.class,
-                    ConnectionServiceProvider.INSTANCE.get()
+                    context.getManagers().getConnection().get()
+                    //ConnectionServiceProvider.INSTANCE.get()
             );
         } catch (SQLException e) {
             logger.error(e);

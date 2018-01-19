@@ -1,11 +1,13 @@
 package launch.servlets.services.admin.commands;
 
+import launch.servlets.ServiceContext;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import utils.globals.Managers;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -57,7 +59,7 @@ class ShowMainAdminPageTest {
         ).thenReturn(requestDispatcher);
         Mockito.when(request.getRequestURI())
                 .thenReturn("/jsp/admin/main.jsp");
-        command = new ShowMainAdminPage(servletContext);
+        command = new ShowMainAdminPage(new ServiceContext(servletContext, new Managers()));
     }
 
     @AfterEach

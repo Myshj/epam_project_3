@@ -1,12 +1,11 @@
 package launch.servlets.services.admin.commands.generic;
 
+import launch.servlets.ServiceContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
 import utils.HttpServletRequestToEntityConverter;
-import utils.RepositoryManager;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,12 +24,12 @@ public class UpdateEntityCommand<T extends Model> extends ForwardingCommand<T> {
     private Function<HttpServletRequest, T> updater;
 
     public UpdateEntityCommand(
+            ServiceContext context,
             Class<T> clazz,
-            ServletContext servlet,
             ShowList<T> showList,
             String updatedSuccessfullyMessage
     ) {
-        super(servlet, RepositoryManager.INSTANCE.get(clazz), showList);
+        super(context, clazz, showList);
         logger.info("started construction");
         this.updatedSuccessfullyMessage = updatedSuccessfullyMessage;
         updater = new HttpServletRequestToEntityConverter<>(clazz);

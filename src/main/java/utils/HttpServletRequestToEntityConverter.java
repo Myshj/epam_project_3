@@ -1,5 +1,7 @@
 package utils;
 
+import launch.servlets.ServiceContext;
+import launch.servlets.services.HasAccessToContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
@@ -12,17 +14,19 @@ import java.util.function.Function;
  *
  * @param <T>
  */
-public class HttpServletRequestToEntityConverter<T extends Model> implements Function<HttpServletRequest, T> {
+public class HttpServletRequestToEntityConverter<T extends Model> extends HasAccessToContext implements Function<HttpServletRequest, T> {
     private static final Logger logger = LogManager.getLogger(HttpServletRequestToEntityConverter.class);
 
     private DefaultInstantiator<T> instantiator;
     private EntityFromHttpServletRequestWriter<T> writer;
 
     public HttpServletRequestToEntityConverter(
+            ServiceContext context,
             Class<T> clazz
     ) {
+        super(context);
         logger.info("started construction");
-        writer = new EntityFromHttpServletRequestWriter<>(clazz);
+        writer = new EntityFromHttpServletRequestWriter<>(context, clazz);
         instantiator = new DefaultInstantiator<>(clazz);
         logger.info("constructed");
     }

@@ -1,11 +1,16 @@
 package launch.servlets.services;
 
+import launch.servlets.ServiceContext;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import utils.globals.Managers;
+import utils.managers.ConnectionManager;
+import utils.managers.resource.ResourceBundleAccessor;
+import utils.managers.resource.ResourceManager;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -63,7 +68,14 @@ class MainServiceTest {
         ).thenReturn(requestDispatcher);
         Mockito.when(request.getRequestURI())
                 .thenReturn("/jsp/admin/country/show_all");
-        command = new MainService(servletContext);
+        ConnectionManager connectionManager = new ConnectionManager(
+                new ResourceManager(
+                        new ResourceBundleAccessor().withResource("application")
+                )
+        );
+        command = new MainService(
+                new ServiceContext(servletContext, new Managers())
+        );
     }
 
     @AfterEach

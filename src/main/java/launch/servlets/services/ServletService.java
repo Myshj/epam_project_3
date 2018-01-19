@@ -1,10 +1,10 @@
 package launch.servlets.services;
 
+import launch.servlets.ServiceContext;
 import launch.servlets.services.commands.SimpleForwarder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -17,10 +17,9 @@ import java.util.stream.Collectors;
  * Base class for all servletContext services.
  * Maps incoming requests to child services and commands.
  */
-public abstract class ServletService implements BiConsumer<HttpServletRequest, HttpServletResponse> {
+public abstract class ServletService extends HasAccessToContext implements BiConsumer<HttpServletRequest, HttpServletResponse> {
     private static final Logger logger = LogManager.getLogger(ServletService.class);
     private final Map<String, BiConsumer<HttpServletRequest, HttpServletResponse>> commands = new HashMap<>();
-    protected final ServletContext servletContext;
 
     private final SimpleForwarder notFoundRedirecter;
     private final SimpleForwarder errorRedirecter;
@@ -35,43 +34,12 @@ public abstract class ServletService implements BiConsumer<HttpServletRequest, H
         commands.putIfAbsent(pattern, command);
     }
 
-    /**
-     * TO DELETE
-     * Adds command to execute before given action.
-     *
-     * @param actionName
-     * @param command
-     */
-    private void addCommandBefore(
-            String actionName,
-            BiConsumer<HttpServletRequest, HttpServletResponse> command
-    ) {
-        if (!commands.containsKey(actionName)) {
-            return;
-        }
-        commands.put(actionName, command.andThen(commands.get(actionName)));
-    }
 
-    /**
-     * TO DELETE
-     * Adds command to execute before given list of actions
-     *
-     * @param actionNames
-     * @param command
-     */
-    protected final void addCommandBefore(
-            List<String> actionNames,
-            BiConsumer<HttpServletRequest, HttpServletResponse> command
-    ) {
-        actionNames.forEach(a -> addCommandBefore(a, command));
-    }
-
-
-    protected ServletService(ServletContext servletContext) {
+    protected ServletService(ServiceContext context) {
+        super(context);
         logger.info("started construction");
-        this.servletContext = servletContext;
-        notFoundRedirecter = new SimpleForwarder(servletContext).withUrl("/jsp/error/errorPage.jsp");
-        errorRedirecter = new SimpleForwarder(servletContext).withUrl("/jsp/error/errorPage.jsp");
+        notFoundRedirecter = new SimpleForwarder(context).withUrl("/jsp/error/errorPage.jsp");
+        errorRedirecter = new SimpleForwarder(context).withUrl("/jsp/error/errorPage.jsp");
         logger.info("constructed");
     }
 

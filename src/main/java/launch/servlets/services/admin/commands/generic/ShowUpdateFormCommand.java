@@ -1,17 +1,19 @@
 package launch.servlets.services.admin.commands.generic;
 
+import launch.servlets.ServiceContext;
+import launch.servlets.services.admin.commands.generic.includers.IncludeAll;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
-import orm.repository.Repository;
 import utils.meta.MetaInfoManager;
 import utils.meta.ModelMetaInfo;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Shows form for an existing entity editing.
@@ -22,16 +24,22 @@ public class ShowUpdateFormCommand<T extends Model> extends ModelCommand<T> {
     private static final Logger logger = LogManager.getLogger(ShowUpdateFormCommand.class);
 
     private ModelMetaInfo meta;
+    private List<IncludeAll> includers = new ArrayList<>();
 
     public ShowUpdateFormCommand(
-            Class<T> clazz,
-            ServletContext servlet,
-            Repository<T> repository
+            ServiceContext context,
+            Class<T> clazz
     ) {
-        super(servlet, repository);
+        super(context, clazz);
         logger.info("started construction");
         meta = MetaInfoManager.INSTANCE.get(clazz);
         logger.info("constructed");
+
+        MetaInfoManager.INSTANCE.get(clazz).getRelatives().forEach(
+                (k, v) -> includers.add(
+                        new IncludeAll<>(context, clazz, k)
+                )
+        );
     }
 
     @Override
