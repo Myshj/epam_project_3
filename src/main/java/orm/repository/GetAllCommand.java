@@ -4,9 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
 import orm.OrmFieldUtils;
+import orm.commands.CommandContext;
 import orm.commands.ListEntitiesCommand;
-
-import java.sql.Connection;
 
 /**
  * Returns ALL stored entities of such class.
@@ -15,12 +14,13 @@ import java.sql.Connection;
  */
 final class GetAllCommand<T extends Model> extends ListEntitiesCommand<T> {
     private static final Logger logger = LogManager.getLogger(GetAllCommand.class);
-    GetAllCommand(Class<T> clazz, Connection connection) {
+
+    GetAllCommand(CommandContext<T> context) {
         super(
-                clazz, connection,
+                context,
                 String.format(
                         "SELECT * FROM %s;",
-                        OrmFieldUtils.getTableName(clazz)
+                        OrmFieldUtils.getTableName(context.getClazz())
                 )
         );
         logger.info("created");

@@ -3,7 +3,7 @@ package orm.fields;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
-import utils.RepositoryManager;
+import utils.managers.RepositoryManager;
 
 import java.util.Optional;
 
@@ -17,6 +17,7 @@ public final class ForeignKey<T extends Model> extends SimpleOrmField<T> {
 
     private Long id;
     private Class<T> clazz;
+    protected RepositoryManager repositoryManager;
 
     /**
      * Constructor.
@@ -90,7 +91,7 @@ public final class ForeignKey<T extends Model> extends SimpleOrmField<T> {
     private void updateValue() {
         logger.info("started updating value");
         if (value == null) {
-            value = RepositoryManager.INSTANCE.get(clazz).getById(id).orElse(null);
+            value = repositoryManager.get(clazz).getById(id).orElse(null); //RepositoryManager.INSTANCE.get(clazz).getById(id).orElse(null);
         }
         logger.info("updated value");
     }

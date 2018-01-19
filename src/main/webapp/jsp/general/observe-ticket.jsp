@@ -7,56 +7,56 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="../localized.jsp" %>
 <html>
 <head>
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
-    <script src="../../js/bootstrap.min.js"></script>
+    <%@include file="../bootstrap.jsp" %>
 </head>
 <body>
 <div class="container">
     <c:choose>
         <c:when test="${not empty ticket}">
-            <h2>Ticket info</h2>
+            <h2><fmt:message key="ticketInfo"/></h2>
             <table class="table table-bordered">
                 <tr>
-                    <th>Exposition:</th>
+                    <th><fmt:message key="exposition"/>:</th>
                     <td>
                         <a href="/common/search_exposition?id=${ticket.exposition.value.id}"
                         >${ticket.exposition.value.name}</a>
                     </td>
                 </tr>
                 <tr>
-                    <th>Address:</th>
+                    <th><fmt:message key="address"/>:</th>
                     <td>${address}</td>
                 </tr>
                 <tr>
-                    <th>Begins:</th>
+                    <th><fmt:message key="begins"/>:</th>
                     <td>${ticket.exposition.value.begins.asLocalDate()}</td>
                 </tr>
                 <tr>
-                    <th>Ends</th>
+                    <th><fmt:message key="ends"/></th>
                     <td>${ticket.exposition.value.ends.asLocalDate()}</td>
                 </tr>
                 <tr>
-                    <th>Type:</th>
+                    <th><fmt:message key="type"/>:</th>
                     <td>${ticket.type.value.name}</td>
                 </tr>
                 <tr>
-                    <th>Price:</th>
+                    <th><fmt:message key="price"/>:</th>
                     <td>${ticket.currency}, ${ticket.price}</td>
                 </tr>
             </table>
             <form action="/common/show_purchase_form" role="form">
                 <input type="hidden" name="id" value="${ticket.id}">
                 <div class="form-group col-xs-4">
-                    <button type="submit" class="btn btn-primary  btn-md">Purchase</button>
+                    <button type="submit" class="btn btn-primary  btn-md"><fmt:message key="purchase"/></button>
                 </div>
             </form>
         </c:when>
         <c:otherwise>
             <br>
             <div class="alert alert-info">
-                No ticket found matching your search criteria
+                <fmt:message key="noTicketsFound"/>
             </div>
         </c:otherwise>
     </c:choose>

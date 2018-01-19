@@ -5,9 +5,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
 import orm.OrmFieldUtils;
+import orm.commands.CommandContext;
 import orm.commands.CommandWithNoReturn;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Comparator;
 import java.util.stream.Collectors;
@@ -20,23 +20,20 @@ import java.util.stream.Collectors;
 final class UpdateCommand<T extends Model> extends CommandWithNoReturn<T> {
     private static final Logger logger = LogManager.getLogger(UpdateCommand.class);
 
-    public UpdateCommand(
-            Class<T> clazz,
-            Connection connection
-    ) {
+    public UpdateCommand(CommandContext<T> context) {
         super(
-                clazz, connection,
+                context,
                 String.format(
                         "UPDATE %s SET %s WHERE id=?",
-                        OrmFieldUtils.getTableName(clazz),
+                        OrmFieldUtils.getTableName(context.getClazz()),
                         String.join(
                                 ", ",
                                 String.join(
                                         ", ",
-                                        OrmFieldUtils.getUpdateMapping(clazz).keySet().stream().sorted(
-                                                Comparator.comparing(f -> OrmFieldUtils.getUpdateMapping(clazz).get(f))
+                                        OrmFieldUtils.getUpdateMapping(context.getClazz()).keySet().stream().sorted(
+                                                Comparator.comparing(f -> OrmFieldUtils.getUpdateMapping(context.getClazz()).get(f))
                                         ).map(
-                                                f -> OrmFieldUtils.getObjectToRelationalMapping(clazz).get(f) + "= ?"
+                                                f -> OrmFieldUtils.getObjectToRelationalMapping(context.getClazz()).get(f) + "= ?"
                                         ).collect(Collectors.toList())
                                 )
                         )

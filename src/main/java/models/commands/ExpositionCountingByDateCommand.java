@@ -3,9 +3,9 @@ package models.commands;
 import models.Exposition;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import orm.commands.CommandContext;
 import orm.commands.CountingCommand;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 public abstract class ExpositionCountingByDateCommand extends CountingCommand<Exposition> {
     private static final Logger logger = LogManager.getLogger(ExpositionCountingByDateCommand.class);
 
-    public ExpositionCountingByDateCommand(Class<Exposition> clazz, Connection connection, String sql) throws SQLException {
-        super(clazz, connection, sql);
+    public ExpositionCountingByDateCommand(CommandContext<Exposition> context, String sql) throws SQLException {
+        super(context, sql);
         logger.info("constructed");
     }
 

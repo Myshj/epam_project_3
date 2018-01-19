@@ -54,7 +54,7 @@ public class EntityFromHttpServletRequestWriter<T extends Model> extends HasAcce
                             true
                     );
                     FieldUtils.writeField(
-                            realField, "repositoryManager", context.getManagers().getRepository()
+                            realField, "repositoryManager", context.getManagers().getRepository(), true
                     );
                 } else if (type == EnumField.class) {
                     ((EnumField) realField).setValue(

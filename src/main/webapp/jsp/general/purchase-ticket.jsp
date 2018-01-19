@@ -7,30 +7,30 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="../localized.jsp" %>
 <html>
 <head>
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
-    <script src="../../js/bootstrap.min.js"></script>
+    <%@include file="../bootstrap.jsp" %>
 </head>
 <body>
 <div class="container">
     <c:choose>
         <c:when test="${not empty ticket}">
-            <h2>Purchase ticket</h2>
+            <h2><fmt:message key="purchaseTicket"/></h2>
             <table class="table table-bordered">
                 <tr>
-                    <th>Exposition:</th>
+                    <th><fmt:message key="exposition"/>:</th>
                     <td>
                         <a href="/common/search_exposition?id=${ticket.exposition.value.id}"
                         >${ticket.exposition.value.name}</a>
                     </td>
                 </tr>
                 <tr>
-                    <th>Type:</th>
+                    <th><fmt:message key="type"/>:</th>
                     <td>${ticket.type.value.name}</td>
                 </tr>
                 <tr>
-                    <th>Price:</th>
+                    <th><fmt:message key="price"/>:</th>
                     <td>${ticket.currency}, ${ticket.price}</td>
                 </tr>
             </table>
@@ -41,7 +41,7 @@
                 <div class="form-group col-xs-4">
                     <label for="userEmail"
                            class="control-label col-xs-4"
-                    >Your email*:</label>
+                    ><fmt:message key="yourEmail"/>*:</label>
                     <input type="email"
                            id="userEmail"
                            name="email"
@@ -51,21 +51,21 @@
                     >
                     <label for="userName"
                            class="control-label col-xs-4"
-                    >Your name:</label>
+                    ><fmt:message key="yourName"/>:</label>
                     <input type="text"
                            id="userName"
                            name="name"
                            class="form-control"
                     >
                     <br>
-                    <button type="submit" class="btn btn-primary  btn-md">Confirm</button>
+                    <button type="submit" class="btn btn-primary  btn-md"><fmt:message key="confirm"/></button>
                 </div>
             </form>
         </c:when>
         <c:otherwise>
             <br>
             <div class="alert alert-info">
-                No ticket found matching your search criteria
+                <fmt:message key="noTicketsFound"/>
             </div>
         </c:otherwise>
     </c:choose>

@@ -4,6 +4,7 @@ import launch.servlets.ServiceContext;
 import launch.servlets.services.admin.AdminService;
 import launch.servlets.services.common.CommonService;
 import launch.servlets.services.login.LoginService;
+import launch.servlets.services.settings.SettingsService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,6 +21,7 @@ public class MainService extends ServletService {
         registerCommand("/admin.*", new AdminService(context));
         registerCommand("/common.*", new CommonService(context));
         registerCommand("/login.*", new LoginService(context));
+        registerCommand("/settings.*", new SettingsService(context));
         logger.info("constructed");
     }
 }

@@ -4,9 +4,9 @@ import models.Exposition;
 import models.Ticket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import orm.commands.CommandContext;
 import orm.commands.ListEntitiesCommand;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -26,9 +26,9 @@ public class FindTicketsByExposition extends ListEntitiesCommand<Ticket> {
         return this;
     }
 
-    public FindTicketsByExposition(Class<Ticket> clazz, Connection connection) throws SQLException {
+    public FindTicketsByExposition(CommandContext<Ticket> context) throws SQLException {
         super(
-                clazz, connection,
+                context,
                 "SELECT * FROM tickets WHERE exposition_id=?;"
         );
         logger.info("constructed");

@@ -3,21 +3,21 @@ package orm.repository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
+import orm.commands.CommandContext;
 import orm.commands.CountingCommand;
 import orm.commands.GetEntityCommand;
 import orm.commands.ListEntitiesCommand;
 
-import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Repository for entities.
+ * SqlRepository for entities.
  *
  * @param <T> Type of served entities.
  */
-public class Repository<T extends Model> {
-    private static final Logger logger = LogManager.getLogger(Repository.class);
+public class SqlRepository<T extends Model> implements IRepository<T> {
+    private static final Logger logger = LogManager.getLogger(SqlRepository.class);
 
     private InsertCommand<T> insertCommand;
     private UpdateCommand<T> updateCommand;
@@ -29,17 +29,15 @@ public class Repository<T extends Model> {
     /**
      * Constructor.
      *
-     * @param clazz      Class of served entities.
-     * @param connection Connection to work with.
      */
-    public Repository(Class<T> clazz, Connection connection) {
+    public SqlRepository(CommandContext<T> commandContext) {
         logger.info("started construction");
-        insertCommand = new InsertCommand<>(clazz, connection);
-        updateCommand = new UpdateCommand<>(clazz, connection);
-        deleteCommand = new DeleteCommand<>(clazz, connection);
-        getByIdCommand = new GetByIdCommand<>(clazz, connection);
-        getAllCommand = new GetAllCommand<>(clazz, connection);
-        countAllCommand = new CountAllCommand<>(clazz, connection);
+        insertCommand = new InsertCommand<>(commandContext);
+        updateCommand = new UpdateCommand<>(commandContext);
+        deleteCommand = new DeleteCommand<>(commandContext);
+        getByIdCommand = new GetByIdCommand<>(commandContext);
+        getAllCommand = new GetAllCommand<>(commandContext);
+        countAllCommand = new CountAllCommand<>(commandContext);
         logger.info("constructed");
     }
 
@@ -48,6 +46,7 @@ public class Repository<T extends Model> {
      * @param id id of entity to search for.
      * @return Optional describing returned entity.
      */
+    @Override
     public Optional<T> getById(long id) {
         return get(getByIdCommand.withId(id));
     }
@@ -56,6 +55,7 @@ public class Repository<T extends Model> {
      * Shortcut for calling filter(GetAllCommand).
      * @return list of all entities in a table.
      */
+    @Override
     public List<T> getAll() {
         return filter(getAllCommand);
     }
@@ -64,6 +64,7 @@ public class Repository<T extends Model> {
      * Deletes entity from database.
      * @param entity entity to delete.
      */
+    @Override
     public void delete(T entity) {
         deleteCommand.execute(entity);
     }
@@ -74,6 +75,7 @@ public class Repository<T extends Model> {
      * @param command command to execute.
      * @return list of entities returned by command.
      */
+    @Override
     public List<T> filter(ListEntitiesCommand<T> command) {
         return command.execute();
     }
@@ -84,6 +86,7 @@ public class Repository<T extends Model> {
      * @param command command to execute
      * @return Optional describing entity returned by command
      */
+    @Override
     public Optional<T> get(GetEntityCommand<T> command) {
         return command.execute();
     }
@@ -94,6 +97,7 @@ public class Repository<T extends Model> {
      *
      * @param entity entity to insert or update.
      */
+    @Override
     public void save(T entity) {
         logger.info("started saving");
         if (entity.getId().get().isPresent()) {
@@ -110,6 +114,7 @@ public class Repository<T extends Model> {
      *
      * @return count of all entities in table.
      */
+    @Override
     public Long count() {
         return count(countAllCommand);
     }
@@ -120,6 +125,7 @@ public class Repository<T extends Model> {
      * @param countingCommand command to execute.
      * @return count of entities.
      */
+    @Override
     public Long count(CountingCommand<T> countingCommand) {
         return countingCommand.execute();
     }

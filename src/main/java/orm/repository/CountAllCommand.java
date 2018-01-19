@@ -4,9 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
 import orm.OrmFieldUtils;
+import orm.commands.CommandContext;
 import orm.commands.CountingCommand;
-
-import java.sql.Connection;
 
 /**
  * Counts ALL entities in a table.
@@ -15,12 +14,13 @@ import java.sql.Connection;
  */
 public final class CountAllCommand<T extends Model> extends CountingCommand<T> {
     private static final Logger logger = LogManager.getLogger(CountAllCommand.class);
-    public CountAllCommand(Class<T> clazz, Connection connection) {
+
+    public CountAllCommand(CommandContext<T> context) {
         super(
-                clazz, connection,
+                context,
                 String.format(
                         "SELECT COUNT(*) FROM %s;",
-                        OrmFieldUtils.getTableName(clazz)
+                        OrmFieldUtils.getTableName(context.getClazz())
                 )
         );
         logger.info("created");

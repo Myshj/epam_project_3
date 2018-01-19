@@ -6,7 +6,6 @@ import launch.servlets.services.admin.commands.generic.*;
 import models.WebModel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import orm.repository.Repository;
 import utils.managers.resource.IResourceManager;
 import utils.meta.MetaInfoManager;
 
@@ -20,9 +19,7 @@ public class ModelAdminService<T extends WebModel> extends ServletService {
 
     private final Class<T> clazz;
 
-    private final IResourceManager modelMessageMessager;
-
-    protected final Repository<T> repository;
+    private final IResourceManager messageManager;
 
     protected final ShowList<T> showList;
 
@@ -33,8 +30,7 @@ public class ModelAdminService<T extends WebModel> extends ServletService {
         super(context);
         logger.info("started construction");
         this.clazz = clazz;
-        this.modelMessageMessager = context.getManagers().getResources().getMessages();
-        this.repository = context.getManagers().getRepository().get(clazz);
+        this.messageManager = context.getManagers().getResources().getMessages();
         showList = new ShowList<>(context, clazz);
         init();
         logger.info("constructed");
@@ -65,7 +61,7 @@ public class ModelAdminService<T extends WebModel> extends ServletService {
      * @return localized name of action.
      */
     private String message(String action) {
-        return modelMessageMessager.withKey(singularName() + action).get(); //ResourceManager.MESSAGES.get(singularName() + action);
+        return messageManager.withKey(singularName() + action).get(); //ResourceManager.MESSAGES.get(singularName() + action);
     }
 
     /**

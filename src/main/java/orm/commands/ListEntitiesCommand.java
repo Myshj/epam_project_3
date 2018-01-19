@@ -4,7 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,11 +19,10 @@ public abstract class ListEntitiesCommand<T extends Model> extends QueryCommand<
     private static final Logger logger = LogManager.getLogger(ListEntitiesCommand.class);
 
     public ListEntitiesCommand(
-            Class<T> clazz,
-            Connection connection,
+            CommandContext<T> context,
             String sql
     ) {
-        super(clazz, connection, sql);
+        super(context, sql);
         logger.info("constructed");
     }
 

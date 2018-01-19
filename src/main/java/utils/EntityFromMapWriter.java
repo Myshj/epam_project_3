@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
 import orm.OrmFieldUtils;
+import orm.commands.CommandContext;
 import orm.fields.*;
 
 import java.lang.reflect.Field;
@@ -20,16 +21,16 @@ import java.util.function.BiFunction;
  */
 public class EntityFromMapWriter<T extends Model> implements BiFunction<T, Map<String, Object>, T> {
     private static final Logger logger = LogManager.getLogger(EntityFromMapWriter.class);
-    private Class<T> clazz;
+    private final CommandContext<T> context;
 
-    public EntityFromMapWriter(Class<T> clazz) {
-        this.clazz = clazz;
+    public EntityFromMapWriter(CommandContext<T> context) {
+        this.context = context;
     }
 
     @Override
     public T apply(T entity, Map<String, Object> map) {
         logger.info("started execution");
-        for (Map.Entry<String, Field> pair : OrmFieldUtils.getRelationalToObjectMapping(clazz).entrySet()) {
+        for (Map.Entry<String, Field> pair : OrmFieldUtils.getRelationalToObjectMapping(context.getClazz()).entrySet()) {
             Field f = pair.getValue();
             String s = pair.getKey();
             Class type = f.getType();
@@ -51,6 +52,9 @@ public class EntityFromMapWriter<T extends Model> implements BiFunction<T, Map<S
                     FieldUtils.writeField(
                             realField, "id", ((Integer) value).longValue(),
                             true
+                    );
+                    FieldUtils.writeField(
+                            realField, "repositoryManager", context.getRepositoryManager(), true
                     );
                 } else if (type == EnumField.class) {
                     ((EnumField) realField).setValue(

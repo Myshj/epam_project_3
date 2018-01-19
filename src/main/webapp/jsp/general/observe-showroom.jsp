@@ -7,18 +7,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="../localized.jsp" %>
 <html>
 <head>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <%@include file="../bootstrap.jsp" %>
 </head>
 <body>
 <div class="container">
@@ -27,22 +19,23 @@
             <h2>${showroom.name}</h2>
             <table class="table table-bordered">
                 <tr>
-                    <th>Name:</th>
+                    <th><fmt:message key="name"/>:</th>
                     <td>${showroom.name}</td>
                 </tr>
                 <tr>
-                    <th>Address:</th>
+                    <th><fmt:message key="address"/>:</th>
                     <td>${address}</td>
                 </tr>
                 <tr>
-                    <th>Expositions:</th>
+                    <th><fmt:message key="expositions"/>:</th>
                     <td>
                         <div class="panel-group" id="accordion">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"
-                                        >Active <span class="badge">${activeExpositions.size()}</span></a>
+                                        ><fmt:message key="active"/> <span
+                                                class="badge">${activeExpositions.size()}</span></a>
 
                                     </h4>
                                 </div>
@@ -62,7 +55,8 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"
-                                        >Planned <span class="badge">${plannedExpositions.size()}</span></a>
+                                        ><fmt:message key="planned"/> <span
+                                                class="badge">${plannedExpositions.size()}</span></a>
                                     </h4>
                                 </div>
                                 <div id="collapse2" class="panel-collapse collapse">
@@ -82,7 +76,8 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse3"
-                                        >Old <span class="badge">${oldExpositions.size()}</span></a>
+                                        ><fmt:message key="old"/> <span
+                                                class="badge">${oldExpositions.size()}</span></a>
                                     </h4>
                                 </div>
                                 <div id="collapse3" class="panel-collapse collapse">
@@ -105,7 +100,7 @@
         <c:otherwise>
             <br>
             <div class="alert alert-info">
-                No showroom found matching your search criteria
+                <fmt:message key="noShowroomsFound"/>
             </div>
         </c:otherwise>
     </c:choose>

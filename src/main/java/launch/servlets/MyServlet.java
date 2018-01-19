@@ -21,7 +21,7 @@ import java.io.IOException;
  */
 @WebServlet(
         name = "MainServlet",
-        urlPatterns = {"/admin/*", "/common/*", "/login/*"}
+        urlPatterns = {"/settings/*", "/admin/*", "/common/*", "/login/*"}
 )
 public class MyServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(MyServlet.class);

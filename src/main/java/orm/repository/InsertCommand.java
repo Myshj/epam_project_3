@@ -5,12 +5,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
 import orm.OrmFieldUtils;
+import orm.commands.CommandContext;
+import orm.commands.CommandWithNoReturn;
 
-import java.lang.reflect.Field;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -18,30 +21,23 @@ import java.util.stream.Collectors;
  *
  * @param <T>
  */
-final class InsertCommand<T extends Model> {
+final class InsertCommand<T extends Model> extends CommandWithNoReturn<T> {
     private static final Logger logger = LogManager.getLogger(InsertCommand.class);
-    private PreparedStatement statement;
 
-    private Map<Field, Integer> queryParametersMap;
 
-    InsertCommand(
-            Class<T> clazz,
-            Connection connection
-    )  {
-        logger.info("started construction");
-        queryParametersMap = OrmFieldUtils.getUpdateMapping(clazz);
-
+    @Override
+    protected PreparedStatement prepareStatement(String sql) {
         try {
-            statement = connection.prepareStatement(
+            return context.getConnection().prepareStatement(
                     String.format(
-                            "INSERT INTO %s (%s) VALUES (%s);",
-                            OrmFieldUtils.getTableName(clazz),
+                            sql,
+                            OrmFieldUtils.getTableName(context.getClazz()),
                             String.join(
                                     ", ",
                                     queryParametersMap.keySet().stream().sorted(
-                                            Comparator.comparing(f -> queryParametersMap.get(f))
+                                            Comparator.comparing(queryParametersMap::get)
                                     ).map(
-                                            OrmFieldUtils.getObjectToRelationalMapping(clazz)::get
+                                            OrmFieldUtils.getObjectToRelationalMapping(context.getClazz())::get
                                     ).collect(
                                             Collectors.toList()
                                     )
@@ -61,10 +57,20 @@ final class InsertCommand<T extends Model> {
             logger.error(e);
             throw new RuntimeException(e);
         }
+    }
+
+    InsertCommand(CommandContext<T> context) {
+        super(
+                context,
+                "INSERT INTO %s (%s) VALUES (%s);"
+        );
+        logger.info("started construction");
+
         logger.info("constructed");
     }
 
-    void execute(T entity) {
+    @Override
+    public void execute(T entity) {
         logger.info("started execution");
         queryParametersMap.forEach(
                 (f, n) -> {

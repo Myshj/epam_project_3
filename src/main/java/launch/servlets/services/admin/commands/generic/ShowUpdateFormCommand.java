@@ -37,7 +37,7 @@ public class ShowUpdateFormCommand<T extends Model> extends ModelCommand<T> {
 
         MetaInfoManager.INSTANCE.get(clazz).getRelatives().forEach(
                 (k, v) -> includers.add(
-                        new IncludeAll<>(context, clazz, k)
+                        new IncludeAll<>(context, v, k)
                 )
         );
     }
@@ -58,6 +58,7 @@ public class ShowUpdateFormCommand<T extends Model> extends ModelCommand<T> {
             );
             request.setAttribute("action", "update");
             request.setAttribute("meta", meta);
+            includers.forEach(i -> i.accept(request, response));
             dispatcher(
                     "/jsp/admin/edit-entity.jsp"
 

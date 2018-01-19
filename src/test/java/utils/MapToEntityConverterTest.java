@@ -6,6 +6,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import orm.commands.CommandContext;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,8 +14,8 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MapToEntityConverterTest {
-    private MapToEntityConverter<Country> countryConverter = new MapToEntityConverter<>(Country.class);
-    private MapToEntityConverter<City> cityConverter = new MapToEntityConverter<>(City.class);
+    private MapToEntityConverter<Country> countryConverter = new MapToEntityConverter<>(new CommandContext<>(Country.class, null, null));
+    private MapToEntityConverter<City> cityConverter = new MapToEntityConverter<>(new CommandContext<>(City.class, null, null));
 
     @BeforeEach
     void setUp() {

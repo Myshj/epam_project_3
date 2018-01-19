@@ -4,9 +4,9 @@ import models.Exposition;
 import models.Showroom;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import orm.commands.CommandContext;
 import orm.commands.ListEntitiesCommand;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -26,9 +26,9 @@ public class FindExpositionsByShowroom extends ListEntitiesCommand<Exposition> {
         return this;
     }
 
-    public FindExpositionsByShowroom(Class<Exposition> clazz, Connection connection) throws SQLException {
+    public FindExpositionsByShowroom(CommandContext<Exposition> context) throws SQLException {
         super(
-                clazz, connection,
+                context,
                 "SELECT * FROM expositions WHERE showroom_id=?;"
         );
     }

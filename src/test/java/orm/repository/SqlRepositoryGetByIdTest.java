@@ -7,14 +7,17 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import orm.commands.CommandContext;
+import utils.globals.IManagers;
+import utils.globals.Managers;
 
 import java.sql.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-class RepositoryGetByIdTest {
-    private Repository<Country> repository;
+class SqlRepositoryGetByIdTest {
+    private IRepository<Country> repository;
 
     @Mock
     private Connection connection;
@@ -46,8 +49,10 @@ class RepositoryGetByIdTest {
         when(resultSet.getObject(1)).thenReturn(1);
         when(resultSet.getObject(2)).thenReturn("testCountry");
 
+        IManagers managers = new Managers();
 
-        repository = new Repository<>(Country.class, connection);
+
+        repository = new SqlRepository<>(new CommandContext<>(Country.class, null, connection));
     }
 
     @AfterEach

@@ -3,8 +3,8 @@ package models.commands;
 import models.Exposition;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import orm.commands.CommandContext;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -27,8 +27,8 @@ public class GetCountOfPlannedExpositions extends ExpositionCountingByDateComman
         return this;
     }
 
-    public GetCountOfPlannedExpositions(Class<Exposition> clazz, Connection connection) throws SQLException {
-        super(clazz, connection, "SELECT COUNT(*) FROM expositions WHERE begins > ?;");
+    public GetCountOfPlannedExpositions(CommandContext<Exposition> context) throws SQLException {
+        super(context, "SELECT COUNT(*) FROM expositions WHERE begins > ?;");
         logger.info("constructed");
     }
 }

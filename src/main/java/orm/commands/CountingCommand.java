@@ -4,7 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -17,11 +16,10 @@ public abstract class CountingCommand<T extends Model> extends DbCommand<T> {
     private static final Logger logger = LogManager.getLogger(CountingCommand.class);
 
     public CountingCommand(
-            Class<T> clazz,
-            Connection connection,
+            CommandContext<T> context,
             String sql
     )  {
-        super(clazz, connection, sql);
+        super(context, sql);
         logger.info("constructed");
     }
 

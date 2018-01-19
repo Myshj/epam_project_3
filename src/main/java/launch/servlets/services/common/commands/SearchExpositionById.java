@@ -8,6 +8,7 @@ import models.Ticket;
 import models.commands.FindTicketsByExposition;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import orm.commands.CommandContext;
 import utils.meta.MetaInfoManager;
 
 import javax.servlet.ServletException;
@@ -50,8 +51,11 @@ public class SearchExpositionById extends ServletCommand {
         logger.info("started construction");
         try {
             ticketsFinder = new FindTicketsByExposition(
-                    Ticket.class,
-                    context.getManagers().getConnection().get()
+                    new CommandContext<>(
+                            Ticket.class,
+                            context.getManagers().getRepository(),
+                            context.getManagers().getConnection().get()
+                    )
                     //ConnectionServiceProvider.INSTANCE.get()
             );
         } catch (SQLException e) {

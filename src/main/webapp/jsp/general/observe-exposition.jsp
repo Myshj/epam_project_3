@@ -7,10 +7,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="../localized.jsp" %>
 <html>
 <head>
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
-    <script src="../../js/bootstrap.min.js"></script>
+    <%@include file="../bootstrap.jsp" %>
 </head>
 <body>
 <div class="container">
@@ -19,27 +19,27 @@
             <h2>${exposition.name}</h2>
             <table class="table table-bordered">
                 <tr>
-                    <th>Name:</th>
+                    <th><fmt:message key="name"/>:</th>
                     <td>${exposition.name}</td>
                 </tr>
                 <tr>
-                    <th>Showroom:</th>
+                    <th><fmt:message key="showroom"/>:</th>
                     <td>
                         <a href="/common/search_showroom?id=${exposition.place.value.id}"
                         >${exposition.place.value.name}</a>
                     </td>
                 </tr>
                 <tr>
-                    <th>Begins:</th>
+                    <th><fmt:message key="begins"/>:</th>
                     <td>${exposition.begins.asLocalDate()}</td>
                 </tr>
                 <tr>
-                    <th>Ends:</th>
+                    <th><fmt:message key="ends"/>:</th>
                     <td>${exposition.ends.asLocalDate()}</td>
                 </tr>
 
                 <tr>
-                    <th>Tickets:</th>
+                    <th><fmt:message key="tickets"/>:</th>
                     <td>
                         <ul class="list-group">
                             <c:forEach var="ticket" items="${tickets}" varStatus="status">
@@ -56,7 +56,7 @@
         <c:otherwise>
             <br>
             <div class="alert alert-info">
-                No exposition found matching your search criteria
+                <fmt:message key="noExpositionsFound"/>
             </div>
         </c:otherwise>
     </c:choose>

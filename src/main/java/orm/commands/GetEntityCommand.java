@@ -4,7 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -18,11 +17,10 @@ public abstract class GetEntityCommand<T extends Model> extends QueryCommand<T> 
     private static final Logger logger = LogManager.getLogger(GetEntityCommand.class);
 
     public GetEntityCommand(
-            Class<T> clazz,
-            Connection connection,
+            CommandContext<T> context,
             String sql
     ) {
-        super(clazz, connection, sql);
+        super(context, sql);
         logger.info("constructed");
     }
 

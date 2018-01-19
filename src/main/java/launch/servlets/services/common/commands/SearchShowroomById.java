@@ -9,6 +9,7 @@ import models.Showroom;
 import models.commands.FindExpositionsByShowroom;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import orm.commands.CommandContext;
 import utils.meta.MetaInfoManager;
 
 import javax.servlet.ServletException;
@@ -41,8 +42,11 @@ public class SearchShowroomById extends ServletCommand {
         logger.info("started construction");
         try {
             expositionFinder = new FindExpositionsByShowroom(
-                    Exposition.class,
-                    context.getManagers().getConnection().get()
+                    new CommandContext<>(
+                            Exposition.class,
+                            context.getManagers().getRepository(),
+                            context.getManagers().getConnection().get()
+                    )
                     //ConnectionServiceProvider.INSTANCE.get()
             );
             addressIncluder = new IncludeAddress(context);

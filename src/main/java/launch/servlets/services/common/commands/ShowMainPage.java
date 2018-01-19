@@ -11,7 +11,8 @@ import models.commands.GetCountOfOldExpositions;
 import models.commands.GetCountOfPlannedExpositions;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import orm.repository.Repository;
+import orm.commands.CommandContext;
+import orm.repository.IRepository;
 import utils.meta.MetaInfoManager;
 
 import javax.servlet.ServletException;
@@ -27,7 +28,7 @@ import java.time.LocalDateTime;
 public class ShowMainPage extends ServletCommand {
     private static final Logger logger = LogManager.getLogger(ShowMainPage.class);
 
-    private Repository<Exposition> expositionRepository = context.getManagers().getRepository().get(Exposition.class);
+    private IRepository<Exposition> expositionRepository = context.getManagers().getRepository().get(Exposition.class);
     private ExpositionCountingByDateCommand getCountOfActiveExpositions;
     private ExpositionCountingByDateCommand getCountOfOldExpositions;
     private ExpositionCountingByDateCommand getCountOfPlannedExpositions;
@@ -44,17 +45,26 @@ public class ShowMainPage extends ServletCommand {
         );
         try {
             getCountOfActiveExpositions = new GetCountOfActiveExpositions(
-                    Exposition.class,
-                    context.getManagers().getConnection().get()
+                    new CommandContext<>(
+                            Exposition.class,
+                            context.getManagers().getRepository(),
+                            context.getManagers().getConnection().get()
+                    )
             );
             getCountOfOldExpositions = new GetCountOfOldExpositions(
-                    Exposition.class,
-                    context.getManagers().getConnection().get()
+                    new CommandContext<>(
+                            Exposition.class,
+                            context.getManagers().getRepository(),
+                            context.getManagers().getConnection().get()
+                    )
                     //ConnectionServiceProvider.INSTANCE.get()
             );
             getCountOfPlannedExpositions = new GetCountOfPlannedExpositions(
-                    Exposition.class,
-                    context.getManagers().getConnection().get()
+                    new CommandContext<>(
+                            Exposition.class,
+                            context.getManagers().getRepository(),
+                            context.getManagers().getConnection().get()
+                    )
                     //ConnectionServiceProvider.INSTANCE.get()
             );
         } catch (SQLException e) {

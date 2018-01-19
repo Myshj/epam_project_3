@@ -32,7 +32,7 @@ public class UpdateEntityCommand<T extends Model> extends ForwardingCommand<T> {
         super(context, clazz, showList);
         logger.info("started construction");
         this.updatedSuccessfullyMessage = updatedSuccessfullyMessage;
-        updater = new HttpServletRequestToEntityConverter<>(clazz);
+        updater = new HttpServletRequestToEntityConverter<>(context, clazz);
         logger.info("constructed");
     }
 

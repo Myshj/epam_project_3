@@ -4,9 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
 import orm.OrmFieldUtils;
+import orm.commands.CommandContext;
 import orm.commands.GetEntityCommand;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -16,15 +16,13 @@ import java.sql.SQLException;
  */
 final class GetByIdCommand<T extends Model> extends GetEntityCommand<T> {
     private static final Logger logger = LogManager.getLogger(GetByIdCommand.class);
-    GetByIdCommand(
-            Class<T> clazz,
-            Connection connection
-    )  {
+
+    GetByIdCommand(CommandContext<T> context) {
         super(
-                clazz, connection,
+                context,
                 String.format(
                         "SELECT * from %s WHERE id=?;",
-                        OrmFieldUtils.getTableName(clazz)
+                        OrmFieldUtils.getTableName(context.getClazz())
                 )
         );
         logger.info("created");

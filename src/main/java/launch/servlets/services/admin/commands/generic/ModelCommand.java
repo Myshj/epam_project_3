@@ -5,7 +5,7 @@ import launch.servlets.services.commands.ServletCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
-import orm.repository.Repository;
+import orm.repository.IRepository;
 
 /**
  * Base class for all commands that work with entities.
@@ -16,7 +16,7 @@ public abstract class ModelCommand<T extends Model> extends ServletCommand {
     private static final Logger logger = LogManager.getLogger(ModelCommand.class);
 
 
-    protected final Repository<T> repository;
+    protected final IRepository<T> repository;
     protected final Class<T> clazz;
 
     public ModelCommand(

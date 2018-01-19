@@ -3,9 +3,9 @@ package models.commands;
 import models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import orm.commands.CommandContext;
 import orm.commands.GetEntityCommand;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -36,9 +36,9 @@ public class FindUserByEmailAndPassword extends GetEntityCommand<User> {
         return this;
     }
 
-    public FindUserByEmailAndPassword(Class<User> clazz, Connection connection) throws SQLException {
+    public FindUserByEmailAndPassword(CommandContext<User> context) throws SQLException {
         super(
-                clazz, connection,
+                context,
                 "SELECT * FROM users WHERE email=? and password=?;"
         );
         logger.info("constructed");

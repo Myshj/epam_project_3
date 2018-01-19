@@ -1,22 +1,22 @@
 package launch.servlets;
 
-import utils.globals.Managers;
+import utils.globals.IManagers;
 
 import javax.servlet.ServletContext;
 
 public class ServiceContext {
     private final ServletContext servlet;
-    private final Managers managers;
+    private final IManagers managers;
 
     public ServletContext getServlet() {
         return servlet;
     }
 
-    public Managers getManagers() {
+    public IManagers getManagers() {
         return managers;
     }
 
-    public ServiceContext(ServletContext servlet, Managers managers) {
+    public ServiceContext(ServletContext servlet, IManagers managers) {
 
         this.servlet = servlet;
         this.managers = managers;

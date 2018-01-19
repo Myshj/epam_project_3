@@ -35,7 +35,7 @@ public class CreateEntityCommand<T extends Model> extends ForwardingCommand<T> {
         );
         logger.info("started construction");
         this.createdSuccessfullyMessage = createdSuccessfullyMessage;
-        this.converter = new HttpServletRequestToEntityConverter<>(clazz);
+        this.converter = new HttpServletRequestToEntityConverter<>(context, clazz);
         logger.info("constructed");
     }
 

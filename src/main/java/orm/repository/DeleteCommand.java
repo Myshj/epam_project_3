@@ -4,9 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
 import orm.OrmFieldUtils;
+import orm.commands.CommandContext;
 import orm.commands.CommandWithNoReturn;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -16,12 +16,13 @@ import java.sql.SQLException;
  */
 final class DeleteCommand<T extends Model> extends CommandWithNoReturn<T> {
     private static final Logger logger = LogManager.getLogger(DeleteCommand.class);
-    public DeleteCommand(Class<T> clazz, Connection connection) {
+
+    public DeleteCommand(CommandContext<T> context) {
         super(
-                clazz, connection,
+                context,
                 String.format(
                         "DELETE FROM %s WHERE id=?;",
-                        OrmFieldUtils.getTableName(clazz)
+                        OrmFieldUtils.getTableName(context.getClazz())
                 )
         );
         logger.info("created");

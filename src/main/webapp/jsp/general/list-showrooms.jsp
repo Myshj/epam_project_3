@@ -5,22 +5,23 @@
   Time: 12:12
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
+<%@ include file="../localized.jsp" %>
+<html lang="${language}">
 <head>
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
-    <script src="../../js/bootstrap.min.js"></script>
+    <%@ include file="../bootstrap.jsp" %>
     <style>
         th {
             text-align: center;
         }
     </style>
 </head>
-
 <body>
 <div class="container">
-    <h2>Showrooms</h2>
+    <h3><a href="/settings/"><fmt:message key="settings"/></a></h3>
+    <h2><fmt:message key="showrooms"/></h2>
     <c:choose>
         <c:when test="${not empty showrooms}">
             <table class="table table-striped table-bordered">
@@ -28,17 +29,17 @@
 
                 <tr>
                     <th rowspan="2">#</th>
-                    <th rowspan="2">Name</th>
-                    <th rowspan="2">Country</th>
-                    <th rowspan="2">City</th>
-                    <th rowspan="2">Street</th>
-                    <th rowspan="2">Building</th>
-                    <th colspan="3">Expositions</th>
+                    <th rowspan="2"><fmt:message key="name"/></th>
+                    <th rowspan="2"><fmt:message key="country"/></th>
+                    <th rowspan="2"><fmt:message key="city"/></th>
+                    <th rowspan="2"><fmt:message key="street"/></th>
+                    <th rowspan="2"><fmt:message key="building"/></th>
+                    <th colspan="3"><fmt:message key="exposition"/></th>
                 </tr>
                 <tr>
-                    <th>Active</th>
-                    <th>Old</th>
-                    <th>Planned</th>
+                    <th><fmt:message key="active"/></th>
+                    <th><fmt:message key="old"/></th>
+                    <th><fmt:message key="planned"/></th>
                 </tr>
                 </thead>
                 <c:forEach var="showroom" items="${showrooms}" varStatus="status">
@@ -70,7 +71,7 @@
         <c:otherwise>
             <br>
             <div class="alert alert-info">
-                No showrooms found matching your search criteria
+                <fmt:message key="noShowroomsFound"/>
             </div>
         </c:otherwise>
     </c:choose>

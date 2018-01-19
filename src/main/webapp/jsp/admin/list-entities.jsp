@@ -9,21 +9,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <%@include file="../bootstrap.jsp" %>
 </head>
 
 <body>
 <div class="container">
-    <a href="/admin/">back</a>
+    <h3><a href="/admin/">back</a></h3>
     <h2>List ${meta.names.plural}</h2>
 
     <%--<!--Entity List-->--%>
