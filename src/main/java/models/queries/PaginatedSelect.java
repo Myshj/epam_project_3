@@ -1,4 +1,4 @@
-package models.commands;
+package models.queries;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

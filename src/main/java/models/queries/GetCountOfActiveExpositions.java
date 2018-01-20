@@ -1,6 +1,7 @@
-package models.commands;
+package models.queries;
 
 import models.Exposition;
+import models.Showroom;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.queries.SqlQueryContext;
@@ -12,13 +13,13 @@ import java.time.LocalDateTime;
 /**
  * Get count of currently active expositions.
  */
-public class GetCountOfActiveExpositions extends ExpositionCountingByDateQuery {
+public class GetCountOfActiveExpositions extends ExpositionCountingByDateAndShowroomQuery {
     private static final Logger logger = LogManager.getLogger(GetCountOfActiveExpositions.class);
 
     public GetCountOfActiveExpositions(SqlQueryContext<Exposition> context) {
         super(
                 context,
-                "SELECT COUNT(*) FROM expositions WHERE begins <= ? AND ends >= ?;"
+                "SELECT COUNT(*) FROM expositions WHERE begins <= ? AND ends >= ? AND showroom_id=?;"
         );
         logger.info("constructed");
     }
@@ -33,6 +34,18 @@ public class GetCountOfActiveExpositions extends ExpositionCountingByDateQuery {
             logger.error(e);
         }
         logger.info("remembered dateTime");
+        return this;
+    }
+
+    @Override
+    public ExpositionCountingByDateAndShowroomQuery withShowroom(Showroom showroom) {
+        logger.info("started remembering showroom");
+        try {
+            statement.setLong(3, showroom.getId().getValue());
+        } catch (SQLException e) {
+            logger.error(e);
+        }
+        logger.info("remembered showroom");
         return this;
     }
 }

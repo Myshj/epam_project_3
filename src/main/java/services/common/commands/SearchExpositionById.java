@@ -2,7 +2,7 @@ package services.common.commands;
 
 import models.Exposition;
 import models.Ticket;
-import models.commands.FindTicketsByExposition;
+import models.queries.FindTicketsByExposition;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.queries.SqlQueryContext;

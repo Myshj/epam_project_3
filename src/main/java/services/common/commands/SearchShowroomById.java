@@ -2,7 +2,7 @@ package services.common.commands;
 
 import models.Exposition;
 import models.Showroom;
-import models.commands.FindExpositionsByShowroom;
+import models.queries.FindExpositionsByShowroom;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.queries.SqlQueryContext;

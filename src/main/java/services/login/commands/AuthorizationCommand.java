@@ -1,7 +1,7 @@
 package services.login.commands;
 
 import models.User;
-import models.commands.FindUserByEmailAndPassword;
+import models.queries.FindUserByEmailAndPassword;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.queries.SqlQueryContext;

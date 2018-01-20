@@ -63,9 +63,9 @@
                         <td>${showroom.building.value.street.value.city.value.name}</td>
                         <td>${showroom.building.value.street.value.name}</td>
                         <td>${showroom.building.value.name}</td>
-                        <td>${countOfActiveExpositions}</td>
-                        <td>${countOfOldExpositions}</td>
-                        <td>${countOfPlannedExpositions}</td>
+                        <td>${expositionTypes[showroom].active}</td>
+                        <td>${expositionTypes[showroom].old}</td>
+                        <td>${expositionTypes[showroom].planned}</td>
                     </tr>
                 </c:forEach>
             </table>

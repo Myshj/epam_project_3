@@ -2,7 +2,7 @@ package services.registration.commands;
 
 import models.User;
 import models.UserRole;
-import models.commands.FindUserByEmailAndPassword;
+import models.queries.FindUserByEmailAndPassword;
 import orm.queries.SqlQueryContext;
 import services.ServletServiceContext;
 import services.commands.ServletCommand;

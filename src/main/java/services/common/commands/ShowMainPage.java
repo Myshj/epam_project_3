@@ -2,10 +2,10 @@ package services.common.commands;
 
 import models.Exposition;
 import models.Showroom;
-import models.commands.ExpositionCountingByDateQuery;
-import models.commands.GetCountOfActiveExpositions;
-import models.commands.GetCountOfOldExpositions;
-import models.commands.GetCountOfPlannedExpositions;
+import models.queries.ExpositionCountingByDateAndShowroomQuery;
+import models.queries.GetCountOfActiveExpositions;
+import models.queries.GetCountOfOldExpositions;
+import models.queries.GetCountOfPlannedExpositions;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.queries.SqlQueryContext;
@@ -21,6 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Command to show the main page of our system.
@@ -29,9 +32,9 @@ public class ShowMainPage extends ServletCommand {
     private static final Logger logger = LogManager.getLogger(ShowMainPage.class);
 
     private IRepository<Exposition> expositionRepository = context.getManagers().getRepository().get(Exposition.class);
-    private ExpositionCountingByDateQuery getCountOfActiveExpositions;
-    private ExpositionCountingByDateQuery getCountOfOldExpositions;
-    private ExpositionCountingByDateQuery getCountOfPlannedExpositions;
+    private ExpositionCountingByDateAndShowroomQuery getCountOfActiveExpositions;
+    private ExpositionCountingByDateAndShowroomQuery getCountOfOldExpositions;
+    private ExpositionCountingByDateAndShowroomQuery getCountOfPlannedExpositions;
     private IncludeAll<Showroom> showroomsIncluder;
 
 
@@ -76,23 +79,38 @@ public class ShowMainPage extends ServletCommand {
         new TransactionExecutor(context.getManagers().getConnection().get()).apply(
                 () -> {
                     showroomsIncluder.accept(request, response);
-
                     LocalDateTime now = LocalDateTime.now();
+                    Map<Showroom, Map<String, Long>> types = new HashMap<>();
 
-                    request.setAttribute(
-                            "countOfActiveExpositions",
-                            expositionRepository.count(getCountOfActiveExpositions.withDateTime(now))
-                    );
+                    for (Showroom showroom : (List<Showroom>) request.getAttribute("showrooms")) {
+                        types.put(showroom, new HashMap<>());
+                        types.get(showroom).put(
+                                "active",
+                                expositionRepository.count(
+                                        getCountOfActiveExpositions
+                                                .withDateTime(now)
+                                                .withShowroom(showroom)
+                                )
+                        );
+                        types.get(showroom).put(
+                                "old",
+                                expositionRepository.count(
+                                        getCountOfOldExpositions
+                                                .withDateTime(now)
+                                                .withShowroom(showroom)
+                                )
+                        );
+                        types.get(showroom).put(
+                                "planned",
+                                expositionRepository.count(
+                                        getCountOfPlannedExpositions
+                                                .withDateTime(now)
+                                                .withShowroom(showroom)
+                                )
+                        );
+                    }
 
-                    request.setAttribute(
-                            "countOfOldExpositions",
-                            expositionRepository.count(getCountOfOldExpositions.withDateTime(now))
-                    );
-
-                    request.setAttribute(
-                            "countOfPlannedExpositions",
-                            expositionRepository.count(getCountOfPlannedExpositions.withDateTime(now))
-                    );
+                    request.setAttribute("expositionTypes", types);
                 }
         );
 

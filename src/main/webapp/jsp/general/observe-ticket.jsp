@@ -49,12 +49,23 @@
                 </tr>
             </table>
             <c:if test="${ticket.available.value}">
-                <form action="/common/show_purchase_form" role="form">
-                    <input type="hidden" name="id" value="${ticket.id}">
-                    <div class="form-group col-xs-4">
-                        <button type="submit" class="btn btn-primary  btn-md"><fmt:message key="purchase"/></button>
-                    </div>
-                </form>
+                <c:choose>
+                    <c:when test="${not empty user}">
+                        <form action="/user/purchase_ticket" role="form">
+                            <input type="hidden" name="id" value="${ticket.id}">
+                            <div class="form-group col-xs-4">
+                                <button type="submit" class="btn btn-primary  btn-md"><fmt:message
+                                        key="purchase"/></button>
+                            </div>
+                        </form>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="alert alert-warning">
+                            <fmt:message key="loginToPurchase"/>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+
             </c:if>
 
         </c:when>

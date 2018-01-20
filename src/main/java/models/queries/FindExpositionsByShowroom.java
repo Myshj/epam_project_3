@@ -1,4 +1,4 @@
-package models.commands;
+package models.queries;
 
 import models.Exposition;
 import models.Showroom;

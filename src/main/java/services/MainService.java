@@ -7,6 +7,7 @@ import services.common.CommonService;
 import services.login.LoginService;
 import services.registration.RegistrationService;
 import services.settings.SettingsService;
+import services.user.UserService;
 
 /**
  * The main service.
@@ -23,6 +24,7 @@ public class MainService extends ServletService {
         registerCommand(url("mainLogin"), new LoginService(context));
         registerCommand(url("mainSettings"), new SettingsService(context));
         registerCommand(url("mainRegistration"), new RegistrationService(context));
+        registerCommand(url("mainUser"), new UserService(context));
         logger.info("constructed");
     }
 }

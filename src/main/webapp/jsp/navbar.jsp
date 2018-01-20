@@ -15,7 +15,7 @@
         <ul class="nav navbar-nav">
             <li><a href="/"><fmt:message key="home"/></a></li>
             <c:if test="${user != null}">
-                <li><a href="/user_zone/orders"><fmt:message key="myTickets"/></a></li>
+                <li><a href="/user/orders"><fmt:message key="myOrders"/></a></li>
                 <c:if test="${user.role.value.hasAccessToAdminSite.value}">
                     <li><a href="/admin/"><fmt:message key="adminZone"/></a></li>
                 </c:if>

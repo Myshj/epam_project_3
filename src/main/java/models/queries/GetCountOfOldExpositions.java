@@ -1,6 +1,7 @@
-package models.commands;
+package models.queries;
 
 import models.Exposition;
+import models.Showroom;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.queries.SqlQueryContext;
@@ -12,19 +13,19 @@ import java.time.LocalDateTime;
 /**
  * Get count of over expositions.
  */
-public class GetCountOfOldExpositions extends ExpositionCountingByDateQuery {
+public class GetCountOfOldExpositions extends ExpositionCountingByDateAndShowroomQuery {
     private static final Logger logger = LogManager.getLogger(GetCountOfOldExpositions.class);
 
     public GetCountOfOldExpositions(SqlQueryContext<Exposition> context) {
         super(
                 context,
-                "SELECT COUNT(*) FROM expositions WHERE ends < ?;"
+                "SELECT COUNT(*) FROM expositions WHERE ends < ? AND showroom_id=?;"
         );
         logger.info("constructed");
     }
 
     @Override
-    public ExpositionCountingByDateQuery withDateTime(LocalDateTime dateTime) {
+    public ExpositionCountingByDateAndShowroomQuery withDateTime(LocalDateTime dateTime) {
         logger.info("started remembering dateTime");
         try {
             statement.setTimestamp(1, Timestamp.valueOf(dateTime));
@@ -32,6 +33,18 @@ public class GetCountOfOldExpositions extends ExpositionCountingByDateQuery {
             logger.error(e);
         }
         logger.info("remembered dateTime");
+        return this;
+    }
+
+    @Override
+    public ExpositionCountingByDateAndShowroomQuery withShowroom(Showroom showroom) {
+        logger.info("started remembering showroom");
+        try {
+            statement.setLong(2, showroom.getId().getValue());
+        } catch (SQLException e) {
+            logger.error(e);
+        }
+        logger.info("remembered showroom");
         return this;
     }
 }

@@ -1,6 +1,6 @@
 package web.filters;
 
-import models.UserRole;
+import models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import utils.managers.resource.IResourceManager;
@@ -12,13 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//@WebFilter(
-//        filterName = "AuthorizationFilter",
-//        urlPatterns = {"/admin/*"}
-//)
-public class AuthorizationFilter implements Filter {
+abstract class AuthorizationFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(AuthorizationFilter.class);
-
     private final IResourceManager urlManager = new ResourceManager(
             new ResourceBundleAccessor().withResource("urls")
     ).withKey("loginJsp");
@@ -38,10 +33,9 @@ public class AuthorizationFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        UserRole role = (UserRole) request.getSession().getAttribute("userRole");
-        System.out.println(role);
+        User user = (User) request.getSession().getAttribute("user");
 
-        if (unauthorized(role)) {
+        if (unauthorized(user)) {
             logger.info("user unauthorized");
             response.sendRedirect(urlManager.get());
             logger.info("redirected to login service");
@@ -53,9 +47,7 @@ public class AuthorizationFilter implements Filter {
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    private boolean unauthorized(UserRole role) {
-        return role == null || !role.getHasAccessToAdminSite().getValue();
-    }
+    abstract boolean unauthorized(User user);
 
     @Override
     public void destroy() {
