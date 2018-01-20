@@ -11,10 +11,12 @@
 <html>
 <head>
     <%@include file="../bootstrap.jsp" %>
+    <title><fmt:message key="adminZone"/></title>
 </head>
 
 <body>
 <div class="container">
+    <%@ include file="../navbar.jsp" %>
     <h2><fmt:message key="entities"/></h2>
 
     <%--<!--Entity List-->--%>

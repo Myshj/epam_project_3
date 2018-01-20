@@ -17,10 +17,12 @@
             text-align: center;
         }
     </style>
+    <title><fmt:message key="showrooms"/></title>
 </head>
 <body>
 <div class="container">
-    <h3><a href="/settings/"><fmt:message key="settings"/></a></h3>
+    <%@include file="../navbar.jsp" %>
+    <%--<h3><a href="/settings/"><fmt:message key="settings"/></a></h3>--%>
     <h2><fmt:message key="showrooms"/></h2>
     <c:choose>
         <c:when test="${not empty showrooms}">

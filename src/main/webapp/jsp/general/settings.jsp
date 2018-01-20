@@ -8,24 +8,20 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="language"
-       value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}"
-       scope="session"/>
-<fmt:setLocale value="${language}"/>
-<fmt:setBundle basename="interface"/>
+<%@ include file="../localized.jsp" %>
 <html lang="${language}">
 <head>
     <%@include file="../bootstrap.jsp" %>
+    <title><fmt:message key="settings"/></title>
 </head>
 <body>
 <div class="container">
-    <h3><a href="/"><fmt:message key="toMainPage"/></a></h3>
+    <%@ include file="../navbar.jsp" %>
     <form action="/settings/confirm" role="form" method="post">
         <div class="form-group col-xs-4">
             <label for="languageControl"
                    class="control-label col-xs-4"
-            >Language</label>
+            ><fmt:message key="language"/></label>
             <select class="form-control" id="languageControl" name="language">
                 <option value="en"
                         <c:choose>

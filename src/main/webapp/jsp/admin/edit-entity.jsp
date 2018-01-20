@@ -11,12 +11,14 @@
 <html>
 <head>
     <%@include file="../bootstrap.jsp" %>
+    <title><fmt:message key="adminZone"/></title>
 </head>
 <body>
 
 <div class="container">
-    <h3><a href="/admin/${meta.names.singular}/show_all">back</a></h3>
-    <h3><a href="/admin">to main page</a></h3>
+    <%@ include file="../navbar.jsp" %>
+    <h3><a href="/admin/${meta.names.singular}/show_all"><fmt:message key="back"/></a></h3>
+    <h3><a href="/admin"><fmt:message key="toMainPage"/></a></h3>
     <c:choose>
         <c:when test="${empty action}">
             <c:set var="action" value="create"/>

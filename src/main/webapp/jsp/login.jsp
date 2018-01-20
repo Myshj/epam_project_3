@@ -14,6 +14,7 @@
 </head>
 <body>
 <div class="container">
+    <%@ include file="navbar.jsp" %>
     <form action="/login/confirm" method="post" role="form" data-toggle="validator">
         <input type="hidden" id="idUser" name="id" value="${user.id}"/>
         <h2>Login</h2>

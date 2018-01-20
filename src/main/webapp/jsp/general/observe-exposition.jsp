@@ -11,9 +11,11 @@
 <html>
 <head>
     <%@include file="../bootstrap.jsp" %>
+    <title><fmt:message key="exposition"/></title>
 </head>
 <body>
 <div class="container">
+    <%@ include file="../navbar.jsp" %>
     <c:choose>
         <c:when test="${not empty exposition}">
             <h2>${exposition.name}</h2>

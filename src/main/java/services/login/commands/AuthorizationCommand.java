@@ -34,7 +34,7 @@ public class AuthorizationCommand extends ServletCommand {
             logger.info("user authorized");
             request.getSession().setAttribute("user", user);
             request.getSession().setAttribute("userRole", user.getRole().getValue());
-            response.sendRedirect(url("adminMain"));
+            response.sendRedirect(url("mainPage"));
             return;
         }
 

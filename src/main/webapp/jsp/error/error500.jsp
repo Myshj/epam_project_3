@@ -10,9 +10,13 @@
 <html>
 <head>
     <title><fmt:message key="serverError"/></title>
+    <%@ include file="../bootstrap.jsp" %>
 </head>
 <body>
-<h1><fmt:message key="serverErrorEncountered"/></h1>
-<h2><fmt:message key="pleaseTryAgain"/></h2>
+<div class="container">
+    <%@ include file="../navbar.jsp" %>
+    <h1><fmt:message key="serverErrorEncountered"/></h1>
+    <h2><fmt:message key="pleaseTryAgain"/></h2>
+</div>
 </body>
 </html>

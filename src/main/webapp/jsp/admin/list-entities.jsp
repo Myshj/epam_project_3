@@ -11,12 +11,14 @@
 <html>
 <head>
     <%@include file="../bootstrap.jsp" %>
+    <title><fmt:message key="adminZone"/></title>
 </head>
 
 <body>
 <div class="container">
-    <h3><a href="/admin/">back</a></h3>
-    <h2><fmt:message key="list"/> ${meta.names.plural}</h2>
+    <%@ include file="../navbar.jsp" %>
+    <h3><a href="/admin/"><fmt:message key="back"/></a></h3>
+    <h2><fmt:message key="table"/></h2>
 
     <%--<!--Entity List-->--%>
     <%--<c:if test="${not empty message}">--%>
@@ -65,7 +67,7 @@
         </tbody>
     </table>
     <form action="/admin/${meta.names.singular}/show_create_form">
-        <button type="submit" class="btn btn-primary  btn-md"><fmt:message key="new"/> ${meta.names.singular}</button>
+        <button type="submit" class="btn btn-primary  btn-md"><fmt:message key="create"/></button>
     </form>
 </div>
 </body>
