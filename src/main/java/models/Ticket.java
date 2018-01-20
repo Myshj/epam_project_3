@@ -4,6 +4,7 @@ import models.annotations.EntityNames;
 import models.annotations.Relatives;
 import orm.annotations.Column;
 import orm.annotations.Entity;
+import orm.fields.BooleanField;
 import orm.fields.DecimalField;
 import orm.fields.ForeignKey;
 import orm.fields.StringField;
@@ -29,16 +30,20 @@ public class Ticket extends WebModel {
     private DecimalField price = new DecimalField(false);
     private StringField currency = new StringField(false);
 
+    private BooleanField available = new BooleanField(false);
+
     public Ticket(
             Exposition exposition,
             TicketType type,
             BigDecimal price,
-            String currency
+            String currency,
+            boolean available
     ) {
         this.exposition.setValue(exposition);
         this.type.setValue(type);
         this.price.setValue(price);
         this.currency.setValue(currency);
+        this.available.setValue(available);
     }
 
     public Ticket() {
@@ -63,5 +68,9 @@ public class Ticket extends WebModel {
 
     public StringField getCurrency() {
         return currency;
+    }
+
+    public BooleanField getAvailable() {
+        return available;
     }
 }

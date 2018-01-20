@@ -9,7 +9,7 @@ import services.settings.SettingsService;
 
 /**
  * The main service.
- * Serving /admin, /common and /login functionality.
+ * Serving /admin, /common and  functionality.
  */
 public class MainService extends ServletService {
     private static final Logger logger = LogManager.getLogger(MainService.class);

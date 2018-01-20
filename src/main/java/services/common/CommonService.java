@@ -19,7 +19,7 @@ public class CommonService extends ServletService {
         registerCommand(url("searchExposition"), new SearchExpositionById(context));
         registerCommand(url("searchTicket"), new SearchTicketById(context));
         registerCommand(url("showPurchaseForm"), new ShowPurchaseForm(context));
-        registerCommand(url("mainPage"), new ShowMainPage(context));
+        registerCommand(url("mainPageTemplate"), new ShowMainPage(context));
         logger.info("constructed");
     }
 }

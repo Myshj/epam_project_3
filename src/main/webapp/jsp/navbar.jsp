@@ -15,13 +15,24 @@
         <ul class="nav navbar-nav">
             <li><a href="/"><fmt:message key="home"/></a></li>
             <li><a href="/settings/"><fmt:message key="settings"/></a></li>
-            <li><a href="#">Page 2</a></li>
+            <c:if test="${userRole != null}">
+                <c:if test="${userRole.hasAccessToAdminSite.value}">
+                    <li><a href="/admin/"><fmt:message key="adminZone"/></a></li>
+                </c:if>
+            </c:if>
             <li><a href="#">Page 3</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <c:choose>
+                <c:when test="${userRole == null}">
+                    <li><a href="/login/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </c:when>
+                <c:otherwise>
+                    <li><a href="/login/logout/"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                </c:otherwise>
+            </c:choose>
         </ul>
     </div>
 </nav>

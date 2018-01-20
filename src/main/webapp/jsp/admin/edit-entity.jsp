@@ -96,13 +96,11 @@
                             <option name="${controlName}"
                                     value="true"
                                     <c:if test="${entity[field].value}">selected</c:if>
-                            >Yes
-                            </option>
+                            ><fmt:message key="yes"/></option>
                             <option name="${controlName}"
                                     value="false"
                                     <c:if test="${entity[field].value == false}">selected</c:if>
-                            >No
-                            </option>
+                            ><fmt:message key="no"/></option>
                         </select>
                     </c:when>
                 </c:choose>

@@ -54,7 +54,7 @@ public class AuthorizationFilter implements Filter {
     }
 
     private boolean unauthorized(UserRole role) {
-        return role == null || !role.getName().getValue().equalsIgnoreCase("админ");
+        return role == null || !role.getHasAccessToAdminSite().getValue();
     }
 
     @Override
