@@ -3,7 +3,7 @@ package models.commands;
 import models.Exposition;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import orm.commands.CommandContext;
+import orm.queries.SqlQueryContext;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 /**
  * Get count of currently active expositions.
  */
-public class GetCountOfActiveExpositions extends ExpositionCountingByDateCommand {
+public class GetCountOfActiveExpositions extends ExpositionCountingByDateQuery {
     private static final Logger logger = LogManager.getLogger(GetCountOfActiveExpositions.class);
 
-    public GetCountOfActiveExpositions(CommandContext<Exposition> context) throws SQLException {
+    public GetCountOfActiveExpositions(SqlQueryContext<Exposition> context) {
         super(
                 context,
                 "SELECT COUNT(*) FROM expositions WHERE begins <= ? AND ends >= ?;"

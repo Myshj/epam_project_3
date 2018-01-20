@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import orm.commands.CommandContext;
+import orm.queries.SqlQueryContext;
 import utils.globals.IManagers;
 import utils.globals.Managers;
 
@@ -52,7 +52,7 @@ class SqlRepositoryGetByIdTest {
         IManagers managers = new Managers();
 
 
-        repository = new SqlRepository<>(new CommandContext<>(Country.class, null, connection));
+        repository = new SqlRepository<>(new SqlQueryContext<>(Country.class, null, connection));
     }
 
     @AfterEach

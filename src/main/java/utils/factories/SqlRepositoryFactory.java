@@ -1,7 +1,7 @@
 package utils.factories;
 
 import orm.Model;
-import orm.commands.CommandContext;
+import orm.queries.SqlQueryContext;
 import orm.repository.SqlRepository;
 import utils.managers.RepositoryManager;
 
@@ -19,6 +19,6 @@ public class SqlRepositoryFactory implements IRepositoryFactory {
 
     @Override
     public <T extends Model> SqlRepository<T> make(Class<T> clazz, RepositoryManager manager) {
-        return new SqlRepository<>(new CommandContext<>(clazz, manager, connectionSupplier.get()));
+        return new SqlRepository<>(new SqlQueryContext<>(clazz, manager, connectionSupplier.get()));
     }
 }

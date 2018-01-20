@@ -3,15 +3,15 @@ package models.commands;
 import models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import orm.commands.CommandContext;
-import orm.commands.GetEntityCommand;
+import orm.queries.GetEntityQuery;
+import orm.queries.SqlQueryContext;
 
 import java.sql.SQLException;
 
 /**
  * Find user with given credentials.
  */
-public class FindUserByEmailAndPassword extends GetEntityCommand<User> {
+public class FindUserByEmailAndPassword extends GetEntityQuery<User> {
     private static final Logger logger = LogManager.getLogger(FindUserByEmailAndPassword.class);
 
     public FindUserByEmailAndPassword withEmail(String email) {
@@ -36,7 +36,7 @@ public class FindUserByEmailAndPassword extends GetEntityCommand<User> {
         return this;
     }
 
-    public FindUserByEmailAndPassword(CommandContext<User> context) throws SQLException {
+    public FindUserByEmailAndPassword(SqlQueryContext<User> context) {
         super(
                 context,
                 "SELECT * FROM users WHERE email=? and password=?;"

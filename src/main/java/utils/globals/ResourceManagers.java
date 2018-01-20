@@ -9,15 +9,15 @@ public class ResourceManagers {
             new ResourceBundleAccessor().withResource("application")
     );
 
-    private final IResourceManager messages = new ResourceManager(
-            new ResourceBundleAccessor().withResource("messages")
+    private final IResourceManager urls = new ResourceManager(
+            new ResourceBundleAccessor().withResource("urls")
     );
 
     public IResourceManager getApplication() {
         return application;
     }
 
-    public IResourceManager getMessages() {
-        return messages;
+    public IResourceManager getUrls() {
+        return urls;
     }
 }

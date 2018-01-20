@@ -3,7 +3,7 @@ package utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
-import orm.commands.CommandContext;
+import orm.queries.SqlQueryContext;
 import utils.converters.EntityFromMapWriter;
 
 import java.lang.reflect.Constructor;
@@ -20,10 +20,10 @@ public class MapToEntityConverter<T extends Model> implements Function<Map<Strin
     private final EntityFromMapWriter<T> entityFromMapWriter;
     private Constructor<T> constructor;
     private final DefaultInstantiator<T> instantiator;
-    private final CommandContext<T> context;
+    private final SqlQueryContext<T> context;
 
     public MapToEntityConverter(
-            CommandContext<T> context
+            SqlQueryContext<T> context
     ) {
         this.context = context;
         constructor = new DefaultConstructorExtractor<T>().apply(context.getClazz());

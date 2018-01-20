@@ -23,6 +23,7 @@ public class RepositoryManager {
      * @return repository for a given model class or null if any exception occured
      */
     public <T extends Model> IRepository<T> get(Class<T> clazz) {
-        return repositories.putIfAbsent(clazz, repositoryFactory.make(clazz, this));
+        repositories.putIfAbsent(clazz, repositoryFactory.make(clazz, this));
+        return repositories.get(clazz);
     }
 }

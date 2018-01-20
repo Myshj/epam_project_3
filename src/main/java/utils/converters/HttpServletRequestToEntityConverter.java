@@ -1,10 +1,10 @@
 package utils.converters;
 
-import launch.servlets.ServiceContext;
-import launch.servlets.services.HasServiceContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
+import services.HasServiceContext;
+import services.ServletServiceContext;
 import utils.DefaultInstantiator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +22,7 @@ public class HttpServletRequestToEntityConverter<T extends Model> extends HasSer
     private EntityFromHttpServletRequestWriter<T> writer;
 
     public HttpServletRequestToEntityConverter(
-            ServiceContext context,
+            ServletServiceContext context,
             Class<T> clazz
     ) {
         super(context);

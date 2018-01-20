@@ -4,7 +4,6 @@ import models.annotations.Relatives;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
-import orm.OrmFieldUtils;
 import orm.fields.SimpleOrmField;
 import utils.meta.FieldMetaInfo;
 
@@ -18,12 +17,16 @@ import java.util.function.Function;
  */
 public class GetFields implements Function<Class<? extends Model>, Map<String, FieldMetaInfo>> {
     private static final Logger logger = LogManager.getLogger(GetFields.class);
+
+    private final GetRelationalToObjectMapping getRelationalToObjectMapping = new GetRelationalToObjectMapping();
+    private final GetUpdateMapping getUpdateMapping = new GetUpdateMapping();
+
     @Override
     public Map<String, FieldMetaInfo> apply(Class<? extends Model> clazz) {
         logger.info("entering");
         return new HashMap<String, FieldMetaInfo>() {{
-            Map<String, Field> fieldMap = OrmFieldUtils.getRelationalToObjectMapping(clazz);
-            Map<Field, Integer> updateMapping = OrmFieldUtils.getUpdateMapping(clazz);
+            Map<String, Field> fieldMap = getRelationalToObjectMapping.apply(clazz);
+            Map<Field, Integer> updateMapping = getUpdateMapping.apply(clazz);
             fieldMap.entrySet().stream()
                     .filter(p -> updateMapping.containsKey(p.getValue()))
                     .forEach(p -> {

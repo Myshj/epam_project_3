@@ -3,8 +3,8 @@ package models.commands;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
-import orm.commands.CommandContext;
-import orm.commands.ListEntitiesCommand;
+import orm.queries.ListEntitiesQuery;
+import orm.queries.SqlQueryContext;
 
 import java.sql.SQLException;
 
@@ -13,7 +13,7 @@ import java.sql.SQLException;
  *
  * @param <T>
  */
-public class PaginatedSelect<T extends Model> extends ListEntitiesCommand<T> {
+public class PaginatedSelect<T extends Model> extends ListEntitiesQuery<T> {
     private static final Logger logger = LogManager.getLogger(PaginatedSelect.class);
 
     private int parameterCount;
@@ -41,15 +41,19 @@ public class PaginatedSelect<T extends Model> extends ListEntitiesCommand<T> {
     }
 
     public PaginatedSelect(
-            CommandContext<T> context,
+            SqlQueryContext<T> context,
             String sql
-    ) throws SQLException {
+    ) {
         super(
                 context,
                 sql.lastIndexOf(';') == -1 ? sql + " LIMIT ?, ?" : sql.substring(0, sql.lastIndexOf(';')) + " LIMIT ?, ?"
         );
         logger.info("started construction");
-        parameterCount = statement.getParameterMetaData().getParameterCount();
+        try {
+            parameterCount = statement.getParameterMetaData().getParameterCount();
+        } catch (SQLException e) {
+            logger.error(e);
+        }
         logger.info("constructed");
     }
 }

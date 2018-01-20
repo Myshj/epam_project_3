@@ -1,9 +1,9 @@
 package orm.repository;
 
 import orm.Model;
-import orm.commands.CountingCommand;
-import orm.commands.GetEntityCommand;
-import orm.commands.ListEntitiesCommand;
+import orm.queries.CountingQuery;
+import orm.queries.GetEntityQuery;
+import orm.queries.ListEntitiesQuery;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,13 +15,13 @@ public interface IRepository<T extends Model> {
 
     void delete(T entity);
 
-    List<T> filter(ListEntitiesCommand<T> command);
+    List<T> filter(ListEntitiesQuery<T> query);
 
-    Optional<T> get(GetEntityCommand<T> command);
+    Optional<T> get(GetEntityQuery<T> query);
 
     void save(T entity);
 
     Long count();
 
-    Long count(CountingCommand<T> countingCommand);
+    Long count(CountingQuery<T> query);
 }

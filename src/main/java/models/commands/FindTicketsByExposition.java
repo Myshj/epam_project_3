@@ -4,15 +4,15 @@ import models.Exposition;
 import models.Ticket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import orm.commands.CommandContext;
-import orm.commands.ListEntitiesCommand;
+import orm.queries.ListEntitiesQuery;
+import orm.queries.SqlQueryContext;
 
 import java.sql.SQLException;
 
 /**
  * Select all tickets for exposition.
  */
-public class FindTicketsByExposition extends ListEntitiesCommand<Ticket> {
+public class FindTicketsByExposition extends ListEntitiesQuery<Ticket> {
     private static final Logger logger = LogManager.getLogger(FindTicketsByExposition.class);
 
     public FindTicketsByExposition withExposition(Exposition exposition) {
@@ -26,7 +26,7 @@ public class FindTicketsByExposition extends ListEntitiesCommand<Ticket> {
         return this;
     }
 
-    public FindTicketsByExposition(CommandContext<Ticket> context) throws SQLException {
+    public FindTicketsByExposition(SqlQueryContext<Ticket> context) {
         super(
                 context,
                 "SELECT * FROM tickets WHERE exposition_id=?;"

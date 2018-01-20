@@ -1,11 +1,12 @@
 package utils.converters;
 
-import launch.servlets.ServiceContext;
-import launch.servlets.services.HasServiceContext;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import orm.Model;
-import orm.OrmFieldUtils;
 import orm.fields.*;
+import services.HasServiceContext;
+import services.ServletServiceContext;
+import utils.meta.functions.GetRelationalToObjectMapping;
+import utils.meta.functions.GetUpdateMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
@@ -20,17 +21,20 @@ import java.util.function.BiFunction;
 public class EntityFromHttpServletRequestWriter<T extends Model> extends HasServiceContext implements BiFunction<T, HttpServletRequest, T> {
 
     private final Class<T> clazz;
+    private final GetUpdateMapping getUpdateMapping = new GetUpdateMapping();
+    private final GetRelationalToObjectMapping getRelationalToObjectMapping = new GetRelationalToObjectMapping();
 
-    public EntityFromHttpServletRequestWriter(ServiceContext context, Class<T> clazz) {
+    public EntityFromHttpServletRequestWriter(ServletServiceContext context, Class<T> clazz) {
         super(context);
         this.clazz = clazz;
     }
 
     @Override
     public T apply(T entity, HttpServletRequest request) {
-        for (Map.Entry<String, Field> pair : OrmFieldUtils.getRelationalToObjectMapping(clazz).entrySet()) {
+
+        for (Map.Entry<String, Field> pair : getRelationalToObjectMapping.apply(clazz).entrySet()) {
             Field f = pair.getValue();
-            if (!OrmFieldUtils.getUpdateMapping(clazz).containsKey(f)) {
+            if (!getUpdateMapping.apply(clazz).containsKey(f)) {
                 continue;
             }
             String s = pair.getKey();

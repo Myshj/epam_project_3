@@ -3,7 +3,7 @@ package utils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import orm.commands.CommandContext;
+import orm.queries.SqlQueryContext;
 import utils.converters.EntityFromMapWriter;
 
 import java.math.BigDecimal;
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class EntityFromMapWriterTest {
 
-    private EntityFromMapWriter<TestEntity> writer = new EntityFromMapWriter<>(new CommandContext<>(TestEntity.class, null, null));
+    private EntityFromMapWriter<TestEntity> writer = new EntityFromMapWriter<>(new SqlQueryContext<>(TestEntity.class, null, null));
 
     @BeforeEach
     void setUp() {

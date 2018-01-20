@@ -4,15 +4,15 @@ import models.Exposition;
 import models.Showroom;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import orm.commands.CommandContext;
-import orm.commands.ListEntitiesCommand;
+import orm.queries.ListEntitiesQuery;
+import orm.queries.SqlQueryContext;
 
 import java.sql.SQLException;
 
 /**
  * Select all expositions in showroom.
  */
-public class FindExpositionsByShowroom extends ListEntitiesCommand<Exposition> {
+public class FindExpositionsByShowroom extends ListEntitiesQuery<Exposition> {
     private static final Logger logger = LogManager.getLogger(FindExpositionsByShowroom.class);
 
     public FindExpositionsByShowroom withShowroom(Showroom showroom) {
@@ -26,7 +26,7 @@ public class FindExpositionsByShowroom extends ListEntitiesCommand<Exposition> {
         return this;
     }
 
-    public FindExpositionsByShowroom(CommandContext<Exposition> context) {
+    public FindExpositionsByShowroom(SqlQueryContext<Exposition> context) {
         super(
                 context,
                 "SELECT * FROM expositions WHERE showroom_id=?;"
