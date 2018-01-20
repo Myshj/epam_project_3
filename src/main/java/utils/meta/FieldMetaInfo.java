@@ -16,6 +16,7 @@ public class FieldMetaInfo {
                 put(DecimalField.class, "decimal");
                 put(ForeignKey.class, "foreign");
                 put(TimeStampField.class, "date");
+                put(BooleanField.class, "boolean");
             }};
     private final String dbName;
     private final Class<? extends SimpleOrmField> referenceType;

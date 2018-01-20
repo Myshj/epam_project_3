@@ -71,6 +71,8 @@ public class EntityFromHttpServletRequestWriter<T extends Model> extends HasServ
                     ((TimeStampField) realField).setValue(LocalDate.parse(value).atStartOfDay());
                 } else if (type == DecimalField.class) {
                     ((DecimalField) realField).setValue(BigDecimal.valueOf(Double.valueOf(value)));
+                } else if (type == BooleanField.class) {
+                    ((BooleanField) realField).setValue(Boolean.valueOf(value));
                 }
             } catch (Exception e) {
                 return null;

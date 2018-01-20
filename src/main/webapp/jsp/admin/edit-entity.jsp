@@ -88,6 +88,23 @@
                                name="${controlName}"
                         />
                     </c:when>
+                    <c:when test="${fieldType == 'boolean'}">
+                        <select id="${field}"
+                                name="${controlName}"
+                                class="form-control"
+                        >
+                            <option name="${controlName}"
+                                    value="true"
+                                    <c:if test="${entity[field].value}">selected</c:if>
+                            >Yes
+                            </option>
+                            <option name="${controlName}"
+                                    value="false"
+                                    <c:if test="${entity[field].value == false}">selected</c:if>
+                            >No
+                            </option>
+                        </select>
+                    </c:when>
                 </c:choose>
 
                 <br>

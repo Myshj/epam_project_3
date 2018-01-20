@@ -69,6 +69,8 @@ public class EntityFromMapWriter<T extends Model> implements BiFunction<T, Map<S
                     ((TimeStampField) realField).setValue((Timestamp) value);
                 } else if (type == DecimalField.class) {
                     ((DecimalField) realField).setValue((BigDecimal) value);
+                } else if (type == BooleanField.class) {
+                    ((BooleanField) realField).setValue((Boolean) value);
                 }
             } catch (Exception e) {
                 logger.error("exception occured --> return null");
