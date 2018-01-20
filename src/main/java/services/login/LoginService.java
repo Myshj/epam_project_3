@@ -18,7 +18,7 @@ public class LoginService extends ServletService {
         super(context);
         logger.info("started construction");
         registerCommand(url("login"), new SimpleForwarder(context).withUrl(url("loginJsp")));
-        registerCommand(url("loginConfirm"), new AuthorizationCommand(context));
+        registerCommand(url("loginConfirmPattern"), new AuthorizationCommand(context));
         registerCommand(url("logoutTemplate"), new LogoutCommand(context));
         logger.info("constructed");
     }

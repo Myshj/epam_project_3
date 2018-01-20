@@ -1,4 +1,4 @@
-package services.login.commands;
+package services.registration.commands;
 
 import services.ServletServiceContext;
 import services.commands.ServletCommand;
@@ -8,15 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class LogoutCommand extends ServletCommand {
+public class ShowRegistrationForm extends ServletCommand {
     @Override
     protected void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession().setAttribute("userRole", null);
-        request.getSession().setAttribute("user", null);
-        response.sendRedirect(url("mainPage"));
+
     }
 
-    public LogoutCommand(ServletServiceContext context) {
+    public ShowRegistrationForm(ServletServiceContext context) {
         super(context);
     }
 }

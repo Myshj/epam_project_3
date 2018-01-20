@@ -14,19 +14,23 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a href="/"><fmt:message key="home"/></a></li>
-            <li><a href="/settings/"><fmt:message key="settings"/></a></li>
-            <c:if test="${userRole != null}">
-                <c:if test="${userRole.hasAccessToAdminSite.value}">
+            <c:if test="${user != null}">
+                <li><a href="/user_zone/orders"><fmt:message key="myTickets"/></a></li>
+                <c:if test="${user.role.value.hasAccessToAdminSite.value}">
                     <li><a href="/admin/"><fmt:message key="adminZone"/></a></li>
                 </c:if>
             </c:if>
-            <li><a href="#">Page 3</a></li>
+            <li><a href="/settings/"><fmt:message key="settings"/></a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <c:if test="${user == null}">
+                <li><a href="/registration/show_registration_form"><span class="glyphicon glyphicon-user"></span> Sign
+                    Up</a></li>
+            </c:if>
+
             <c:choose>
-                <c:when test="${userRole == null}">
+                <c:when test="${user == null}">
                     <li><a href="/login/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 </c:when>
                 <c:otherwise>

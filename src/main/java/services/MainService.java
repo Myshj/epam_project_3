@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import services.admin.AdminService;
 import services.common.CommonService;
 import services.login.LoginService;
+import services.registration.RegistrationService;
 import services.settings.SettingsService;
 
 /**
@@ -21,6 +22,7 @@ public class MainService extends ServletService {
         registerCommand(url("mainCommon"), new CommonService(context));
         registerCommand(url("mainLogin"), new LoginService(context));
         registerCommand(url("mainSettings"), new SettingsService(context));
+        registerCommand(url("mainRegistration"), new RegistrationService(context));
         logger.info("constructed");
     }
 }

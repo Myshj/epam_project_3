@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 @WebServlet(
         name = "MainServlet",
-        urlPatterns = {"/settings/*", "/admin/*", "/common/*", "/login/*"}
+        urlPatterns = {"/settings/*", "/admin/*", "/common/*", "/login/*", "/registration/*", "/user_zone/*"}
 )
 public class MyServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(MyServlet.class);
