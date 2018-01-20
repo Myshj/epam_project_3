@@ -17,11 +17,11 @@
     <%@ include file="navbar.jsp" %>
 
     <form action="/registration/register" method="post" role="form" data-toggle="validator">
-        <h2>Registration:</h2>
+        <h2><fmt:message key="registration"/>:</h2>
         <div class="form-group col-xs-4">
             <label for="email"
                    class="control-label col-xs-4"
-            >Email:</label>
+            ><fmt:message key="yourEmail"/>:</label>
             <input type="email"
                    name="email"
                    id="email"
@@ -32,7 +32,7 @@
 
             <label for="password"
                    class="control-label col-xs-4"
-            >Password:</label>
+            ><fmt:message key="yourPassword"/>:</label>
             <input type="password"
                    name="password"
                    id="password"
@@ -47,7 +47,7 @@
 
             <label for="confirmPassword"
                    class="control-label col-xs-4"
-            >Confirm password:</label>
+            ><fmt:message key="confirmPassword"/>:</label>
             <input type="password"
                    name="confirmPassword"
                    id="confirmPassword"
@@ -56,13 +56,13 @@
                    required="true"
                    onchange="{
                        this.setCustomValidity(
-                           this.validity.patternMismatch ? 'Please enter the same password as above' : ''
+                           this.validity.patternMismatch ? '<fmt:message key="pleaseEnterTheSamePassword"/>' : ''
                            );
                    }"
             />
 
             <br>
-            <button type="submit" class="btn btn-primary  btn-md">Sign Up</button>
+            <button type="submit" class="btn btn-primary  btn-md"><fmt:message key="registerSelf"/></button>
         </div>
     </form>
 

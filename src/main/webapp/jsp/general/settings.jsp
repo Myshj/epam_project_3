@@ -38,6 +38,7 @@
                 >Русский
                 </option>
             </select>
+            <br>
             <input class="btn btn-primary  btn-md" type="submit" value="<fmt:message key="submit"/>">
         </div>
     </form>

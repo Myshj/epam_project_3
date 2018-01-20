@@ -33,7 +33,7 @@
           data-toggle="validator"
     >
         <input type="hidden" name="id" value="${entity.id}"/>
-        <h2><fmt:message key="edit"/> ${meta.names.singular}</h2>
+        <h2><fmt:message key="editing"/></h2>
         <div class="form-group col-xs-4">
             <c:forEach var="field" items="${meta.fields.keySet()}">
                 <label for="${field}"

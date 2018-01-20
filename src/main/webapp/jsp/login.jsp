@@ -17,11 +17,11 @@
     <%@ include file="navbar.jsp" %>
     <form action="/login/confirm" method="post" role="form" data-toggle="validator">
         <input type="hidden" id="idUser" name="id" value="${user.id}"/>
-        <h2>Login</h2>
+        <h2><fmt:message key="login"/></h2>
         <div class="form-group col-xs-4">
             <label for="email"
                    class="control-label col-xs-4"
-            >Name:</label>
+            ><fmt:message key="email"/>:</label>
             <input type="email"
                    name="email"
                    id="email"
@@ -32,7 +32,7 @@
 
             <label for="password"
                    class="control-label col-xs-4"
-            >Password:</label>
+            ><fmt:message key="password"/>:</label>
             <input type="password"
                    name="password"
                    id="password"
@@ -41,7 +41,7 @@
                    required="true"
             />
             <br>
-            <button type="submit" class="btn btn-primary  btn-md">Login</button>
+            <button type="submit" class="btn btn-primary  btn-md"><fmt:message key="login"/></button>
         </div>
     </form>
 </div>

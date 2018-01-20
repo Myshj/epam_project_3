@@ -58,6 +58,9 @@
                     </td>
                 </c:forEach>
                 <td>
+                    <a href="/admin/${meta.names.singular}/show_update_form?id=${entity.id}">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </a>
                     <a href="/admin/${meta.names.singular}/remove?id=${entity.id}">
                         <span class="glyphicon glyphicon-trash"></span>
                     </a>

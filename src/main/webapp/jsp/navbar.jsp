@@ -25,16 +25,18 @@
 
         <ul class="nav navbar-nav navbar-right">
             <c:if test="${user == null}">
-                <li><a href="/registration/show_registration_form"><span class="glyphicon glyphicon-user"></span> Sign
-                    Up</a></li>
+                <li><a href="/registration/show_registration_form"><span class="glyphicon glyphicon-user"></span>
+                    <fmt:message key="signUp"/></a></li>
             </c:if>
 
             <c:choose>
                 <c:when test="${user == null}">
-                    <li><a href="/login/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li><a href="/login/"><span class="glyphicon glyphicon-log-in"></span> <fmt:message
+                            key="login"/></a></li>
                 </c:when>
                 <c:otherwise>
-                    <li><a href="/login/logout/"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li><a href="/login/logout/"><span class="glyphicon glyphicon-log-out"></span> <fmt:message
+                            key="logout"/></a></li>
                 </c:otherwise>
             </c:choose>
         </ul>
