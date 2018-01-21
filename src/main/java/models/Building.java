@@ -1,11 +1,12 @@
 package models;
 
-import models.annotations.EntityNames;
-import models.annotations.Relatives;
+import orm.Model;
 import orm.annotations.Column;
 import orm.annotations.Entity;
 import orm.fields.ForeignKey;
 import orm.fields.StringField;
+import utils.meta.annotations.EntityNames;
+import utils.meta.annotations.Relatives;
 
 /**
  * Represents building
@@ -13,7 +14,7 @@ import orm.fields.StringField;
  */
 @Entity(table = "buildings")
 @EntityNames(singular = "building", plural = "buildings")
-public class Building extends WebModel {
+public class Building extends Model {
     @Override
     public String getDisplayName() {
         return name.getValue();

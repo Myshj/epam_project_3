@@ -6,7 +6,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import orm.queries.SqlQueryContext;
+import orm.repository.impl.sql.queries.SqlQueryContext;
+import utils.converters.MapToEntityConverter;
 
 import java.util.HashMap;
 import java.util.Map;

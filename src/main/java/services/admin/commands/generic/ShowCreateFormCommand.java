@@ -4,8 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
 import services.ServletServiceContext;
-import services.admin.commands.generic.includers.IncludeAll;
-import utils.meta.MetaInfoManager;
+import services.commands.includers.IncludeAll;
 import utils.meta.ModelMetaInfo;
 
 import javax.servlet.ServletException;
@@ -33,10 +32,10 @@ public class ShowCreateFormCommand<T extends Model> extends ModelCommand<T> {
     ) {
         super(context, clazz);
         logger.info("started construction");
-        meta = MetaInfoManager.INSTANCE.get(clazz);
+        meta = meta(clazz);
         logger.info("constructed");
 
-        MetaInfoManager.INSTANCE.get(clazz).getRelatives().forEach(
+        meta(clazz).getRelatives().forEach(
                 (k, v) -> includers.add(
                         new IncludeAll<>(context, v, k)
                 )

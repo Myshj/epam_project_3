@@ -1,9 +1,10 @@
 package models;
 
-import models.annotations.EntityNames;
+import orm.Model;
 import orm.annotations.Entity;
 import orm.fields.BooleanField;
 import orm.fields.StringField;
+import utils.meta.annotations.EntityNames;
 
 /**
  * Order state.
@@ -11,7 +12,7 @@ import orm.fields.StringField;
  */
 @Entity(table = "order_states")
 @EntityNames(singular = "orderState", plural = "orderStates")
-public class OrderState extends WebModel {
+public class OrderState extends Model {
     private StringField name = new StringField(false);
     private BooleanField cancellable = new BooleanField(false);
 

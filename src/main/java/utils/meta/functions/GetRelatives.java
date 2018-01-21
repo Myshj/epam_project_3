@@ -1,10 +1,10 @@
 package utils.meta.functions;
 
-import models.annotations.Relatives;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
+import utils.meta.annotations.Relatives;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;

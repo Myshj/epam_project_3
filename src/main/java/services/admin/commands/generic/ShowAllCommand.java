@@ -4,8 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
 import services.ServletServiceContext;
-import services.admin.commands.generic.includers.IncludeAll;
-import utils.meta.MetaInfoManager;
+import services.commands.includers.IncludeAll;
 import utils.meta.ModelMetaInfo;
 
 import javax.servlet.ServletException;
@@ -42,7 +41,7 @@ public class ShowAllCommand<T extends Model> extends ModelCommand<T> {
     ) {
         super(context, clazz);
         logger.info("started construction");
-        meta = MetaInfoManager.INSTANCE.get(clazz);
+        meta = meta(clazz);
         includeAll = new IncludeAll<>(context, clazz, "entities");
         logger.info("construction");
     }

@@ -1,15 +1,14 @@
 package services.common.commands;
 
+import data_access.queries.FindTicketsByExposition;
 import models.Exposition;
 import models.Ticket;
-import models.queries.FindTicketsByExposition;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import orm.queries.SqlQueryContext;
+import orm.repository.impl.sql.queries.SqlQueryContext;
 import services.ServletServiceContext;
-import services.admin.commands.generic.includers.IncludeListToRequest;
 import services.commands.ServletCommand;
-import utils.meta.MetaInfoManager;
+import services.commands.includers.IncludeListToRequest;
 import utils.transactions.TransactionExecutor;
 
 import javax.servlet.ServletException;
@@ -26,7 +25,7 @@ public class SearchExpositionById extends ServletCommand {
     private FindTicketsByExposition ticketsFinder;
     private IncludeListToRequest<Ticket> ticketIncluder = new IncludeListToRequest<>(
             context, Ticket.class,
-            MetaInfoManager.INSTANCE.get(Ticket.class).getNames().getPlural()
+            meta(Ticket.class).getNames().getPlural()
     );
 
     @Override

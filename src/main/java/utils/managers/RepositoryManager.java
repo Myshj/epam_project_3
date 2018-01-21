@@ -2,7 +2,7 @@ package utils.managers;
 
 import orm.Model;
 import orm.repository.IRepository;
-import utils.factories.IRepositoryFactory;
+import utils.factories.repository.IRepositoryFactory;
 
 import java.util.HashMap;
 import java.util.Map;

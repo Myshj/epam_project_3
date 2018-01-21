@@ -1,11 +1,12 @@
 package models;
 
-import models.annotations.EntityNames;
-import models.annotations.Relatives;
+import orm.Model;
 import orm.annotations.Column;
 import orm.annotations.Entity;
 import orm.fields.ForeignKey;
 import orm.fields.TimeStampField;
+import utils.meta.annotations.EntityNames;
+import utils.meta.annotations.Relatives;
 
 import java.time.LocalDateTime;
 
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
  */
 @Entity(table = "orders")
 @EntityNames(singular = "order", plural = "orders")
-public class Order extends WebModel {
+public class Order extends Model {
     private TimeStampField made = new TimeStampField(false);
 
     @Column(name = "ticket_id")

@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 import services.ServletService;
 import services.ServletServiceContext;
 import services.admin.commands.ShowMainAdminPage;
-import utils.meta.MetaInfoManager;
+import utils.managers.MetaInfoManager;
 
 /**
  * The main admin service.
@@ -17,11 +17,12 @@ public class AdminService extends ServletService {
     public AdminService(ServletServiceContext context) {
         super(context);
         logger.info("started construction");
-        MetaInfoManager.INSTANCE.classes().forEach(
+        MetaInfoManager metaInfoManager = context.getManagers().getMetaInfo();
+        metaInfoManager.classes().forEach(
                 c -> registerCommand(
                         String.format(
                                 url("adminEntityTemplate"),
-                                MetaInfoManager.INSTANCE.get(c).getNames().getSingular()
+                                meta(c).getNames().getSingular()
                         ),
                         new ModelAdminService(context, c)
                 )

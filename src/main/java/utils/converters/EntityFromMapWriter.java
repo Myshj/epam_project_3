@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
 import orm.fields.*;
-import orm.queries.SqlQueryContext;
+import orm.repository.impl.sql.queries.SqlQueryContext;
 import utils.meta.functions.GetRelationalToObjectMapping;
 
 import java.lang.reflect.Field;

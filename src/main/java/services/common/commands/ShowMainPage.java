@@ -1,19 +1,18 @@
 package services.common.commands;
 
+import data_access.queries.ExpositionCountingByDateAndShowroomQuery;
+import data_access.queries.GetCountOfActiveExpositions;
+import data_access.queries.GetCountOfOldExpositions;
+import data_access.queries.GetCountOfPlannedExpositions;
 import models.Exposition;
 import models.Showroom;
-import models.queries.ExpositionCountingByDateAndShowroomQuery;
-import models.queries.GetCountOfActiveExpositions;
-import models.queries.GetCountOfOldExpositions;
-import models.queries.GetCountOfPlannedExpositions;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import orm.queries.SqlQueryContext;
 import orm.repository.IRepository;
+import orm.repository.impl.sql.queries.SqlQueryContext;
 import services.ServletServiceContext;
-import services.admin.commands.generic.includers.IncludeAll;
 import services.commands.ServletCommand;
-import utils.meta.MetaInfoManager;
+import services.commands.includers.IncludeAll;
 import utils.transactions.TransactionExecutor;
 
 import javax.servlet.ServletException;
@@ -44,7 +43,7 @@ public class ShowMainPage extends ServletCommand {
         showroomsIncluder = new IncludeAll<>(
                 context,
                 Showroom.class,
-                MetaInfoManager.INSTANCE.get(Showroom.class).getNames().getPlural()
+                meta(Showroom.class).getNames().getPlural()
         );
         getCountOfActiveExpositions = new GetCountOfActiveExpositions(
                 new SqlQueryContext<>(

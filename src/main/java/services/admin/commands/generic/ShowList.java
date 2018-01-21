@@ -4,8 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
 import services.ServletServiceContext;
-import services.admin.commands.generic.includers.IncludeListToRequest;
-import utils.meta.MetaInfoManager;
+import services.commands.includers.IncludeListToRequest;
 import utils.meta.ModelMetaInfo;
 
 import javax.servlet.ServletException;
@@ -32,7 +31,7 @@ public class ShowList<T extends Model> extends ModelCommand<T> {
         super(context, clazz);
         logger.info("started construction");
         this.includer = new IncludeListToRequest<>(context, clazz, "entities");
-        meta = MetaInfoManager.INSTANCE.get(clazz);
+        meta = meta(clazz);
         logger.info("constructed");
     }
 

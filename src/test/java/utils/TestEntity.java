@@ -1,9 +1,9 @@
 package utils;
 
-import models.annotations.EntityNames;
-import models.annotations.Relatives;
 import orm.Model;
 import orm.fields.*;
+import utils.meta.annotations.EntityNames;
+import utils.meta.annotations.Relatives;
 
 @EntityNames(singular = "testEntity", plural = "testEntities")
 public class TestEntity extends Model {

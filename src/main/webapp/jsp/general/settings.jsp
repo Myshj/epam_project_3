@@ -8,15 +8,16 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="../localized.jsp" %>
+<%@ include file="../util/localized.jsp" %>
 <html lang="${language}">
 <head>
-    <%@include file="../bootstrap.jsp" %>
-    <title><fmt:message key="settings"/></title>
+    <%--<%@include file="../util/bootstrap.jsp" %>--%>
+    <%--<title><fmt:message key="settings"/></title>--%>
+    <%@include file="../util/header.jsp" %>
 </head>
 <body>
 <div class="container">
-    <%@ include file="../navbar.jsp" %>
+    <%@ include file="../util/navbar.jsp" %>
     <form action="/settings/confirm" role="form" method="post">
         <div class="form-group col-xs-4">
             <label for="languageControl"

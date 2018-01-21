@@ -17,24 +17,26 @@ public class TransactionExecutor implements Function<Runnable, TransactionResult
     @Override
     public TransactionResult apply(Runnable command) {
         logger.info("started execution");
-        try {
-            boolean oldAutoCommit = connection.getAutoCommit();
-            connection.setAutoCommit(false);
-            command.run();
-            connection.commit();
-            connection.setAutoCommit(oldAutoCommit);
-            logger.info("committed");
-            return TransactionResult.COMMIT;
-        } catch (Exception e) {
+        synchronized (connection) {
             try {
-                connection.rollback();
-                logger.error("error occured --> rolled back");
-                logger.error(e);
-                return TransactionResult.ROLLBACK;
-            } catch (Exception e1) {
-                logger.error("error while rolling back");
-                logger.error(e1);
-                return TransactionResult.ERROR_WHILE_ROLLBACK;
+                boolean oldAutoCommit = connection.getAutoCommit();
+                connection.setAutoCommit(false);
+                command.run();
+                connection.commit();
+                connection.setAutoCommit(oldAutoCommit);
+                logger.info("committed");
+                return TransactionResult.COMMIT;
+            } catch (Exception e) {
+                try {
+                    connection.rollback();
+                    logger.error("error occured --> rolled back");
+                    logger.error(e);
+                    return TransactionResult.ROLLBACK;
+                } catch (Exception e1) {
+                    logger.error("error while rolling back");
+                    logger.error(e1);
+                    return TransactionResult.ERROR_WHILE_ROLLBACK;
+                }
             }
         }
     }

@@ -7,7 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import orm.queries.SqlQueryContext;
+import orm.repository.impl.sql.SqlRepository;
+import orm.repository.impl.sql.queries.SqlQueryContext;
 import utils.globals.IManagers;
 import utils.globals.Managers;
 

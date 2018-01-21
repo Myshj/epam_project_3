@@ -1,10 +1,10 @@
 package utils.meta.functions;
 
-import models.annotations.EntityNames;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
 import utils.meta.ModelNames;
+import utils.meta.annotations.EntityNames;
 
 import java.util.function.Function;
 

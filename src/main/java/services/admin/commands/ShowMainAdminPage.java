@@ -4,7 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import services.ServletServiceContext;
 import services.commands.ServletCommand;
-import utils.meta.MetaInfoManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +22,8 @@ public class ShowMainAdminPage extends ServletCommand {
         logger.info("started execution");
         request.setAttribute(
                 "metaInfos",
-                MetaInfoManager.INSTANCE.classes().stream()
-                        .map(MetaInfoManager.INSTANCE::get)
+                context.getManagers().getMetaInfo().classes().stream()
+                        .map(this::meta)
                         .collect(Collectors.toList())
         );
         dispatcher(

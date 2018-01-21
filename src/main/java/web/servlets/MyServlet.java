@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Main servletContext controller.
@@ -26,14 +27,17 @@ public class MyServlet extends HttpServlet {
 
     private MainService mainService;
 
+    private ServletServiceContext serviceContext;
+
     @Override
     public void init() throws ServletException {
         super.init();
+        serviceContext = new ServletServiceContext(
+                getServletContext(),
+                new Managers()
+        );
         mainService = new MainService(
-                new ServletServiceContext(
-                        getServletContext(),
-                        new Managers()
-                )
+                serviceContext
         );
     }
 
@@ -49,5 +53,16 @@ public class MyServlet extends HttpServlet {
         logger.info("started serving POST request");
         mainService.accept(req, resp);
         logger.info("served POST request");
+    }
+
+    @Override
+    public void destroy() {
+        try {
+            serviceContext.getManagers().getConnection().get().close();
+        } catch (SQLException e) {
+            logger.error("error while closing connection");
+            logger.error(e);
+        }
+        super.destroy();
     }
 }

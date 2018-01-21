@@ -1,11 +1,12 @@
 package models;
 
-import models.annotations.EntityNames;
-import models.annotations.Relatives;
+import orm.Model;
 import orm.annotations.Column;
 import orm.annotations.Entity;
 import orm.fields.ForeignKey;
 import orm.fields.StringField;
+import utils.meta.annotations.EntityNames;
+import utils.meta.annotations.Relatives;
 
 /**
  * Showroom.
@@ -13,7 +14,7 @@ import orm.fields.StringField;
  */
 @Entity(table = "showrooms")
 @EntityNames(singular = "showroom", plural = "showrooms")
-public class Showroom extends WebModel {
+public class Showroom extends Model {
 
     private StringField name = new StringField(false);
 

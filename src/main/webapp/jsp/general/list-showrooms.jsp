@@ -8,20 +8,21 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="../localized.jsp" %>
+<%@ include file="../util/localized.jsp" %>
 <html lang="${language}">
 <head>
-    <%@ include file="../bootstrap.jsp" %>
+    <%--<%@ include file="../util/bootstrap.jsp" %>--%>
+    <%--<title><fmt:message key="showrooms"/></title>--%>
+    <%@include file="../util/header.jsp" %>
     <style>
         th {
             text-align: center;
         }
     </style>
-    <title><fmt:message key="showrooms"/></title>
 </head>
 <body>
 <div class="container">
-    <%@include file="../navbar.jsp" %>
+    <%@include file="../util/navbar.jsp" %>
     <%--<h3><a href="/settings/"><fmt:message key="settings"/></a></h3>--%>
     <h2><fmt:message key="showrooms"/></h2>
     <c:choose>

@@ -1,16 +1,15 @@
 package services.common.commands;
 
+import data_access.queries.FindExpositionsByShowroom;
 import models.Exposition;
 import models.Showroom;
-import models.queries.FindExpositionsByShowroom;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import orm.queries.SqlQueryContext;
+import orm.repository.impl.sql.queries.SqlQueryContext;
 import services.ServletServiceContext;
-import services.admin.commands.generic.includers.IncludeAddress;
-import services.admin.commands.generic.includers.IncludeListToRequest;
 import services.commands.ServletCommand;
-import utils.meta.MetaInfoManager;
+import services.commands.includers.IncludeAddress;
+import services.commands.includers.IncludeListToRequest;
 import utils.transactions.TransactionExecutor;
 
 import javax.servlet.ServletException;
@@ -30,7 +29,7 @@ public class SearchShowroomById extends ServletCommand {
     private IncludeListToRequest<Exposition> expositionIncluder = new IncludeListToRequest<>(
             context,
             Exposition.class,
-            MetaInfoManager.INSTANCE.get(Exposition.class).getNames().getPlural()
+            meta(Exposition.class).getNames().getPlural()
     );
 
     private IncludeAddress addressIncluder;// = new IncludeAddress(this.servletContext, "address");

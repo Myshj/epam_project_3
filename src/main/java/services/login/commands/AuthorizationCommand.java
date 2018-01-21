@@ -1,10 +1,10 @@
 package services.login.commands;
 
+import data_access.queries.FindUserByEmailAndPassword;
 import models.User;
-import models.queries.FindUserByEmailAndPassword;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import orm.queries.SqlQueryContext;
+import orm.repository.impl.sql.queries.SqlQueryContext;
 import services.ServletServiceContext;
 import services.commands.ServletCommand;
 

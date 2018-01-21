@@ -1,11 +1,11 @@
 package utils.meta.functions;
 
-import models.annotations.Relatives;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
 import orm.fields.SimpleOrmField;
 import utils.meta.FieldMetaInfo;
+import utils.meta.annotations.Relatives;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;

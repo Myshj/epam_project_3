@@ -3,9 +3,8 @@ package utils.converters;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
-import services.HasServiceContext;
 import services.ServletServiceContext;
-import utils.DefaultInstantiator;
+import utils.factories.generic.DefaultFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.function.Function;
@@ -15,20 +14,19 @@ import java.util.function.Function;
  *
  * @param <T>
  */
-public class HttpServletRequestToEntityConverter<T extends Model> extends HasServiceContext implements Function<HttpServletRequest, T> {
+public class HttpServletRequestToEntityConverter<T extends Model> implements Function<HttpServletRequest, T> {
     private static final Logger logger = LogManager.getLogger(HttpServletRequestToEntityConverter.class);
 
-    private DefaultInstantiator<T> instantiator;
+    private DefaultFactory<T> instantiator;
     private EntityFromHttpServletRequestWriter<T> writer;
 
     public HttpServletRequestToEntityConverter(
             ServletServiceContext context,
             Class<T> clazz
     ) {
-        super(context);
         logger.info("started construction");
         writer = new EntityFromHttpServletRequestWriter<>(context, clazz);
-        instantiator = new DefaultInstantiator<>(clazz);
+        instantiator = new DefaultFactory<>(clazz);
         logger.info("constructed");
     }
 

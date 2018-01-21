@@ -3,7 +3,7 @@ package utils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import orm.queries.SqlQueryContext;
+import orm.repository.impl.sql.queries.SqlQueryContext;
 import utils.converters.EntityFromMapWriter;
 
 import java.math.BigDecimal;

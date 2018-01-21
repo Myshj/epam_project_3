@@ -1,12 +1,13 @@
 package models;
 
-import models.annotations.EntityNames;
-import models.annotations.Relatives;
+import orm.Model;
 import orm.annotations.Column;
 import orm.annotations.Entity;
 import orm.fields.ForeignKey;
 import orm.fields.StringField;
 import orm.fields.TimeStampField;
+import utils.meta.annotations.EntityNames;
+import utils.meta.annotations.Relatives;
 
 import java.time.LocalDateTime;
 
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
  */
 @Entity(table = "expositions")
 @EntityNames(singular = "exposition", plural = "expositions")
-public class Exposition extends WebModel {
+public class Exposition extends Model {
 
     private StringField name = new StringField(false);
 

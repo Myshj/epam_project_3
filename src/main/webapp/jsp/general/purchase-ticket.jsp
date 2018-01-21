@@ -7,15 +7,16 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="../localized.jsp" %>
+<%@ include file="../util/localized.jsp" %>
 <html>
 <head>
-    <%@include file="../bootstrap.jsp" %>
-    <title><fmt:message key="purchaseTicket"/></title>
+    <%--<%@include file="../util/bootstrap.jsp" %>--%>
+    <%--<title><fmt:message key="purchaseTicket"/></title>--%>
+    <%@include file="../util/header.jsp" %>
 </head>
 <body>
 <div class="container">
-    <%@ include file="../navbar.jsp" %>
+    <%@ include file="../util/navbar.jsp" %>
     <c:choose>
         <c:when test="${not empty ticket}">
             <h2><fmt:message key="purchaseTicket"/></h2>

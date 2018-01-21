@@ -1,6 +1,6 @@
 package orm.fields;
 
-public class BooleanField extends SimpleOrmField<Boolean> {
+public final class BooleanField extends SimpleOrmField<Boolean> {
     public BooleanField(boolean nullable) {
         super(nullable);
     }

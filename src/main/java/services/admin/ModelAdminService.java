@@ -1,19 +1,18 @@
 package services.admin;
 
-import models.WebModel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import orm.Model;
 import services.ServletService;
 import services.ServletServiceContext;
 import services.admin.commands.generic.*;
-import utils.meta.MetaInfoManager;
 
 /**
  * Admin CRUD service for a single entity class.
  *
  * @param <T> Type of entity to work with.
  */
-public class ModelAdminService<T extends WebModel> extends ServletService {
+public class ModelAdminService<T extends Model> extends ServletService {
     private static final Logger logger = LogManager.getLogger(ModelAdminService.class);
 
     private final Class<T> clazz;
@@ -38,7 +37,7 @@ public class ModelAdminService<T extends WebModel> extends ServletService {
      * @return singular name of served entity.
      */
     private String singularName() {
-        return MetaInfoManager.INSTANCE.get(clazz).getNames().getSingular();
+        return meta(clazz).getNames().getSingular();
     }
 
     /**
@@ -47,7 +46,7 @@ public class ModelAdminService<T extends WebModel> extends ServletService {
      * @return plural name of served entity.
      */
     private String pluralName() {
-        return MetaInfoManager.INSTANCE.get(clazz).getNames().getPlural();
+        return meta(clazz).getNames().getPlural();
     }
 
     /**

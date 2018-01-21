@@ -1,8 +1,9 @@
 package models;
 
-import models.annotations.EntityNames;
+import orm.Model;
 import orm.annotations.Entity;
 import orm.fields.StringField;
+import utils.meta.annotations.EntityNames;
 
 /**
  * Represents country.
@@ -10,7 +11,7 @@ import orm.fields.StringField;
  */
 @Entity(table = "countries")
 @EntityNames(singular = "country", plural = "countries")
-public class Country extends WebModel {
+public class Country extends Model {
 
     private StringField name = new StringField(false);
 

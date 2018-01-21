@@ -1,10 +1,11 @@
 package models;
 
-import models.annotations.EntityNames;
+import orm.Model;
 import orm.annotations.Column;
 import orm.annotations.Entity;
 import orm.fields.BooleanField;
 import orm.fields.StringField;
+import utils.meta.annotations.EntityNames;
 
 /**
  * User role.
@@ -12,7 +13,7 @@ import orm.fields.StringField;
  */
 @Entity(table = "roles")
 @EntityNames(singular = "userRole", plural = "userRoles")
-public class UserRole extends WebModel {
+public class UserRole extends Model {
     private StringField name = new StringField(false);
 
     @Column(name = "has_access_to_admin_site")

@@ -1,13 +1,14 @@
 package models;
 
-import models.annotations.EntityNames;
-import models.annotations.Relatives;
+import orm.Model;
 import orm.annotations.Column;
 import orm.annotations.Entity;
 import orm.fields.BooleanField;
 import orm.fields.DecimalField;
 import orm.fields.ForeignKey;
 import orm.fields.StringField;
+import utils.meta.annotations.EntityNames;
+import utils.meta.annotations.Relatives;
 
 import java.math.BigDecimal;
 
@@ -17,7 +18,7 @@ import java.math.BigDecimal;
  */
 @Entity(table = "tickets")
 @EntityNames(singular = "ticket", plural = "tickets")
-public class Ticket extends WebModel {
+public class Ticket extends Model {
 
     @Column(name = "exposition_id")
     @Relatives(pluralName = "expositions")

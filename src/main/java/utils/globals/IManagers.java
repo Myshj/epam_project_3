@@ -1,6 +1,7 @@
 package utils.globals;
 
 import utils.managers.ConnectionManager;
+import utils.managers.MetaInfoManager;
 import utils.managers.RepositoryManager;
 
 public interface IManagers {
@@ -8,5 +9,7 @@ public interface IManagers {
 
     RepositoryManager getRepository();
 
-    ResourceManagers getResources();
+    IResourceManagers getResources();
+
+    MetaInfoManager getMetaInfo();
 }
