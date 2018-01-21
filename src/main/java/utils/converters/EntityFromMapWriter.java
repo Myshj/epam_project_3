@@ -70,7 +70,14 @@ public class EntityFromMapWriter<T extends Model> implements BiFunction<T, Map<S
                 } else if (type == DecimalField.class) {
                     ((DecimalField) realField).setValue((BigDecimal) value);
                 } else if (type == BooleanField.class) {
-                    ((BooleanField) realField).setValue((Boolean) value);
+                    try {
+                        Boolean booleanValue = (Boolean) value;
+                        ((BooleanField) realField).setValue(booleanValue);
+                    } catch (ClassCastException e) {
+                        Integer integerValue = (Integer) value;
+                        ((BooleanField) realField).setValue(integerValue > 0);
+                    }
+
                 }
             } catch (Exception e) {
                 logger.error("exception occured --> return null");

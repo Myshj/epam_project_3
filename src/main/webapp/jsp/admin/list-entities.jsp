@@ -72,16 +72,15 @@
 
     </table>
     <ul class="pagination">
-        <%--For displaying Previous link except for the 1st page --%>
+
         <c:if test="${currentPage > 1}">
             <li class="page-item">
                 <a class="page-link"
-                   href="/admin/${meta.names.singular}/show_all?page=${currentPage - 1}&pageSize=${pageSize}">Previous</a>
+                   href="/admin/${meta.names.singular}/show_all?page=${currentPage - 1}&pageSize=${pageSize}"><fmt:message
+                        key="previous"/></a>
             </li>
         </c:if>
 
-        <%--For displaying Page numbers.
-        The when condition does not display a link for the current page--%>
         <c:forEach begin="1" end="${countOfPages}" var="i">
             <li class="page-item <c:if test="${currentPage == i}">active</c:if>">
                 <a class="page-link"
@@ -90,13 +89,15 @@
             </li>
         </c:forEach>
 
-        <%--For displaying Next link --%>
         <c:if test="${currentPage lt countOfPages}">
-            <li><a href="/admin/${meta.names.singular}/show_all?page=${currentPage + 1}&pageSize=${pageSize}">Next</a>
+            <li>
+                <a href="/admin/${meta.names.singular}/show_all?page=${currentPage + 1}&pageSize=${pageSize}"><fmt:message
+                        key="next"/></a>
             </li>
         </c:if>
         <li class="page-item dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Items per page
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><fmt:message
+                    key="itemsPerPage"/>
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
