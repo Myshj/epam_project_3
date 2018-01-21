@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import services.ServletServiceContext;
 import utils.converters.HttpServletRequestToEntityConverter;
-import utils.globals.Managers;
+import utils.globals.TestManagers;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HttpServletRequestToEntityConverterTest {
     private HttpServletRequestToEntityConverter<Country> converter = new HttpServletRequestToEntityConverter<>(
-            new ServletServiceContext(null, new Managers()),
+            new ServletServiceContext(null, new TestManagers()),
             Country.class
     );
 

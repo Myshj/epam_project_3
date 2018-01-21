@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import utils.globals.Managers;
+import utils.globals.TestManagers;
 import utils.managers.ConnectionManager;
 import utils.managers.resource.ResourceBundleAccessor;
 import utils.managers.resource.ResourceManager;
@@ -36,6 +36,11 @@ class MainServiceTest {
         }
     }
 
+    private void onRedirect(String uri) {
+        redirected = true;
+        redirectedTo.add(uri);
+    }
+
     @Mock
     private ServletContext servletContext;
 
@@ -49,11 +54,6 @@ class MainServiceTest {
     private boolean redirected = false;
     private List<String> redirectedTo = new ArrayList<>();
     private Map<String, Object> attributes = new HashMap<>();
-
-    private void onRedirect(String uri) {
-        redirected = true;
-        redirectedTo.add(uri);
-    }
 
     private void onSetAttribute(String attribute, Object object) {
         attributes.put(attribute, object);
@@ -73,7 +73,7 @@ class MainServiceTest {
                 )
         );
         command = new MainService(
-                new ServletServiceContext(servletContext, new Managers())
+                new ServletServiceContext(servletContext, new TestManagers())
         );
     }
 

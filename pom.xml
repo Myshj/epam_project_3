@@ -97,6 +97,13 @@
             <version>2.10.0</version>
             <scope>test</scope>
         </dependency>
+
+        <!--For password encryption.-->
+        <dependency>
+            <groupId>org.jasypt</groupId>
+            <artifactId>jasypt</artifactId>
+            <version>1.9.2</version>
+        </dependency>
     </dependencies>
 
     <properties>

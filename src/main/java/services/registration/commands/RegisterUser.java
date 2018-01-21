@@ -3,6 +3,7 @@ package services.registration.commands;
 import data_access.queries.FindUserByEmailAndPassword;
 import models.User;
 import models.UserRole;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import orm.repository.impl.sql.queries.SqlQueryContext;
 import services.ServletServiceContext;
 import services.commands.ServletCommand;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class RegisterUser extends ServletCommand {
+    private final StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
     private final FindUserByEmailAndPassword userFinder = new FindUserByEmailAndPassword(
             new SqlQueryContext<>(
                     User.class,
@@ -29,17 +31,15 @@ public class RegisterUser extends ServletCommand {
     protected void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        User user = userFinder
-                .withEmail(email)
-                .withPassword(password)
-                .get();
+
+        User user = userFinder.withEmail(email).withPassword(password).get();
 
         if (user == null) {
-            user = new User(email, password, defaultUserRole);
+            user = new User(email, encryptor.encryptPassword(password), defaultUserRole);
             context.getManagers().getRepository().get(User.class).save(user);
         }
 
-        request.getSession().setAttribute("user", user);
+        // request.getSession().setAttribute("user", user);
 
         response.sendRedirect(url("loginConfirm"));
     }

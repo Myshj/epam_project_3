@@ -4,6 +4,7 @@ import data_access.queries.FindUserByEmailAndPassword;
 import models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import orm.repository.impl.sql.queries.SqlQueryContext;
 import services.ServletServiceContext;
 import services.commands.ServletCommand;
@@ -19,6 +20,7 @@ import java.io.IOException;
  */
 public class AuthorizationCommand extends ServletCommand {
     private static final Logger logger = LogManager.getLogger(AuthorizationCommand.class);
+    private final StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
     private FindUserByEmailAndPassword command;
 
     @Override

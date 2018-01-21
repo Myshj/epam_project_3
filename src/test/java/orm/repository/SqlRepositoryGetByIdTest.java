@@ -10,7 +10,7 @@ import org.mockito.MockitoAnnotations;
 import orm.repository.impl.sql.SqlRepository;
 import orm.repository.impl.sql.queries.SqlQueryContext;
 import utils.globals.IManagers;
-import utils.globals.Managers;
+import utils.globals.TestManagers;
 
 import java.sql.*;
 
@@ -50,10 +50,10 @@ class SqlRepositoryGetByIdTest {
         when(resultSet.getObject(1)).thenReturn(1);
         when(resultSet.getObject(2)).thenReturn("testCountry");
 
-        IManagers managers = new Managers();
+        IManagers managers = new TestManagers();
 
 
-        repository = new SqlRepository<>(new SqlQueryContext<>(Country.class, null, connection));
+        repository = new SqlRepository<>(new SqlQueryContext<>(Country.class, managers.getRepository(), connection));
     }
 
     @AfterEach

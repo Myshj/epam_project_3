@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import services.ServletServiceContext;
-import utils.globals.Managers;
+import utils.globals.TestManagers;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -59,7 +59,7 @@ class ShowMainAdminPageTest {
         ).thenReturn(requestDispatcher);
         Mockito.when(request.getRequestURI())
                 .thenReturn("/jsp/admin/main.jsp");
-        command = new ShowMainAdminPage(new ServletServiceContext(servletContext, new Managers()));
+        command = new ShowMainAdminPage(new ServletServiceContext(servletContext, new TestManagers()));
     }
 
     @AfterEach
