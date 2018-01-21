@@ -7,9 +7,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import utils.globals.TestManagers;
-import utils.managers.ConnectionManager;
-import utils.managers.resource.ResourceBundleAccessor;
-import utils.managers.resource.ResourceManager;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -67,11 +64,6 @@ class MainServiceTest {
         ).thenReturn(requestDispatcher);
         Mockito.when(request.getRequestURI())
                 .thenReturn("/jsp/admin/country/show_all");
-        ConnectionManager connectionManager = new ConnectionManager(
-                new ResourceManager(
-                        new ResourceBundleAccessor().withResource("application")
-                )
-        );
         command = new MainService(
                 new ServletServiceContext(servletContext, new TestManagers())
         );

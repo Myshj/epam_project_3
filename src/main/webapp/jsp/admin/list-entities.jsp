@@ -69,7 +69,46 @@
             </tr>
         </c:forEach>
         </tbody>
+
     </table>
+    <ul class="pagination">
+        <%--For displaying Previous link except for the 1st page --%>
+        <c:if test="${currentPage > 1}">
+            <li class="page-item">
+                <a class="page-link"
+                   href="/admin/${meta.names.singular}/show_all?page=${currentPage - 1}&pageSize=${pageSize}">Previous</a>
+            </li>
+        </c:if>
+
+        <%--For displaying Page numbers.
+        The when condition does not display a link for the current page--%>
+        <c:forEach begin="1" end="${countOfPages}" var="i">
+            <li class="page-item <c:if test="${currentPage == i}">active</c:if>">
+                <a class="page-link"
+                   href="/admin/${meta.names.singular}/show_all?page=${i}&pageSize=${pageSize}"
+                >${i}</a>
+            </li>
+        </c:forEach>
+
+        <%--For displaying Next link --%>
+        <c:if test="${currentPage lt countOfPages}">
+            <li><a href="/admin/${meta.names.singular}/show_all?page=${currentPage + 1}&pageSize=${pageSize}">Next</a>
+            </li>
+        </c:if>
+        <li class="page-item dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Items per page
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="/admin/${meta.names.singular}/show_all?pageSize=1">1</a></li>
+                <li><a href="/admin/${meta.names.singular}/show_all?pageSize=5">5</a></li>
+                <li><a href="/admin/${meta.names.singular}/show_all?pageSize=10">10</a></li>
+                <li><a href="/admin/${meta.names.singular}/show_all?pageSize=20">20</a></li>
+            </ul>
+            <%--</div>--%>
+        </li>
+    </ul>
+
     <form action="/admin/${meta.names.singular}/show_create_form">
         <button type="submit" class="btn btn-primary  btn-md"><fmt:message key="create"/></button>
     </form>

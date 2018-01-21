@@ -38,7 +38,13 @@ public class RemoveEntityCommand<T extends Model> extends ForwardingCommand<T> {
                         Long.valueOf(request.getParameter("id"))
                 ).orElse(null)
         );
-        showList.withList(repository.getAll()).execute(request, response);
+        response.sendRedirect(
+                String.format(
+                        url("adminShowAll"),
+                        context.getManagers().getMetaInfo().apply(clazz).getNames().getSingular()
+                )
+        );
+        //showList.withList(repository.getAll()).execute(request, response);
         logger.info("executed");
     }
 }

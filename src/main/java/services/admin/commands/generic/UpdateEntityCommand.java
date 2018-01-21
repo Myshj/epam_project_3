@@ -40,7 +40,14 @@ public class UpdateEntityCommand<T extends Model> extends ForwardingCommand<T> {
         repository.save(entity);
 
         request.setAttribute("id", entity.getId().getValue());
-        showList.withList(repository.getAll()).execute(request, response);
+        response.sendRedirect(
+                String.format(
+                        url("adminShowAll"),
+                        context.getManagers().getMetaInfo().apply(clazz).getNames().getSingular()
+                )
+        );
+
+        //showList.withList(repository.getAll()).execute(request, response);
         logger.info("executed");
     }
 }

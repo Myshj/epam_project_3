@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import orm.Model;
 import services.ServletServiceContext;
-import services.commands.includers.IncludeAll;
+import services.commands.includers.PaginatedIncluder;
 import utils.meta.ModelMetaInfo;
 
 import javax.servlet.ServletException;
@@ -20,13 +20,16 @@ import java.io.IOException;
 public class ShowAllCommand<T extends Model> extends ModelCommand<T> {
     private static final Logger logger = LogManager.getLogger(ShowAllCommand.class);
 
-    private IncludeAll<T> includeAll;
+    private PaginatedIncluder<T> includeList;
+
     private ModelMetaInfo meta;
 
     @Override
     protected void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.info("started execution");
-        includeAll.accept(request, response);
+
+        //includeAll.accept(request, response);
+        includeList.accept(request, response);
         request.setAttribute("meta", meta);
         dispatcher(
                 url("adminListEntities")
@@ -41,8 +44,9 @@ public class ShowAllCommand<T extends Model> extends ModelCommand<T> {
     ) {
         super(context, clazz);
         logger.info("started construction");
+        includeList = new PaginatedIncluder<>(context, clazz, "entities");
+
         meta = meta(clazz);
-        includeAll = new IncludeAll<>(context, clazz, "entities");
         logger.info("construction");
     }
 }

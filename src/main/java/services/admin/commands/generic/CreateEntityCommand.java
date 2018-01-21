@@ -42,7 +42,15 @@ public class CreateEntityCommand<T extends Model> extends ForwardingCommand<T> {
         T newEntity = converter.apply(request);
         repository.save(newEntity);
         request.setAttribute("id", newEntity.getId().get().orElse(null));
-        showList.withList(repository.getAll()).execute(request, response);
+
+        response.sendRedirect(
+                String.format(
+                        url("adminShowAll"),
+                        context.getManagers().getMetaInfo().apply(clazz).getNames().getSingular()
+                )
+        );
+
+        //showList.withList(repository.getAll()).execute(request, response);
         logger.info("executed");
     }
 }
