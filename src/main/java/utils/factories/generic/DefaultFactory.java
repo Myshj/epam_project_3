@@ -5,6 +5,11 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.function.Supplier;
 
+/**
+ * Produces objects using their default constructors.
+ *
+ * @param <T>
+ */
 public class DefaultFactory<T> implements Supplier<T> {
     private static final Logger logger = LogManager.getLogger(DefaultFactory.class);
     private final Class<T> clazz;

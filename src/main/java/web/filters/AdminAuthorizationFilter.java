@@ -4,6 +4,9 @@ import models.User;
 
 import javax.servlet.annotation.WebFilter;
 
+/**
+ * Filters access to admin site.
+ */
 @WebFilter(
         filterName = "AdminAuthorizationFilter",
         urlPatterns = {"/admin/*"}

@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Shows user orders.
+ */
 public class ShowOrdersOfUser extends ServletCommand {
     private final FindOrdersByUser orderFinder = new FindOrdersByUser(
             new SqlQueryContext<>(

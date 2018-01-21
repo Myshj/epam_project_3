@@ -1,5 +1,8 @@
 package utils.managers.resource;
 
+/**
+ * Accesses localized resources.
+ */
 public class ResourceManager implements IResourceManager {
     private final IResourceBundleAccessor accessor;
     private String key;

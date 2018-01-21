@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Changes current user settings.
+ */
 public class ChangeSettingsCommand extends ServletCommand {
     @Override
     protected void execute(

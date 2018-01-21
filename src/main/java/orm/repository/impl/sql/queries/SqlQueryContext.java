@@ -5,6 +5,11 @@ import utils.managers.RepositoryManager;
 
 import java.sql.Connection;
 
+/**
+ * Context of SQL-query
+ *
+ * @param <T>
+ */
 public class SqlQueryContext<T extends Model> {
     private final Class<T> clazz;
     private final RepositoryManager repositoryManager;

@@ -4,6 +4,10 @@ import utils.globals.IManagers;
 
 import javax.servlet.ServletContext;
 
+/**
+ * Service context.
+ * All servlet services have access to it.
+ */
 public class ServletServiceContext {
     private final ServletContext servlet;
     private final IManagers managers;

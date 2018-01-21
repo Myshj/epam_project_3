@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+/**
+ * Purchases ticket for user if purchaseable.
+ */
 public class PurchaseTicket extends ServletCommand {
     private static final Logger logger = LogManager.getLogger(PurchaseTicket.class);
     private final OrderState defaultNewState = context.getManagers()

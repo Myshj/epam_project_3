@@ -1,5 +1,8 @@
 package utils.transactions;
 
+/**
+ * Result of a transaction.
+ */
 public enum TransactionResult {
     COMMIT,
     ROLLBACK,

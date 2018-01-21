@@ -9,6 +9,9 @@ import orm.repository.impl.sql.queries.SqlQueryContext;
 
 import java.sql.SQLException;
 
+/**
+ * Finds all orders made by user.
+ */
 public class FindOrdersByUser extends ListEntitiesQuery<Order> {
     private static final Logger logger = LogManager.getLogger(FindOrdersByUser.class);
 

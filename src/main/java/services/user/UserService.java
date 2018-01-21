@@ -6,6 +6,9 @@ import services.user.commands.CancelOrder;
 import services.user.commands.PurchaseTicket;
 import services.user.commands.ShowOrdersOfUser;
 
+/**
+ * Manages user realm.
+ */
 public class UserService extends ServletService {
     public UserService(ServletServiceContext context) {
         super(context);

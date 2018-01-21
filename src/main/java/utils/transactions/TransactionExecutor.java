@@ -6,6 +6,9 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.util.function.Function;
 
+/**
+ * Runs runnable in a transaction.
+ */
 public class TransactionExecutor implements Function<Runnable, TransactionResult> {
     private static final Logger logger = LogManager.getLogger(TransactionExecutor.class);
     private final Connection connection;

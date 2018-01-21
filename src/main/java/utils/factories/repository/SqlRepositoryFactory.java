@@ -8,6 +8,9 @@ import utils.managers.RepositoryManager;
 import java.sql.Connection;
 import java.util.function.Supplier;
 
+/**
+ * Produces SQL-based repositories.
+ */
 public class SqlRepositoryFactory implements IRepositoryFactory {
     private final Supplier<Connection> connectionSupplier;
 

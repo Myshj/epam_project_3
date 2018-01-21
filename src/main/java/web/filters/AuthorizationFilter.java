@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Base class for all authorization filters.
+ */
 abstract class AuthorizationFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(AuthorizationFilter.class);
     private final IResourceManager urlManager = new ResourceManager(

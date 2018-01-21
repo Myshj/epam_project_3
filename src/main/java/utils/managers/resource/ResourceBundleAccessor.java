@@ -3,6 +3,9 @@ package utils.managers.resource;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Accesses resource bundles.
+ */
 public class ResourceBundleAccessor implements IResourceBundleAccessor {
 
     private String resource;

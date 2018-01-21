@@ -11,6 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Includes part of entities specified by current page and page size to request.
+ *
+ * @param <T>
+ */
 public class PaginatedIncluder<T extends Model> extends ModelCommand<T> {
     private IncludeListToRequest<T> includeList;
 

@@ -5,6 +5,9 @@ import services.ServletServiceContext;
 import services.commands.SimpleForwarder;
 import services.registration.commands.RegisterUser;
 
+/**
+ * Manages user registration.
+ */
 public class RegistrationService extends ServletService {
     public RegistrationService(ServletServiceContext context) {
         super(context);

@@ -11,6 +11,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
+/**
+ * Manages metainfo about models.
+ */
 public class MetaInfoManager implements Function<Class<? extends Model>, ModelMetaInfo> {
     private final Map<Class<? extends Model>, ModelMetaInfo> infoMap = new HashMap<>();
 

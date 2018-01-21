@@ -6,6 +6,9 @@ import utils.managers.ConnectionManager;
 import utils.managers.MetaInfoManager;
 import utils.managers.RepositoryManager;
 
+/**
+ * Contains references to all kinds of managers.
+ */
 public class Managers implements IManagers {
     private final IResourceManagers resources = new ResourceManagers();
 

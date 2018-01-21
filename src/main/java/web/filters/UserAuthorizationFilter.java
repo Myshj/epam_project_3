@@ -4,6 +4,9 @@ import models.User;
 
 import javax.servlet.annotation.WebFilter;
 
+/**
+ * Filters access to user realm.
+ */
 @WebFilter(
         filterName = "UserAuthorizationFilter",
         urlPatterns = {"/user/*"}

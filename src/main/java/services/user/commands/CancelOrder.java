@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Cancels user order if it exists and cancellable.
+ */
 public class CancelOrder extends ServletCommand {
     private final OrderState defaultCancelledState = context.getManagers()
             .getRepository()

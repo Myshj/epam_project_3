@@ -1,5 +1,8 @@
 package orm.fields;
 
+/**
+ * Stores boolean value.
+ */
 public final class BooleanField extends SimpleOrmField<Boolean> {
     public BooleanField(boolean nullable) {
         super(nullable);

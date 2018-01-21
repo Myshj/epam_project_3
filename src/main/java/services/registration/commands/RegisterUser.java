@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Registers user if not registered already.
+ */
 public class RegisterUser extends ServletCommand {
     private final StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
     private final FindUserByEmailAndPassword userFinder = new FindUserByEmailAndPassword(

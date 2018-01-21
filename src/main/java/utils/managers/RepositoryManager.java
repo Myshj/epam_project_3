@@ -7,6 +7,9 @@ import utils.factories.repository.IRepositoryFactory;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Manages repositories.
+ */
 public class RepositoryManager {
     private final Map<Class, IRepository> repositories = new HashMap<>();
     private final IRepositoryFactory repositoryFactory;

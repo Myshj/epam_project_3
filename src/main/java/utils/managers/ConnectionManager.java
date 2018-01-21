@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.function.Supplier;
 
+/**
+ * Stores connection to DB.
+ */
 public class ConnectionManager implements Supplier<Connection> {
     private Connection connection;
 

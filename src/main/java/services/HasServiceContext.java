@@ -3,6 +3,9 @@ package services;
 import orm.Model;
 import utils.meta.ModelMetaInfo;
 
+/**
+ * Specifies that object has service context.
+ */
 public abstract class HasServiceContext {
     protected final ServletServiceContext context;
 
