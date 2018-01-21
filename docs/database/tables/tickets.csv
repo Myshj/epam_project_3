@@ -1,0 +1,13 @@
+id,exposition_id,type_id,price,currency,available
+1,1,6,10,USD,1
+2,1,7,20,USD,1
+4,2,6,15,USD,0
+5,2,7,20,USD,0
+6,3,6,10,USD,0
+7,3,7,25,USD,0
+8,4,6,5,USD,1
+9,4,6,10,USD,1
+10,4,6,10,USD,1
+11,4,7,20,USD,1
+12,5,6,13,USD,1
+13,5,7,17,USD,1
